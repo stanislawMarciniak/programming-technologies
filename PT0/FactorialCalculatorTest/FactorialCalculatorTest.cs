@@ -1,6 +1,6 @@
-using Sample_program;
+using Factorial; 
 
-namespace UnitTestProject1
+namespace FactorialCalculatorTest
 {
     [TestClass]
     public class UnitTestFactorial

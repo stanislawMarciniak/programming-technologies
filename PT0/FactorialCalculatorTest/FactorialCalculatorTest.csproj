@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sample_program\Sample_program.csproj" />
+    <ProjectReference Include="..\FactorialCalculator\FactorialCalculator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

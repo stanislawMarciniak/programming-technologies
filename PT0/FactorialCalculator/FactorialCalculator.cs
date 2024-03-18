@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 
-namespace Sample_program
+namespace Factorial
 {
     public class FactorialCalculator
     {

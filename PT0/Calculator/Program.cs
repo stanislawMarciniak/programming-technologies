@@ -1,6 +1,7 @@
-﻿using Sample_program;
+﻿using System;
+using Factorial;
 
-namespace ConsoleApp
+namespace Calculator
 {
     class Program
     {
