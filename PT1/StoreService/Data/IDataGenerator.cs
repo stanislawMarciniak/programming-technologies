@@ -4,8 +4,8 @@ using System.Text;
 
 namespace StoreService.Data
 {
-    public interface IContentGenerator
+    public interface IDataGenerator
     {
-        DataContext GenerateContent();
+        DataContext GenerateData();
     }
 }
