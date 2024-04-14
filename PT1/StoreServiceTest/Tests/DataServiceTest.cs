@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using StoreService.Logic;
+using StoreService.Logic;
 using StoreService.Data;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace StoreService.Tests
         [TestInitialize]
         public void Initialize()
         {
-            ContentGenerator contentGenerator = new ContentGenerator();
+            DataGenerator contentGenerator = new DataGenerator();
             service = new DataService(new Repository(generator.GenerateContent()));
         }
 
@@ -56,25 +56,25 @@ namespace StoreService.Tests
         }
 
 
-        //Products
+        //Items
 
         [TestMethod]
-        public void AddProductTest()
+        public void AddItemTest()
         {
             int id = 1000;
             int price = 5000;
-            Category cat = Category.game;
+            Category cat = Category.games;
             service.AddProduct(id, price, cat);
-            Product boardGame = service.GetProductById(1000);
-            Assert.IsTrue(boardGame.Id == id && boardGame.Price == price && boardGame.Category == cat);
+            Item boardGame = service.GetProductById(1000);
+            Assert.IsTrue(boardGame.ItemID == id && boardGame.Price == price && boardGame.Category == cat);
         }
 
         [TestMethod]
         public void GetAllItemsTest()
         {
             List<int> initialItemIDList = service.GetAllProducts().Select(p => p.ItemID).ToList();
-            Assert.IsTrue(initialProductIdList.Count.Equals(4));
-            service.AddProduct(6, 40, Category.game);
+            Assert.IsTrue(initialItemIDList.Count.Equals(4));
+            service.AddProduct(6, 40, Category.games);
             List<int> finalItemIDList = service.GetAllProducts().Select(p => p.ItemID).ToList();
             Assert.IsTrue(finalItemIDList.Count.Equals(5));
         }
@@ -102,7 +102,7 @@ namespace StoreService.Tests
         {
             Item i = service.GetProductByID(1);
             List<EventBase> itemEvents = service.GetAllItemEvents(i);
-            Assert.IsTrue(itemEvents[0].State.Product.Equals(i));
+            Assert.IsTrue(itemEvents[0].State.Item.Equals(i));
         }
 
         [TestMethod]
