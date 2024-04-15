@@ -34,16 +34,16 @@ namespace StoreService.Logic
             return repository.GetAllItems();
         }
 
-        public Item GetItemById(int id)
+        public Item GetItemByID(int id)
         {
-            return repository.GetItemById(id);
+            return repository.GetItemByID(id);
         }
 
-        public List<IEvent> GetAllItemEvents(Item item)
+        public List<EventBase> GetAllItemEvents(Item item)
         {
-            List<IEvent> events = new List<IEvent>();
+            List<EventBase> events = new List<EventBase>();
 
-            foreach (IEvent e in repository.GetAllEvents())
+            foreach (EventBase e in repository.GetAllEvents())
             {
                 if (e.State.Item.Equals(item))
                 {
@@ -59,9 +59,9 @@ namespace StoreService.Logic
 
         // --------------- Client -----------------  
 
-        public void AddClient(int id, String name, String surname)
+        public void AddClient(int id, String name, String surname, String email)
         {
-            repository.AddClient(new Client(id, name, surname));
+            repository.AddClient(new Client(id, name, surname, email));
         }
 
         public void DeleteClient(Client client)
@@ -76,15 +76,15 @@ namespace StoreService.Logic
 
         public Client GetClient(int id)
         {
-            return repository.GetClientById(id);
+            return repository.GetClientByID(id);
         }
 
-        public List<IEvent> GetAllClientEvents(int id)
+        public List<EventBase> GetAllClientEvents(int id)
         {
-            List<IEvent> events = new List<IEvent>();
+            List<EventBase> events = new List<EventBase>();
             Client client = repository.GetClientById(id);
 
-            foreach (IEvent ev in repository.GetAllEvents())
+            foreach (EventBase ev in repository.GetAllEvents())
             {
                 if (ev.Client.Equals(client))
                 {
@@ -98,11 +98,11 @@ namespace StoreService.Logic
 
 
 
-        // --------------- Actions -----------------  
+        // --------------- Events -----------------  
 
         public void PurchaseItem(int productId, int clientId)
         {
-            Item product = repository.GetItemById(productId);
+            Item product = repository.GetItemByID(productId);
             Client client = repository.GetClientById(clientId);
             State state = new State(product);
 
