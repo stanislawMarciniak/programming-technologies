@@ -79,22 +79,16 @@ namespace StoreService.Tests
             Assert.IsTrue(finalItemIDList.Count.Equals(5));
         }
 
-/*        [TestMethod]
+        [TestMethod]
         public void DeleteExistingItemTest()
         {
-            service.DeleteItem(item1);
+            Item i = service.GetItemByID(1);
+            service.DeleteItem(i);
             Assert.ThrowsException<KeyNotFoundException>(
                 () => service.GetItemByID(2));
-
-        }
-        [TestMethod]
-        public void DeleteNonExistingItemTest()
-        {
-            Assert.ThrowsException<KeyNotFoundException>(
-                () => service.DeleteItem(10));
         }
 
-*/
+
         // Events 
 
         [TestMethod]
@@ -123,7 +117,7 @@ namespace StoreService.Tests
             Assert.IsTrue(itemEvents[1].Client.ClientID.Equals(2));
             Assert.IsTrue(itemEvents[1].State.Item.ItemID.Equals(4));
         }
-/*
+
         [TestMethod]
         public void ReturnActionTest()
         {
@@ -133,7 +127,7 @@ namespace StoreService.Tests
             List<EventBase> itemEvents = service.GetAllClientEvents(1);
             Assert.IsTrue(itemEvents[2].Client.ClientID.Equals(1));
             Assert.IsTrue(itemEvents[2].State.Item.ItemID.Equals(1));
-        }*/
+        }
 
     }
 }

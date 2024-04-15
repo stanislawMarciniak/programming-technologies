@@ -16,6 +16,7 @@ namespace StoreService.Logic
         }
 
 
+
         // --------------- Item -----------------  
 
         public void AddItem(int id, double price, Category category)
@@ -23,8 +24,9 @@ namespace StoreService.Logic
             repository.AddItem(new Item(id, price, category));
         }
 
-        public void DeleteItem(Item item)
+        public void DeleteItem(int id)
         {
+            repository.getAllItems();
             repository.DeleteItem(item);
         }
 
@@ -33,9 +35,10 @@ namespace StoreService.Logic
             return repository.GetAllItems();
         }
 
-        public Item GetItemByID(int itemID)
+        public Item GetItemByID(Item item)
         {
-            return repository.GetItemByID(itemID);
+            int id = item.itemID
+            return repository.GetItemByID(id);
         }
 
         public List<EventBase> GetAllItemEvents(Item item)
@@ -51,6 +54,9 @@ namespace StoreService.Logic
             }
             return events;
         }
+
+
+
 
 
         // --------------- Client -----------------  
@@ -96,33 +102,33 @@ namespace StoreService.Logic
 
         // --------------- Events -----------------  
 
-        public void PurchaseItem(int productId, int clientId, int quantity)
+        public void PurchaseItem(int productId, int clientId)
         {
-            Item item = repository.GetItemByID(productId);
-            Client client = repository.GetClientByID(clientId);
-            State state = new State(item, quantity);
+            Item product = repository.GetItemByID(productId);
+            Client client = repository.GetClientById(clientId);
+            State state = new State(product);
 
-            repository.DeleteItem(item);
-            repository.AddEvent(new EventPurchase(state, client, quantity));
+            repository.DeleteItem(productId);
+            repository.AddEvent(new EventPurchase(state, client));
             repository.AddState(state);
         }
 
 
-        public void ReturnItem(Item product, int clientId, int quantity, int quantityReturned, String returnReason)
+        public void ReturnItem(Item product, int clientId)
         {
             Client client = repository.GetClientByID(clientId);
 
-            List<EventBase> productEvents = GetAllItemEvents(product);
+            List<IEvent> productEvents = GetAllItemEvents(product);
 
-            if (productEvents.Last<EventBase>() is EventReturn)
+            if (productEvents.Last<IEvent>() is EventReturn)
             {
                 throw new Exception("Item is either not in the shop or wasn't yet purchased");
             }
 
-            State state = new State(product, quantity);
+            State state = new State(product);
 
             repository.AddItem(product);
-            repository.AddEvent(new EventReturn(state, client, quantityReturned, returnReason));
+            repository.AddEvent(new EventReturn(state, client));
             repository.AddState(state);
         }
     }
