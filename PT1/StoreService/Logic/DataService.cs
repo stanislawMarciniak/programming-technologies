@@ -34,8 +34,9 @@ namespace StoreService.Logic
             return repository.GetAllItems();
         }
 
-        public Item GetItemByID(int id)
+        public Item GetItemByID(Item item)
         {
+            int id = item.itemID
             return repository.GetItemByID(id);
         }
 
@@ -82,7 +83,7 @@ namespace StoreService.Logic
         public List<EventBase> GetAllClientEvents(int id)
         {
             List<EventBase> events = new List<EventBase>();
-            Client client = repository.GetClientById(id);
+            Client client = repository.GetClientByID(id);
 
             foreach (EventBase ev in repository.GetAllEvents())
             {
@@ -114,7 +115,7 @@ namespace StoreService.Logic
 
         public void ReturnItem(Item product, int clientId)
         {
-            Client client = repository.GetClientById(clientId);
+            Client client = repository.GetClientByID(clientId);
 
             List<IEvent> productEvents = GetAllItemEvents(product);
 
