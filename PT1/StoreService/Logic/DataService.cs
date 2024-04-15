@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using ShopSystem.Data;
+using StoreService.Data;
 
-namespace ShopSystem.Logic
+namespace StoreService.Logic
 {
     public class DataService
     {
@@ -17,35 +17,35 @@ namespace ShopSystem.Logic
 
 
 
-        // --------------- Product -----------------  
+        // --------------- Item -----------------  
 
-        public void AddProduct(int id, double price, Category category)
+        public void AddItem(int id, double price, Category category)
         {
-            repository.AddProduct(new Product(id, price, category));
+            repository.AddItem(new Item(id, price, category));
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteItem(int id)
         {
-            repository.DeleteProduct(id);
+            repository.DeleteItem(id);
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Item> GetAllItems()
         {
-            return repository.GetAllProducts();
+            return repository.GetAllItems();
         }
 
-        public Product GetProductById(int id)
+        public Item GetItemById(int id)
         {
-            return repository.GetProductById(id);
+            return repository.GetItemById(id);
         }
 
-        public List<IEvent> GetAllProductEvents(Product product)
+        public List<IEvent> GetAllItemEvents(Item item)
         {
             List<IEvent> events = new List<IEvent>();
 
             foreach (IEvent e in repository.GetAllEvents())
             {
-                if (e.State.Product.Equals(product))
+                if (e.State.Item.Equals(item))
                 {
                     events.Add(e);
                 }
@@ -100,32 +100,32 @@ namespace ShopSystem.Logic
 
         // --------------- Actions -----------------  
 
-        public void PurchaseProduct(int productId, int clientId)
+        public void PurchaseItem(int productId, int clientId)
         {
-            Product product = repository.GetProductById(productId);
+            Item product = repository.GetItemById(productId);
             Client client = repository.GetClientById(clientId);
             State state = new State(product);
 
-            repository.DeleteProduct(productId);
+            repository.DeleteItem(productId);
             repository.AddEvent(new EventPurchase(state, client));
             repository.AddState(state);
         }
 
 
-        public void ReturnProduct(Product product, int clientId)
+        public void ReturnItem(Item product, int clientId)
         {
             Client client = repository.GetClientById(clientId);
 
-            List<IEvent> productEvents = GetAllProductEvents(product);
+            List<IEvent> productEvents = GetAllItemEvents(product);
 
             if (productEvents.Last<IEvent>() is EventReturn)
             {
-                throw new Exception("Product is either not in the shop or wasn't yet purchased");
+                throw new Exception("Item is either not in the shop or wasn't yet purchased");
             }
 
             State state = new State(product);
 
-            repository.AddProduct(product);
+            repository.AddItem(product);
             repository.AddEvent(new EventReturn(state, client));
             repository.AddState(state);
         }
