@@ -108,9 +108,8 @@ namespace StoreService.Logic
         }
 
 
-        public void ReturnItem(Item product, int clientId, int quantity, int quantityReturned, String returnReason)
+        public void ReturnItem(Item product, Client client, int quantity, int quantityReturned, String returnReason)
         {
-            Client client = repository.GetClientByID(clientId);
 
             List<EventBase> productEvents = GetAllItemEvents(product);
 

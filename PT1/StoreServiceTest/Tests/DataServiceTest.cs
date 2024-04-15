@@ -42,7 +42,7 @@ namespace StoreService.Tests
             Client exsistingClient = service.GetClient(101);
             service.DeleteClient(exsistingClient);
 
-            Assert.AreEqual(service.GetAllClients().Count, 101);
+            Assert.AreEqual(service.GetAllClients().Count, 1);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace StoreService.Tests
         [TestMethod]
         public void DeleteExistingItemTest()
         {
-            Item i = service.GetItemByID(1);
+            Item i = service.GetItemByID(2);
             service.DeleteItem(i);
             Assert.ThrowsException<KeyNotFoundException>(
                 () => service.GetItemByID(2));
@@ -102,19 +102,19 @@ namespace StoreService.Tests
         [TestMethod]
         public void GetClientEventsTest()
         {
-            Client c = service.GetClient(1);
-            List<EventBase> itemEvents = service.GetAllClientEvents(1);
+            Client c = service.GetClient(101);
+            List<EventBase> itemEvents = service.GetAllClientEvents(101);
             Assert.IsTrue(itemEvents[0].Client.Equals(c));
         }
 
         [TestMethod]
         public void PurchaseActionTest()
         {
-            service.PurchaseItem(4, 2, 1);
+            service.PurchaseItem(4, 101, 1);
             Assert.ThrowsException<KeyNotFoundException>(
-                () => service.GetItemByID(3));
-            List<EventBase> itemEvents = service.GetAllClientEvents(2);
-            Assert.IsTrue(itemEvents[1].Client.ClientID.Equals(2));
+                () => service.GetItemByID(4));
+            List<EventBase> itemEvents = service.GetAllClientEvents(101);
+            Assert.IsTrue(itemEvents[1].Client.ClientID.Equals(101));
             Assert.IsTrue(itemEvents[1].State.Item.ItemID.Equals(4));
         }
 
@@ -122,10 +122,11 @@ namespace StoreService.Tests
         public void ReturnActionTest()
         {
             Item item = service.GetItemByID(1);
-            service.PurchaseItem(1, 1, 1);
-            service.ReturnItem(item, client, 1, 1);
-            List<EventBase> itemEvents = service.GetAllClientEvents(1);
-            Assert.IsTrue(itemEvents[2].Client.ClientID.Equals(1));
+            Client client = service.GetClient(101);
+            service.PurchaseItem(1, 101, 1);
+            service.ReturnItem(item, client, 1, 1, "abc");
+            List<EventBase> itemEvents = service.GetAllClientEvents(101);
+            Assert.IsTrue(itemEvents[2].Client.ClientID.Equals(101));
             Assert.IsTrue(itemEvents[2].State.Item.ItemID.Equals(1));
         }
 
