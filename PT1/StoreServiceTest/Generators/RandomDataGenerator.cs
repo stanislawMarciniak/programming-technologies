@@ -8,15 +8,11 @@ namespace StoreService.Tests
 {
     class RandomDataGenerator : IDataGenerator
     {
-        private DataContext context;
-
-        public RandomDataGenerator()
-        { 
-            context = new DataContext();
-        }
 
         public DataContext GenerateData()
         {
+            DataContext context = new DataContext();
+
             int ClientsNumber = 10;
             int ItemsNumber = 20;
             int EventsNumber = 5;

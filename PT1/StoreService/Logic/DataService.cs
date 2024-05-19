@@ -20,11 +20,16 @@ namespace StoreService.Logic
 
         public void AddItem(int id, double price, Category category)
         {
+            Item newItem = new Item(id, price, category);
             repository.AddItem(new Item(id, price, category));
         }
 
         public void DeleteItem(Item item)
         {
+            if (!repository.GetAllItems().Any(i => i.ItemID == item.ItemID))
+            {
+                throw new KeyNotFoundException("Item not found.");
+            }
             repository.DeleteItem(item);
         }
 
@@ -57,11 +62,21 @@ namespace StoreService.Logic
 
         public void AddClient(int id, String name, String surname, String email)
         {
-            repository.AddClient(new Client(id, name, surname, email));
+            if (repository.GetClientByID(id) != null)
+            {
+                throw new Exception("Client ID must be unique.");
+            }
+
+            Client newClient = new Client(id, name, surname, email);
+            repository.AddClient(newClient);
         }
 
         public void DeleteClient(Client client)
         {
+            if (!repository.GetAllClients().Any(i => i.ClientID == client.ClientID))
+            {
+                throw new KeyNotFoundException("Item not found.");
+            }
             repository.DeleteClient(client);
         }
 
