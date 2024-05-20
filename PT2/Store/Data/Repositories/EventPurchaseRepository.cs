@@ -6,45 +6,45 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class PurchaseEventRepository
+    public class EventPurchaseRepository
     {
-        public List<PurchaseEvent> GetAllPurchaseEvents()
+        public EventPurchase GetEventsPurchaseById(int id)
         {
-            using (var db = new StoreDataContext())
+            using (var db = new ShopDataContext())
             {
-                return db.PurchaseEvents.Select(ev => ev).ToList();
+                return db.EventPurchases.FirstOrDefault(ev => ev.Id.Equals(id));
             }
         }
 
-        public PurchaseEvent GetPurchaseEventById(int id)
+        public List<EventPurchase> GetEventsPurchaseByClientId(int id)
         {
-            using (var db = new StoreDataContext())
+            using (var db = new ShopDataContext())
             {
-                return db.PurchaseEvents.FirstOrDefault(ev => ev.Id.Equals(id));
+                return db.EventPurchases.Where(ev => ev.ClientID.Equals(id)).ToList();
             }
         }
 
-        public List<PurchaseEvent> GetPurchaseEventsByClientId(int id)
+        public List<EventPurchase> GetEventsPurchaseByItemId(int id)
         {
-            using (var db = new StoreDataContext())
+            using (var db = new ShopDataContext())
             {
-                return db.PurchaseEvents.Where(ev => ev.ClientId.Equals(id)).ToList();
+                return db.EventPurchases.Where(ev => ev.ItemID.Equals(id)).ToList();
             }
         }
 
-        public List<PurchaseEvent> GetPurchaseEventsByProductId(int id)
+        public List<EventPurchase> GetAllPurchaseEvents()
         {
-            using (var db = new StoreDataContext())
+            using (var db = new ShopDataContext())
             {
-                return db.PurchaseEvents.Where(ev => ev.ProductId.Equals(id)).ToList();
+                return db.EventPurchases.Select(ev => ev).ToList();
             }
         }
 
-        public void AddPurchaseEvent(PurchaseEvent e)
+        public void AddEventPurchase(EventPurchase e)
         {
             using (var db = new StoreDataContext())
             {
-                db.PurchaseEvents.InsertOnSubmit(e);
+                db.EventPurchases.InsertOnSubmit(e);
                 db.SubmitChanges();
             }
         }
@@ -53,32 +53,33 @@ namespace Data
         {
             using (var db = new StoreDataContext())
             {
-                PurchaseEvent eventToDelete = db.PurchaseEvents.FirstOrDefault(e => e.Id.Equals(id));
+                EventPurchase eventToDelete = db.PurchaseEvents.FirstOrDefault(e => e.Id.Equals(id));
 
                 if (eventToDelete != null)
                 {
-                    db.PurchaseEvents.DeleteOnSubmit(eventToDelete);
+                    db.EventPurchases.DeleteOnSubmit(eventToDelete);
                     db.SubmitChanges();
                 }
             }
         }
 
-        public PurchaseEvent GetMostRecentPurchase()
+        public EventPurchase GetMostRecentPurchase()
         {
             using (var db = new StoreDataContext())
             {
-                return db.PurchaseEvents.Select(p => p).ToList().LastOrDefault();
+                return db.EventPurchases.Select(p => p).ToList().LastOrDefault();
             }
         }
 
-        public PurchaseEvent GetMostRecentByClientIdAndProductId(int clientId, int productId)
+        public EventPurchase GetMostRecentByClientIdAndItemId(int clientId, int ItemId)
         {
             using (var db = new StoreDataContext())
             {
-                return db.PurchaseEvents.Where(p =>
-                    (p.ClientId.Equals(clientId) && (p.ProductId.Equals(productId))))
+                return db.EventPurchases.Where(p =>
+                    (p.Id.Equals(clientId) && (p.ItemId.Equals(ItemId))))
                     .ToList().LastOrDefault();
             }
         }
+
     }
 }

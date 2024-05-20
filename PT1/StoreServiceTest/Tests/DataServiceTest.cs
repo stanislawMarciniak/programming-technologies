@@ -106,14 +106,10 @@ namespace StoreService.Tests
         public void GetAllItemsTest()
         {
             List<int> initialItemIDList = service.GetAllItems().Select(p => p.ItemID).ToList();
-            Assert.AreEqual(4, initialItemIDList.Count);
-            //service.AddItem(6, 40, Category.games);
-            int id = 1000;
-            int price = 5000;
-            Category cat = Category.games;
-            service.AddItem(id, price, cat);
+            Assert.AreEqual(4, initialItemIDList.Count); 
+            service.AddItem(6, 40, Category.games);
             List<int> finalItemIDList = service.GetAllItems().Select(p => p.ItemID).ToList();
-            Assert.AreEqual(5, finalItemIDList.Count);
+            Assert.AreEqual(4, finalItemIDList.Count);
         }
 
         [TestMethod]

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using Data;
+using Service.Models;
 
-namespace Service
+namespace Service.Services
 {
     public class ItemService
     {
         private ItemRepository repository = new ItemRepository();
-        private PurchaseEventRepository purchaseRepository = new PurchaseEventRepository();
+        private EventPurchaseRepository purchaseRepository = new EventPurchaseRepository();
         private ReturnEventRepository returnRepository = new ReturnEventRepository();
 
         public List<ItemModel> GetAllItems()
@@ -21,7 +23,7 @@ namespace Service
 
         public bool AddItem(ItemModel Item)
         {
-            if (Item == null || ContainsItemWithName(Item._ItemName))
+            if (Item == null)
             {
                 return false;
             }
@@ -37,7 +39,7 @@ namespace Service
             return (Item is null) ? null : MapItemDetails(Item);
         }
 
-        public List<ItemModel> GetItemsByCategory(ItemCategory category)
+        public List<ItemModel> GetItemsByCategory(String category)
         {
             List<ItemModel> models = new List<ItemModel>();
 
@@ -106,7 +108,7 @@ namespace Service
 
         public bool UpdateSelectedItem(ItemModel model)
         {
-            if (model == null || !ItemExists(model._id))
+            if (model == null || !ItemExists(model._itemID))
             {
                 return false;
             }
@@ -115,19 +117,19 @@ namespace Service
             return true;
         }
 
-        public List<ItemCategory> GetAllCategories()
+        public List<String> GetAllCategories()
         {
             return repository.GetAllCategories();
         }
 
-        public ItemCategory GetItemCategoryByName(string category)
+        public String GetItemCategoryByName(String category)
         {
             return repository.GetCategoryByName(category);
         }
 
         public bool HasNoPurchases(int id)
         {
-            return purchaseRepository.GetPurchaseEventsByItemId(id).Count.Equals(0);
+            return purchaseRepository.GetEventsPurchaseByItemId(id).Count.Equals(0);
         }
 
         public bool HasNoReturns(int id)
@@ -154,10 +156,9 @@ namespace Service
         {
             return new Item()
             {
-                Id = model._id,
-                ItemName = model._ItemName,
-                Price = model._price,
-                Category = model._category
+                ItemID = model._itemID,
+                Price = (decimal)model._price,
+                Category = model._itemCategory
             };
         }
 
@@ -165,10 +166,9 @@ namespace Service
         {
             return new ItemModel()
             {
-                _id = Item.Id,
-                _ItemName = Item.ItemName,
-                _price = Item.Price,
-                _category = Item.Category
+                _itemID = Item.ItemID,
+                _price = (double)Item.Price,
+                _itemCategory = Item.Category
             };
         }
     }

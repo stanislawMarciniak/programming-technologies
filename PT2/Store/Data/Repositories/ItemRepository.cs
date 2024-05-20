@@ -20,8 +20,8 @@ namespace Data
                 return db.Items.FirstOrDefault(Item => Item.Id.Equals(id));
             }
         }
-        s
-        public List<Item> GetItemsByCategory(ItemCategory category)
+      
+        public List<Item> GetItemsByCategory(String category)
         {
             using (var db = new StoreDataContext())
             {
@@ -96,7 +96,7 @@ namespace Data
         {
             using (var db = new StoreDataContext())
             {
-                Item ItemToUpdate = db.Items.FirstOrDefault(Item => Item.Id.Equals(p.Id));
+                Item ItemToUpdate = db.Items.FirstOrDefault(Item => Item.Id.Equals(p.ItemID));
 
                 if (ItemToUpdate != null)
                 {
@@ -108,7 +108,7 @@ namespace Data
             }
         }
 
-        public List<ItemCategory> GetAllCategories()
+        public List<String> GetAllCategories()
         {
             using (var db = new StoreDataContext())
             {
@@ -116,7 +116,7 @@ namespace Data
             }
         }
 
-        public ItemCategory GetCategoryByName(string category)
+        public String GetCategoryByName(string category)
         {
             using (var db = new StoreDataContext())
             {

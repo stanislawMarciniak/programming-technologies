@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Collections.Generic;
+using Data;
 
 namespace Service
 {
@@ -8,16 +9,16 @@ namespace Service
         private ClientRepository clientRepository = new ClientRepository();
         private ItemRepository ItemRepository = new ItemRepository();
         private ReturnEventRepository returnRepository = new ReturnEventRepository();
-        private PurchaseEventRepository purchaseRepository = new PurchaseEventRepository();
+        private EventPurchaseRepository purchaseRepository = new EventPurchaseRepository();
 
-        public bool AddReturnEvent(ReturnEvent ev)
+        public bool AddReturnEvent(EventReturn ev)
         {
             if (ev == null || InvalidEventData(ev))
             {
                 return false;
             }
 
-            PurchaseEvent recentPurchase = GetClientRecentPurchaseOfSuchItem(ev);
+            EventPurchase recentPurchase = GetClientRecentPurchaseOfSuchItem(ev);
 
             if (recentPurchase == null)
             {
@@ -25,33 +26,33 @@ namespace Service
             }
 
             returnRepository.AddReturnEvent(ev);
-            purchaseRepository.DeletePurchaseEvent(recentPurchase.Id);
+            purchaseRepository.DeletePurchaseEvent(recentPurchase.EventID);
             return true;
         }
 
-        public List<ReturnEvent> GetAllReturns()
+        public List<EventReturn> GetAllReturns()
         {
             return returnRepository.GetAllReturnEvents();
         }
 
-        public List<ReturnEvent> GetAllClientReturns(int id)
+        public List<EventReturn> GetAllClientReturns(int id)
         {
             return returnRepository.GetReturnEventsByClientId(id);
         }
 
-        public List<ReturnEvent> GetAllItemReturns(int id)
+        public List<EventReturn> GetAllItemReturns(int id)
         {
             return returnRepository.GetReturnEventsByItemId(id);
         }
 
-        private PurchaseEvent GetClientRecentPurchaseOfSuchItem(ReturnEvent ev)
+        private EventReturn GetClientRecentPurchaseOfSuchItem(EventReturn ev)
         {
-            return purchaseRepository.GetMostRecentByClientIdAndItemId(ev.ClientId, ev.ItemId);
+            return purchaseRepository.GetMostRecentByClientIdAndItemId(ev.ClientID, ev.ItemID);
         }
 
-        private bool InvalidEventData(ReturnEvent ev)
+        private bool InvalidEventData(EventReturn ev)
         {
-            return !ClientExists(ev.ClientId) || !ItemExists(ev.ItemId);
+            return !ClientExists(ev.ClientID) || !ItemExists(ev.ItemID);
         }
 
         private bool ClientExists(int id)

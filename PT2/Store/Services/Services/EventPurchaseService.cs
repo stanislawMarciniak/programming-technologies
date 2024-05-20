@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Data;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Service
 {
     public class EventPurchaseService
     {
-        private PurchaseEventRepository purchaseRepository = new PurchaseEventRepository();
+        private EventPurchaseRepository eventPurchaseRepository = new EventPurchaseRepository();
         private ClientRepository clientRepository = new ClientRepository();
-        private ItemRepository ItemRepository = new ItemRepository();
+        private ItemRepository itemRepository = new ItemRepository();
 
-        public bool AddPurchaseEvent(PurchaseEvent ev)
+        public bool AddPurchaseEvent(EventPurchase ev)
         {
             if (ev == null || InvalidEventData(ev))
             {
                 return false;
             }
 
-            purchaseRepository.AddPurchaseEvent(ev);
+            eventPurchaseRepository.AddEventPurchase(ev);
             return true;
         }
 
@@ -24,46 +25,46 @@ namespace Service
         {
             if (PurchaseExists(id))
             {
-                purchaseRepository.DeletePurchaseEvent(id);
+                eventPurchaseRepository.DeletePurchaseEvent(id);
                 return true;
             }
 
             return false;
         }
 
-        public List<PurchaseEvent> GetAllPurchases()
+        public List<EventPurchase> GetAllPurchases()
         {
-            return purchaseRepository.GetAllPurchaseEvents();
+            return eventPurchaseRepository.GetAllPurchaseEvents();
         }
 
-        public PurchaseEvent GetPurchaseById(int id)
+        public EventPurchase GetPurchaseEventById(int id)
         {
-            return purchaseRepository.GetPurchaseEventById(id);
+            return eventPurchaseRepository.GetEventsPurchaseById(id);
         }
 
-        public List<PurchaseEvent> GetAllClientPurchases(int id)
+        public List<EventPurchase> GetAllClientPurchases(int id)
         {
-            return purchaseRepository.GetPurchaseEventsByClientId(id);
+            return eventPurchaseRepository.GetEventsPurchaseByClientId(id);
         }
 
-        public List<PurchaseEvent> GetAllItemPurchases(int id)
+        public List<EventPurchase> GetAllItemPurchases(int id)
         {
-            return purchaseRepository.GetPurchaseEventsByItemId(id);
+            return eventPurchaseRepository.GetEventsPurchaseByItemId(id);
         }
 
-        public PurchaseEvent GetMostRecentPurchase()
+        public EventPurchase GetMostRecentPurchase()
         {
-            return purchaseRepository.GetMostRecentPurchase();
+            return eventPurchaseRepository.GetMostRecentPurchase();
         }
 
-        public PurchaseEvent GetLastClientPurchaseOfItem(int clientId, int ItemId)
+        public EventPurchase GetLastClientPurchaseOfItem(int clientId, int ItemId)
         {
-            return purchaseRepository.GetMostRecentByClientIdAndItemId(clientId, ItemId);
+            return eventPurchaseRepository.GetMostRecentByClientIdAndItemId(clientId, ItemId);
         }
 
-        private bool InvalidEventData(PurchaseEvent ev)
+        private bool InvalidEventData(EventPurchase ev)
         {
-            return PurchaseExists(ev.Id) || !ClientExists(ev.ClientId) || !ItemExists(ev.ItemId);
+            return PurchaseExists(ev.EventID) || !ClientExists(ev.ClientID) || !ItemExists(ev.ItemID);
         }
 
         public bool ClientExists(int id)
@@ -73,12 +74,12 @@ namespace Service
 
         public bool ItemExists(int id)
         {
-            return ItemRepository.GetItemById(id) != null;
+            return itemRepository.GetItemById(id) != null;
         }
 
         public bool PurchaseExists(int id)
         {
-            return purchaseRepository.GetPurchaseEventById(id) != null;
+            return eventPurchaseRepository.GetEventsPurchaseById(id) != null;
         }
     }
 }

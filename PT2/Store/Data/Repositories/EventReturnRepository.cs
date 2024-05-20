@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Repositories
+namespace Data
 {
     public class ReturnEventRepository
     {
-        public List<ReturnEvent> GetAllReturnEvents()
+        public List<EventReturn> GetAllReturnEvents()
         {
             using (var db = new StoreDataContext())
             {
-                return db.ReturnEvents.Select(ev => ev).ToList();
+                return db.EventReturns.Select(ev => ev).ToList();
             }
         }
 
-        public ReturnEvent GetReturnEventById(int id)
+        public EventReturn GetReturnEventById(int id)
         {
             using (var db = new StoreDataContext())
             {
@@ -24,36 +24,36 @@ namespace Data.Repositories
             }
         }
 
-        public List<ReturnEvent> GetReturnEventsByClientId(int id)
+        public List<EventReturn> GetReturnEventsByClientId(int id)
         {
             using (var db = new StoreDataContext())
             {
-                return db.ReturnEvents.Where(ev => ev.ClientId.Equals(id)).ToList();
+                return db.EventReturns.Where(ev => ev.ClientId.Equals(id)).ToList();
             }
         }
 
-        public List<ReturnEvent> GetReturnEventsByProductId(int id)
+        public List<EventReturn> GetReturnEventsByItemId(int id)
         {
             using (var db = new StoreDataContext())
             {
-                return db.ReturnEvents.Where(ev => ev.ProductId.Equals(id)).ToList();
+                return db.EventReturns.Where(ev => ev.ItemID.Equals(id)).ToList();
             }
         }
 
-        public void AddReturnEvent(ReturnEvent e)
+        public void AddReturnEvent(EventReturn e)
         {
             using (var db = new StoreDataContext())
             {
-                db.ReturnEvents.InsertOnSubmit(e);
+                db.EventReturns.InsertOnSubmit(e);
                 db.SubmitChanges();
             }
         }
 
-        public ReturnEvent GetMostRecentReturn()
+        public EventReturn GetMostRecentReturn()
         {
             using (var db = new StoreDataContext())
             {
-                return db.ReturnEvents.Select(p => p).ToList().LastOrDefault();
+                return db.EventReturns.Select(p => p).ToList().LastOrDefault();
             }
         }
     }

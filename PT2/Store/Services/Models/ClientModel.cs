@@ -1,9 +1,8 @@
-﻿
-namespace Service
+﻿namespace Service
 {
     public class ClientModel
     {
-        public int _id { get; set; }
+        public int _clientID { get; set; }
 
         public string _firstName { get; set; }
 

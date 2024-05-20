@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Data;
+using Service.Models;
+
 
 namespace Service
 {
     public class ClientService
     {
         ClientRepository clientRepository = new ClientRepository();
-        ReturnEventRepository returnRepository = new ReturnEventRepository();
-        PurchaseEventRepository purchaseRepository = new PurchaseEventRepository();
+        EventReturnRepository returnRepository = new ReturnEventRepository();
+        EventPurchaseRepository purchaseRepository = new PurchaseEventRepository();
 
         public List<ClientModel> GetAllClients()
         {

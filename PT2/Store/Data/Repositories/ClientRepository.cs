@@ -76,7 +76,7 @@ namespace Data
         {
             using (var db = new StoreDataContext())
             {
-                Client clientToUpdate = db.Clients.FirstOrDefault(c => c.Id.Equals(client.Id));
+                Client clientToUpdate = db.Clients.FirstOrDefault(c => c.Id.Equals(client.ClientID));
 
                 if (clientToUpdate != null)
                 {
