@@ -393,9 +393,10 @@ namespace Data.Database
     partial void OnpriceChanged();
     partial void OnpegiChanging(int value);
     partial void OnpegiChanged();
-    #endregion
-		
-		public Product()
+        #endregion
+
+        [Obsolete]
+        public Product()
 		{
 			this._States = new EntitySet<State>(new Action<State>(this.attach_States), new Action<State>(this.detach_States));
 			OnCreated();
