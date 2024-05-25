@@ -3,7 +3,6 @@ using Data.API;
 
 namespace DataTests
 {
-
     [TestClass]
     [DeploymentItem("TestingDatabase.mdf")]
     public class UserTests

@@ -4,11 +4,11 @@ public interface IEventDTO
 {
     int Id { get; set; }
 
-    int stateId { get; set; }
+    int StateId { get; set; }
 
-    int userId { get; set; }
+    int UserId { get; set; }
 
-    DateTime occurrenceDate { get; set; }
+    DateTime OccurrenceDate { get; set; }
 
     string Type { get; set; }
 

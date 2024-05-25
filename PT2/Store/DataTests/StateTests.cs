@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace DataTests
 {

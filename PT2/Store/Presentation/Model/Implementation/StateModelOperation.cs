@@ -16,7 +16,7 @@ internal class StateModelOperation : IStateModelOperation
 
     private IStateModel Map(IStateDTO state)
     {
-        return new StateModel(state.Id, state.productId, state.productQuantity);
+        return new StateModel(state.Id, state.ProductId, state.ProductQuantity);
     }
 
     public async Task AddAsync(int id, int productId, int productQuantity)
