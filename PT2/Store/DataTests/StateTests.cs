@@ -24,8 +24,8 @@ namespace DataTests
         [TestMethod]
         public async Task AddAndRetrieveStateTest()
         {
-            int testProductId = 100;
-            int testStateId = 100;
+            int testProductId = 150;
+            int testStateId = 150;
 
             await _dataRepository.AddProductAsync(testProductId, "Product example", 250, 18);
             IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
@@ -45,8 +45,11 @@ namespace DataTests
         [TestMethod]
         public async Task UpdateAndDeleteStateTest()
         {
-            int testProductId = 100;
-            int testStateId = 100;
+            int testProductId = 180;
+            int testStateId = 180;
+
+            await _dataRepository.AddProductAsync(testProductId, "TestProduct", 100, 0);
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 20);
 
             await _dataRepository.UpdateStateAsync(testStateId, testProductId, 30);
             IState updatedState = await _dataRepository.GetStateAsync(testStateId);

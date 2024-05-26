@@ -17,7 +17,7 @@ internal class EventModelOperation : IEventModelOperation
 
     private IEventModel Map(IEventDTO even)
     {
-        return new EventModel(even.Id, even.StateId, even.UserId, even.OccurrenceDate, even.Type, even.Quantity);
+        return new EventModel(even.Id, even.stateId, even.userId, even.occurrenceDate, even.Type, even.Quantity);
     }
 
     public async Task AddAsync(int id, int stateId, int userId, string type, int quantity = 0)

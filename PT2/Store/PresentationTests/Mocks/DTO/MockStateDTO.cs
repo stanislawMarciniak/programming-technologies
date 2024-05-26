@@ -7,12 +7,12 @@ namespace PresentationTests.Mocks.DTO
         public MockStateDTO(int id, int productId, int productQuantity = 0)
         {
             Id = id;
-            ProductId = productId;
-            ProductQuantity = productQuantity;
+            productId = productId;
+            productQuantity = productQuantity;
         }
 
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int ProductQuantity { get; set; }
+        public int productId { get; set; }
+        public int productQuantity { get; set; }
     }
 }

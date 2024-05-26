@@ -6,14 +6,14 @@ internal class StateDTO : IStateDTO
 {
     public int Id { get; set; }
 
-    public int ProductId { get; set; }
+    public int productId { get; set; }
 
-    public int ProductQuantity { get; set; }
+    public int productQuantity { get; set; }
 
     public StateDTO(int id, int productId, int productQuantity)
     {
         this.Id = id;
-        this.ProductId = productId;
-        this.ProductQuantity = productQuantity;
+        this.productId = productId;
+        this.productQuantity = productQuantity;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
+using Data.Database;
 
 namespace DataTests
 {
@@ -24,7 +25,7 @@ namespace DataTests
         [TestMethod]
         public async Task AddAndRetrieveUserTest()
         {
-            int testUserId = 100;
+            int testUserId = 200;
             await _dataRepository.AddUserAsync(testUserId, "Alice", "alice@example.com", 500, new DateTime(2003, 1, 1));
             IUser testUser = await _dataRepository.GetUserAsync(testUserId);
 
@@ -37,12 +38,16 @@ namespace DataTests
 
             Assert.IsNotNull(await _dataRepository.GetAllUsersAsync());
             Assert.IsTrue(await _dataRepository.GetUsersCountAsync() > 0);
+            
+            await _dataRepository.DeleteUserAsync(testUserId);
         }
 
         [TestMethod]
         public async Task UpdateAndDeleteUserTest()
         {
-            int testUserId = 100;
+            int testUserId = 120;
+            await _dataRepository.AddUserAsync(testUserId, "Alice", "alice@example.com", 500, new DateTime(2003, 1, 1));
+
             await _dataRepository.UpdateUserAsync(testUserId, "AliceUpdated", "alice_updated@example.com", 750, new DateTime(2003, 1, 2));
             IUser updatedUser = await _dataRepository.GetUserAsync(testUserId);
 

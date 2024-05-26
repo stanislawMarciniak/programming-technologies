@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
+using Data.Database;
 
 namespace DataTests
 {
@@ -36,12 +37,14 @@ namespace DataTests
 
             Assert.IsNotNull(await _dataRepository.GetAllProductsAsync());
             Assert.IsTrue(await _dataRepository.GetProductsCountAsync() > 0);
+
+            await _dataRepository.DeleteProductAsync(testProductId);
         }
 
         [TestMethod]
         public async Task UpdateAndDeleteProductTest()
         {
-            int testProductId = 202;
+            int testProductId = 204;
             await _dataRepository.UpdateProductAsync(testProductId, "Product example - updated", 350, 16);
             IProduct updatedProduct = await _dataRepository.GetProductAsync(testProductId);
 
@@ -53,6 +56,7 @@ namespace DataTests
 
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateProductAsync(999, "Product example - updated", 350, 16));
             await _dataRepository.DeleteProductAsync(testProductId);
+
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.GetProductAsync(testProductId));
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.DeleteProductAsync(testProductId));
         }

@@ -1,15 +1,18 @@
-﻿using PresentationTests.Mocks.DTO;
-using Service.API;
+﻿using Data.API;
+using ServiceTests.Mocks.DTO;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PresentationTests.Mocks
+namespace ServiceTests.Mocks
 {
-    internal class MockDataRepository
+    internal class MockDataRepository : IDataRepository
     {
-        public Dictionary<int, IUserDTO> Users = new Dictionary<int, IUserDTO>();
-        public Dictionary<int, IProductDTO> Products = new Dictionary<int, IProductDTO>();
-        public Dictionary<int, IEventDTO> Events = new Dictionary<int, IEventDTO>();
-        public Dictionary<int, IStateDTO> States = new Dictionary<int, IStateDTO>();
-
+        // In-memory storage for mock data
+        public Dictionary<int, IUser> Users = new Dictionary<int, IUser>();
+        public Dictionary<int, IProduct> Products = new Dictionary<int, IProduct>();
+        public Dictionary<int, IEvent> Events = new Dictionary<int, IEvent>();
+        public Dictionary<int, IState> States = new Dictionary<int, IState>();
 
         // User CRUD
 
@@ -19,7 +22,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<IUserDTO> GetUserAsync(int id)
+        public async Task<IUser> GetUserAsync(int id)
         {
             return await Task.FromResult(Users[id]);
         }
@@ -30,7 +33,8 @@ namespace PresentationTests.Mocks
             Users[id].Email = email;
             Users[id].Balance = balance;
             Users[id].DateOfBirth = dateOfBirth;
-        }   
+            await Task.CompletedTask;
+        }
 
         public async Task DeleteUserAsync(int id)
         {
@@ -38,7 +42,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<Dictionary<int, IUserDTO>> GetAllUsersAsync()
+        public async Task<Dictionary<int, IUser>> GetAllUsersAsync()
         {
             return await Task.FromResult(Users);
         }
@@ -48,7 +52,6 @@ namespace PresentationTests.Mocks
             return await Task.FromResult(Users.Count);
         }
 
-
         // Product CRUD
 
         public async Task AddProductAsync(int id, string name, double price, int pegi)
@@ -57,7 +60,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<IProductDTO> GetProductAsync(int id)
+        public async Task<IProduct> GetProductAsync(int id)
         {
             return await Task.FromResult(Products[id]);
         }
@@ -76,7 +79,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<Dictionary<int, IProductDTO>> GetAllProductsAsync()
+        public async Task<Dictionary<int, IProduct>> GetAllProductsAsync()
         {
             return await Task.FromResult(Products);
         }
@@ -86,7 +89,6 @@ namespace PresentationTests.Mocks
             return await Task.FromResult(Products.Count);
         }
 
-
         // State CRUD
 
         public async Task AddStateAsync(int id, int productId, int productQuantity)
@@ -95,7 +97,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<IStateDTO> GetStateAsync(int id)
+        public async Task<IState> GetStateAsync(int id)
         {
             return await Task.FromResult(States[id]);
         }
@@ -113,7 +115,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<Dictionary<int, IStateDTO>> GetAllStatesAsync()
+        public async Task<Dictionary<int, IState>> GetAllStatesAsync()
         {
             return await Task.FromResult(States);
         }
@@ -127,9 +129,9 @@ namespace PresentationTests.Mocks
 
         public async Task AddEventAsync(int id, int stateId, int userId, string type, int quantity = 0)
         {
-            IUserDTO user = await GetUserAsync(userId);
-            IStateDTO state = await GetStateAsync(stateId);
-            IProductDTO product = await GetProductAsync(state.productId);
+            IUser user = await GetUserAsync(userId);
+            IState state = await GetStateAsync(stateId);
+            IProduct product = await GetProductAsync(state.productId);
 
             switch (type)
             {
@@ -182,7 +184,7 @@ namespace PresentationTests.Mocks
             Events.Add(id, new MockEventDTO(id, stateId, userId, type, quantity));
         }
 
-        public async Task<IEventDTO> GetEventAsync(int id)
+        public async Task<IEvent> GetEventAsync(int id)
         {
             return await Task.FromResult(Events[id]);
         }
@@ -204,7 +206,7 @@ namespace PresentationTests.Mocks
             await Task.CompletedTask;
         }
 
-        public async Task<Dictionary<int, IEventDTO>> GetAllEventsAsync()
+        public async Task<Dictionary<int, IEvent>> GetAllEventsAsync()
         {
             return await Task.FromResult(Events);
         }

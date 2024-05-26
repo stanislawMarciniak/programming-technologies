@@ -4,7 +4,7 @@ public interface IStateDTO
 {
     int Id { get; set; }
 
-    int ProductId { get; set; }
+    int productId { get; set; }
 
-    int ProductQuantity { get; set; }
+    int productQuantity { get; set; }
 }
