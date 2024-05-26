@@ -2,8 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Service.API;
 using ServiceTests.Mocks;
-using System;
-using System.Threading.Tasks;
 
 namespace ServiceTests
 {
@@ -17,6 +15,7 @@ namespace ServiceTests
         {
             IUserCRUD userCrud = IUserCRUD.CreateUserCRUD(_repository);
             await userCrud.AddUserAsync(1, "John Doe", "john.doe@example.com", 1000, new DateTime(1990, 1, 1));
+            
             IUserDTO retrievedUser = await userCrud.GetUserAsync(1);
 
             Assert.IsNotNull(retrievedUser);
@@ -49,12 +48,15 @@ namespace ServiceTests
         {
             IUserCRUD userCrud = IUserCRUD.CreateUserCRUD(_repository);
             await userCrud.AddUserAsync(1, "John Doe", "john.doe@example.com", 1000, new DateTime(1990, 1, 1));
-            IUserDTO deletedUser = await userCrud.GetUserAsync(1);
 
+            IUserDTO testUser = await userCrud.GetUserAsync(1);
+            Assert.IsNotNull(testUser);
+
+            // Delete the user
             await userCrud.DeleteUserAsync(1);
-            //deletedUser = await userCrud.GetUserAsync(1);
 
-            Assert.IsNull(deletedUser);
+            // User should not exist - cannot be retrieved
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () => await userCrud.GetUserAsync(1));
         }
     }
 }

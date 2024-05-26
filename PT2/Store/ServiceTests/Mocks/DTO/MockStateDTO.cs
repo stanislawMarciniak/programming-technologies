@@ -6,9 +6,9 @@ internal class MockStateDTO : IState
 {
     public MockStateDTO(int id, int productId, int productQuantity = 0)
     {
-        Id = id;
-        productId = productId;
-        productQuantity = productQuantity;
+        this.Id = id;
+        this.productId = productId;
+        this.productQuantity = productQuantity;
     }
 
     public int Id { get; set; }

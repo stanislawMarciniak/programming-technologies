@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
+using Data.Database;
 namespace DataTests
 {
     [TestClass]
@@ -22,20 +23,15 @@ namespace DataTests
 
         [TestMethod]
         public async Task AddAndRetrieveEventTest()
-        {
-            int testEventId = 100;
-            int testUserId = 100;
-            int testProductId = 100;
-            int testStateId = 100;
+        { 
+            int testUserId = 18;
+            int testProductId = 18;
+            int testStateId = 18;
+            int testEventId = 18;
 
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
             await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
             await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
-            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
-
-            IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
-            IState testState = await _dataRepository.GetStateAsync(testStateId);
-            IUser testUser = await _dataRepository.GetUserAsync(testUserId);
-
             await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent");
             IEvent testEvent = await _dataRepository.GetEventAsync(testEventId);
 
@@ -46,16 +42,27 @@ namespace DataTests
 
             Assert.IsNotNull(await _dataRepository.GetAllEventsAsync());
             Assert.IsTrue(await _dataRepository.GetEventsCountAsync() > 0);
+
+            await _dataRepository.DeleteEventAsync(testEventId);
+            await _dataRepository.DeleteStateAsync(testStateId);
+            await _dataRepository.DeleteProductAsync(testProductId);
+            await _dataRepository.DeleteUserAsync(testUserId);
         }
 
         [TestMethod]
         public async Task UpdateAndDeleteEventTest()
         {
-            int testEventId = 100;
-            int testUserId = 100;
-            int testStateId = 100;
-            int testProductId = 100;
+            int testUserId = 155;
+            int testProductId = 155;
+            int testStateId = 155;
+            int testEventId = 155;
 
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
+            await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent");
+
+            // Update event
             await _dataRepository.UpdateEventAsync(testEventId, testStateId, testUserId, DateTime.Now, "PurchaseEvent", null);
             IEvent updatedEvent = await _dataRepository.GetEventAsync(testEventId);
 

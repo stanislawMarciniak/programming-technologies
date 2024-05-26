@@ -195,9 +195,8 @@ internal class DataRepository : IDataRepository
                 if (user.Balance < product.Price)
                     throw new Exception("Not enough money to purchase this product!");
 
-                await this.UpdateStateAsync(stateId, product.Id, state.productQuantity - 1);
-                await this.UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - product.Price, user.DateOfBirth);
-
+                await UpdateStateAsync(stateId, product.Id, state.productQuantity - 1);
+                await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - product.Price, user.DateOfBirth);
                 break;
 
             case "ReturnEvent":
@@ -206,43 +205,39 @@ internal class DataRepository : IDataRepository
 
                 int copiesBought = 0;
 
-                foreach
-                (
-                    IEvent even in
-                    from even in events.Values
-                    from stat in states.Values
-                    where even.userId == user.Id &&
-                          even.stateId == stat.Id &&
-                          stat.productId == product.Id
-                    select even
-                )
-                    if (even.Type == "PurchaseEvent")
-                        copiesBought++;
-                    else if (even.Type == "ReturnEvent")
-                        copiesBought--;
+                foreach (
+                        IEvent even in
+                        from even in events.Values
+                        from stat in states.Values
+                        where even.userId == user.Id &&
+                              even.stateId == stat.Id &&
+                              stat.productId == product.Id
+                        select even
+                    )
+                    if (even.Type == "PurchaseEvent") copiesBought++;
+                    else if (even.Type == "ReturnEvent") copiesBought--;
 
                 copiesBought--;
 
                 if (copiesBought < 0)
                     throw new Exception("You do not own this product!");
 
-                await this.UpdateStateAsync(stateId, product.Id, state.productQuantity + 1);
-                await this.UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + product.Price, user.DateOfBirth);
-
+                await UpdateStateAsync(stateId, product.Id, state.productQuantity + 1);
+                await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + product.Price, user.DateOfBirth);
                 break;
+
             case "SupplyEvent":
                 if (quantity <= 0)
                     throw new Exception("Can not supply with this amount!");
 
-                await this.UpdateStateAsync(stateId, product.Id, state.productQuantity + quantity);
-
+                await UpdateStateAsync(stateId, product.Id, state.productQuantity + quantity);
                 break;
 
             default:
                 throw new Exception("This event type does not exist!");
         }
 
-        await this._context.AddEventAsync(newEvent);
+        await _context.AddEventAsync(newEvent);
     }
 
     public async Task<IEvent> GetEventAsync(int id)

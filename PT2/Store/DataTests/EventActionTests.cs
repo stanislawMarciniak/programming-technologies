@@ -23,18 +23,22 @@ namespace DataTests
         [TestMethod]
         public async Task PurchaseEventActionTest()
         {
-            int testUserId = 100;
-            int testStateId = 100;
-            int testEventId = 100;
-            int testProductId = 100;
+            int testUserId = 122;
+            int testProductId = 122;
+            int testStateId = 122;
+            int testEventId = 122;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 60, 16);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 100);
-            await _dataRepository.AddUserAsync(testUserId, "Eve", "eve@example.com", 600, new DateTime(1995, 10, 10));
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
             await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent");
 
-            Assert.AreEqual(540, (await _dataRepository.GetUserAsync(testUserId)).Balance);
-            Assert.AreEqual(99, (await _dataRepository.GetStateAsync(testStateId)).productQuantity);
+            // Fetch data from the database
+            IUser testUser = await _dataRepository.GetUserAsync(testUserId);
+            IState testState = await _dataRepository.GetStateAsync(testStateId);
+
+            Assert.AreEqual(1300, testUser.Balance);
+            Assert.AreEqual(29, testState.productQuantity);
 
             await _dataRepository.DeleteEventAsync(testEventId);
             await _dataRepository.DeleteStateAsync(testStateId);
@@ -45,16 +49,24 @@ namespace DataTests
         [TestMethod]
         public async Task InsufficientBalancePurchaseEventTest()
         {
-            int testUserId = 100;
-            int testStateId = 100;
-            int testEventId = 100;
-            int testProductId = 100;
+            int testUserId = 12;
+            int testProductId = 12;
+            int testStateId = 12;
+            int testEventId = 12;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 20, 7);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 50);
-            await _dataRepository.AddUserAsync(testUserId, "Charlie", "charlie@example.com", 10, new DateTime(2000, 2, 20));
+            // User with insufficient balance
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 15, new DateTime(1985, 5, 15));
+            IUser testUser = await _dataRepository.GetUserAsync(testUserId);
 
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
+
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
+            IState testState = await _dataRepository.GetStateAsync(testStateId);
+
+            // Purchase event with insufficient balance should throw an exception
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent"));
+            
             await _dataRepository.DeleteStateAsync(testStateId);
             await _dataRepository.DeleteProductAsync(testProductId);
             await _dataRepository.DeleteUserAsync(testUserId);
@@ -63,14 +75,20 @@ namespace DataTests
         [TestMethod]
         public async Task InsufficientProductQuantityPurchaseEventTest()
         {
-            int testUserId = 100;
-            int testStateId = 100;
-            int testEventId = 100;
-            int testProductId = 100;
+            int testUserId = 12;
+            int testProductId = 12;
+            int testStateId = 12;
+            int testEventId = 12;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 0, 12);
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 15, new DateTime(1985, 5, 15));
+            IUser testUser = await _dataRepository.GetUserAsync(testUserId);
+            
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
+            
+            // Product with insufficient quantity
             await _dataRepository.AddStateAsync(testStateId, testProductId, 0);
-            await _dataRepository.AddUserAsync(testUserId, "Dave", "dave@example.com", 50, new DateTime(1998, 7, 7));
+            IState testState = await _dataRepository.GetStateAsync(testStateId);
 
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent"));
             await _dataRepository.DeleteStateAsync(testStateId);
@@ -81,21 +99,26 @@ namespace DataTests
         [TestMethod]
         public async Task ReturnEventActionTest()
         {
-            int testUserId = 100;
-            int testStateId = 100;
-            int testPurchaseEventId = 100;
-            int testReturnEventId = 506;
-            int testProductId = 100;
+            int testUserId = 300;
+            int testProductId = 300;
+            int testStateId = 300;
+            int testPurchaseEventId = 300;
+            int testReturnEventId = 301;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 15, 13);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 10);
-            await _dataRepository.AddUserAsync(testUserId, "Grace", "grace@example.com", 100, new DateTime(1997, 11, 30));
-
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
             await _dataRepository.AddEventAsync(testPurchaseEventId, testStateId, testUserId, "PurchaseEvent");
+
+            // Return product
             await _dataRepository.AddEventAsync(testReturnEventId, testStateId, testUserId, "ReturnEvent");
 
-            Assert.AreEqual(100, (await _dataRepository.GetUserAsync(testUserId)).Balance);
-            Assert.AreEqual(10, (await _dataRepository.GetStateAsync(testStateId)).productQuantity);
+            // Fetch data from the database
+            IUser testUser = await _dataRepository.GetUserAsync(testUserId);
+            IState testState = await _dataRepository.GetStateAsync(testStateId);
+            
+            Assert.AreEqual(1500, testUser.Balance);                // Restored balance
+            Assert.AreEqual(30, testState.productQuantity);         // Restored product quantity
 
             await _dataRepository.DeleteEventAsync(testReturnEventId);
             await _dataRepository.DeleteEventAsync(testPurchaseEventId);
@@ -107,17 +130,20 @@ namespace DataTests
         [TestMethod]
         public async Task SupplyEventActionTest()
         {
-            int testUserId = 100;
-            int testStateId = 100;
-            int testSupplyEventId = 100;
-            int testProductId = 100;
+            int testUserId = 321;
+            int testProductId = 321;
+            int testStateId = 321;
+            int testSupplyEventId = 321;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 30, 10);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 2);
-            await _dataRepository.AddUserAsync(testUserId, "Ian", "ian@example.com", 150, new DateTime(1992, 12, 20));
-
+            await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
             await _dataRepository.AddEventAsync(testSupplyEventId, testStateId, testUserId, "SupplyEvent", 12);
-            Assert.AreEqual(14, (await _dataRepository.GetStateAsync(testStateId)).productQuantity);
+
+            // Fetch data from the database
+            IState testState = await _dataRepository.GetStateAsync(testStateId);
+
+            Assert.AreEqual(42, testState.productQuantity);     // Quantity = 30 + 12 (from SupplyEvent)
 
             await _dataRepository.DeleteEventAsync(testSupplyEventId);
             await _dataRepository.DeleteStateAsync(testStateId);

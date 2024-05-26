@@ -26,6 +26,7 @@ namespace DataTests
         public async Task AddAndRetrieveProductTest()
         {
             int testProductId = 202;
+            
             await _dataRepository.AddProductAsync(testProductId, "Product example", 300, 18);
             IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
 
@@ -44,8 +45,11 @@ namespace DataTests
         [TestMethod]
         public async Task UpdateAndDeleteProductTest()
         {
-            int testProductId = 204;
+            int testProductId = 1;
+
+            await _dataRepository.AddProductAsync(testProductId, "Product example", 300, 18);
             await _dataRepository.UpdateProductAsync(testProductId, "Product example - updated", 350, 16);
+            
             IProduct updatedProduct = await _dataRepository.GetProductAsync(testProductId);
 
             Assert.IsNotNull(updatedProduct);

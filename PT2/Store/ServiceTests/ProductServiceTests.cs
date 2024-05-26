@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Service.API;
 using ServiceTests.Mocks;
-using System.Threading.Tasks;
 
 namespace ServiceTests
 {
@@ -47,11 +46,15 @@ namespace ServiceTests
         {
             IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
             await productCrud.AddProductAsync(3, "Product3", 200, 0);
-            
-            await productCrud.DeleteProductAsync(3);
-            IProductDTO deletedProduct = await productCrud.GetProductAsync(3);
 
-            Assert.IsNull(deletedProduct);
+            IProductDTO testProduct = await productCrud.GetProductAsync(3);
+            Assert.IsNotNull(testProduct);
+
+            // Delete the product
+            await productCrud.DeleteProductAsync(3);
+
+            // Product should not exist - cannot be retrieved
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () => await productCrud.GetProductAsync(3));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
+using Data.Database;
 
 namespace DataTests
 {
@@ -24,12 +25,10 @@ namespace DataTests
         [TestMethod]
         public async Task AddAndRetrieveStateTest()
         {
-            int testProductId = 150;
-            int testStateId = 150;
+            int testProductId = 11;
+            int testStateId = 11;
 
             await _dataRepository.AddProductAsync(testProductId, "Product example", 250, 18);
-            IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
-
             await _dataRepository.AddStateAsync(testStateId, testProductId, 50);
             IState testState = await _dataRepository.GetStateAsync(testStateId);
 
@@ -40,6 +39,9 @@ namespace DataTests
 
             Assert.IsNotNull(await _dataRepository.GetAllStatesAsync());
             Assert.IsTrue(await _dataRepository.GetStatesCountAsync() > 0);
+
+            await _dataRepository.DeleteStateAsync(testStateId);
+            await _dataRepository.DeleteProductAsync(testProductId);
         }
 
         [TestMethod]
@@ -51,6 +53,7 @@ namespace DataTests
             await _dataRepository.AddProductAsync(testProductId, "TestProduct", 100, 0);
             await _dataRepository.AddStateAsync(testStateId, testProductId, 20);
 
+            // Update state
             await _dataRepository.UpdateStateAsync(testStateId, testProductId, 30);
             IState updatedState = await _dataRepository.GetStateAsync(testStateId);
 

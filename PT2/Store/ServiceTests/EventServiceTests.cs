@@ -59,13 +59,15 @@ namespace ServiceTests
 
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
             await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "PurchaseEvent");
+
+            // Return the product
             await eventCrud.AddEventAsync(2, testedState.Id, testedState.Id, "ReturnEvent");
 
             testedUser = await userCrud.GetUserAsync(1);
-            testedState = await stateCrud.GetStateAsync(2);
+            testedState = await stateCrud.GetStateAsync(1);
 
             Assert.AreEqual(1000, testedUser.Balance);          // return restores user's balance
-            Assert.AreEqual(5, testedState.productQuantity);    // return restores product's quantity
+            Assert.AreEqual(10, testedState.productQuantity);    // return restores product's quantity
 
             await eventCrud.DeleteEventAsync(1);
             await eventCrud.DeleteEventAsync(2);
@@ -92,16 +94,16 @@ namespace ServiceTests
             Assert.IsNotNull(testedProduct);
 
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
-            await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "SupplyEvent");
+            await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "SupplyEvent", 10);
 
-            var state = await stateCrud.GetStateAsync(3);
+            testedState = await stateCrud.GetStateAsync(1);
 
-            Assert.AreEqual(2, state.productQuantity);                // supply product's increases quantity
+            Assert.AreEqual(12, testedState.productQuantity);                // quantity = 2 + 10 (from supply event)
 
-            await eventCrud.DeleteEventAsync(3);
-            await stateCrud.DeleteStateAsync(3);
-            await productCrud.DeleteProductAsync(3);
-            await userCrud.DeleteUserAsync(3);
+            await eventCrud.DeleteEventAsync(1);
+            await stateCrud.DeleteStateAsync(1);
+            await productCrud.DeleteProductAsync(1);
+            await userCrud.DeleteUserAsync(1);
         }
     }
 }

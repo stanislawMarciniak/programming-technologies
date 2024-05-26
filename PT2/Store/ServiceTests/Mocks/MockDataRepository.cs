@@ -1,8 +1,5 @@
 ﻿using Data.API;
 using ServiceTests.Mocks.DTO;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ServiceTests.Mocks
 {
@@ -137,13 +134,13 @@ namespace ServiceTests.Mocks
             {
                 case "PurchaseEvent":
                     if (DateTime.Now.Year - user.DateOfBirth.Year < product.Pegi)
-                        throw new Exception("You are not old enough to purchase this game!");
+                        throw new Exception("You are not allowed to buy this product");
 
                     if (state.productQuantity == 0)
-                        throw new Exception("Product unavailable, please check later!");
+                        throw new Exception("Product unavailable.");
 
                     if (user.Balance < product.Price)
-                        throw new Exception("Not enough money to purchase this product!");
+                        throw new Exception("Not enough balance!");
 
                     await UpdateStateAsync(stateId, product.Id, state.productQuantity - 1);
                     await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - product.Price, user.DateOfBirth);

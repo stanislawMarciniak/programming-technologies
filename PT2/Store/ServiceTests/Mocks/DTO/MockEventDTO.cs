@@ -7,8 +7,8 @@ internal class MockEventDTO : IEvent
     public MockEventDTO(int id, int stateId, int userId, string type, int? quantity = 0)
     {
         Id = id;
-        stateId = stateId;
-        userId = userId;
+        this.stateId = stateId;
+        this.userId = userId;
         occurrenceDate = DateTime.Now;
         Type = type;
         Quantity = quantity;
