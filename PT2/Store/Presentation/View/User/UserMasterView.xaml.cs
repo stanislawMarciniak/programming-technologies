@@ -9,4 +9,9 @@ public partial class UserMasterView : UserControl
     {
         InitializeComponent();
     }
+
+    private void TextBox_TextChanged()
+    {
+
+    }
 }

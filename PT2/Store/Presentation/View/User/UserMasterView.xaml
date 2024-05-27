@@ -8,6 +8,7 @@
              xmlns:viewmodels="clr-namespace:Presentation.ViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="480">
 
+
     <UserControl.DataContext>
         <ObjectDataProvider ObjectType="viewmodels:UserMasterViewModel">
             <ObjectDataProvider.ConstructorParameters>
@@ -16,12 +17,12 @@
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </UserControl.DataContext>
-
-    <Grid Background="White" Margin="0,0,0,10">
+    
+    <Grid Background="SteelBlue" Margin="0,0,0,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
-            <RowDefinition Height="375"/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="390"/>
+            <RowDefinition Height="0"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -30,22 +31,14 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
-            <Image Height="200" Width="200" Source="/Images/logo.png"/>
-            <TextBlock Height="40" Margin="0,-30,0,0" Text="FilmLend" TextAlignment="Center" TextWrapping="Wrap" FontSize="32" FontWeight="ExtraBold"/>
-            <TextBlock Height="25" Text="Watch More, Spend Less" TextAlignment="Center" TextWrapping="Wrap" FontSize="16" FontWeight="DemiBold"/>
-            <Separator Height="10" Width="50" Margin="0,110,0,0" HorizontalAlignment="Center"/>
-            <TextBlock Height="20" Text="TF and PK © 2023" TextAlignment="Center" TextWrapping="Wrap"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="2" Width="570" Margin="0,5,0,0" HorizontalAlignment="Left" Background="White" Height="410" VerticalAlignment="Top" Grid.RowSpan="2">
+        <StackPanel Grid.Column="1" Width="746" Margin="24,26,0,0" HorizontalAlignment="Left" Background="SteelBlue" Height="432" VerticalAlignment="Top" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <Grid Height="385" Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202*"/>
                     <ColumnDefinition Width="73*"/>
                 </Grid.ColumnDefinitions>
                 <Label Margin="0,0,294,342" HorizontalAlignment="Right" Content="Users" FontSize="15" Width="94"/>
-                <ListView Margin="0,40,95,192" ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDetailViewModel}">
+                <ListView Margin="0,27,95,205" ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDetailViewModel}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="140" DisplayMemberBinding="{Binding Id}" />
@@ -54,10 +47,10 @@
                     </ListView.View>
                 </ListView>
                 <Grid Grid.ColumnSpan="2" Visibility="{Binding IsUserDetailVisible}">
-                    <view:UserDetailView Margin="320,24,10,52" DataContext="{Binding SelectedDetailViewModel}"/>
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="385,338,0,0" VerticalAlignment="Top" Height="26" Width="90" Command="{Binding RemoveUser}"/>
+                    <view:UserDetailView Margin="485,0,21,0" DataContext="{Binding SelectedDetailViewModel}" Height="327" VerticalAlignment="Center"/>
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="550,312,0,0" VerticalAlignment="Top" Height="26" Width="90" Command="{Binding RemoveUser}"/>
                 </Grid>
-                <StackPanel Margin="16,193,202,0" VerticalAlignment="Top" Background="White" Height="189">
+                <StackPanel Margin="10,186,337,0" VerticalAlignment="Top" Background="SteelBlue" Height="176">
                     <Label Content="Nickname:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0" Text="{Binding Nickname , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" BorderBrush="Gray">
                         <Validation.ErrorTemplate>
@@ -107,7 +100,7 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Content="Create" Margin="207,308,114,44" Background="CornflowerBlue" Command="{Binding CreateUser}"/>
+                <Button Content="Create" Margin="219,321,190,31" Background="pink" Command="{Binding CreateUser}"/>
             </Grid>
             <Grid Height="100"/>
         </StackPanel>

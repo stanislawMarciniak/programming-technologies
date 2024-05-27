@@ -31,11 +31,6 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1"
-                    VerticalAlignment="Bottom">
-            <TextBlock Height="20"
-                       TextAlignment="Center" TextWrapping="Wrap"/>
-        </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" 
                     Width="760" Margin="10,5,0,0"
@@ -49,7 +44,7 @@
                 <Label Margin="0,0,294,342"
                        HorizontalAlignment="Right"
                        Content="States" FontSize="15" Width="94"/>
-                <ListView Margin="10,40,85,192" 
+                <ListView Margin="0,40,95,192" 
                     ItemsSource="{Binding States, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedDetailViewModel}"
                     >
@@ -61,14 +56,18 @@
                     </ListView.View>
                 </ListView>
                 <Grid Grid.ColumnSpan="2" Visibility="{Binding IsStateDetailVisible}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="204*"/>
+                        <RowDefinition Height="181*"/>
+                    </Grid.RowDefinitions>
                     <view:StateDetailView
-                        Margin="510,18,10,36"
-                        DataContext="{Binding SelectedDetailViewModel}" Loaded="StateDetailView_Loaded"
+                        Margin="480,35,73,68"
+                        DataContext="{Binding SelectedDetailViewModel}" Grid.RowSpan="2"
                         />
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="575,252,0,0" VerticalAlignment="Top" Height="26" Width="90"
-                        Command="{Binding RemoveState}"/>
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="528,73,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                        Command="{Binding RemoveState}" Grid.Row="1"/>
                 </Grid>
-                <StackPanel Margin="16,193,342,0"
+                <StackPanel Margin="16,193,304,0"
                     VerticalAlignment="Top"
                     Background="SteelBlue" Height="189">
                     <Label Content="Product ID:" FontSize="10"/>
@@ -103,7 +102,7 @@
 
                 </StackPanel>
 
-                <Button Content="Create" Margin="212,254,212,97" Background="Pink"
+                <Button Content="Create" Margin="240,254,179,97" Background="pink"
                         Command="{Binding CreateState}"/>
             </Grid>
             <Grid Height="100"/>
