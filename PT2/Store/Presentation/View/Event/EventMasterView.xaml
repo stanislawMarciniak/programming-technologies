@@ -17,7 +17,7 @@
         </ObjectDataProvider>
     </UserControl.DataContext>
 
-    <Grid Background="White" Margin="0,0,0,10">
+    <Grid Background="SteelBlue" Margin="0,0,0,10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -33,27 +33,14 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1"
                     VerticalAlignment="Bottom">
-            <Image Height="200" Width="200"
-                   Source="/Images/logo.png"/>
-            <TextBlock Height="40" Margin="0,-30,0,0"
-                       Text="GameStacc"
-                       TextAlignment="Center" TextWrapping="Wrap"
-                       FontSize="32" FontWeight="ExtraBold"/>
-            <TextBlock Height="25"
-                       Text="Everything for gamers"
-                       TextAlignment="Center" TextWrapping="Wrap" 
-                       FontSize="16" FontWeight="DemiBold"/>
-            <Separator Height="10" Width="50" Margin="0,110,0,0"
-                       HorizontalAlignment="Center"/>
             <TextBlock Height="20"
-                       Text="TF and PK © 2023"
                        TextAlignment="Center" TextWrapping="Wrap"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" 
-                    Width="570" Margin="0,5,0,0"
+        <StackPanel Grid.Row="1" Grid.Column="1" 
+                    Width="760" Margin="10,5,0,0"
                     HorizontalAlignment="Left"
-                    Background="White" Height="410" VerticalAlignment="Top" Grid.RowSpan="2">
+                    Background="SteelBlue" Height="410" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid Height="385" Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202*"/>
@@ -75,15 +62,15 @@
                 </ListView>
                 <Grid Grid.ColumnSpan="2" Visibility="{Binding IsEventDetailVisible}">
                     <view:EventDetailView
-                        Margin="320,10,10,-35"
+                        Margin="480,10,40,-62"
                         DataContext="{Binding SelectedDetailViewModel}"
                         />
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="385,320,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="545,316,0,0" VerticalAlignment="Top" Height="26" Width="90"
                         Command="{Binding RemoveEvent}"/>
                 </Grid>
-                <StackPanel Margin="16,193,202,0"
+                <StackPanel Margin="16,193,341,0"
                     VerticalAlignment="Top"
-                    Background="White" Height="189">
+                    Background="SteelBlue" Height="189">
                     <Label Content="State ID:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding StateId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
@@ -131,12 +118,12 @@
 
                 </StackPanel>
 
-                <Button Content="Return" Margin="226,283,95,70" Background="CornflowerBlue"
+                <Button Content="Return" Margin="226,256,187,97" Background="Pink"
                         Command="{Binding ReturnEvent}"/>
-                <Button Content="Supply" Margin="226,320,95,32" Background="CornflowerBlue"
+                <Button Content="Supply" Margin="226,301,187,51" Background="Pink"
                         Command="{Binding SupplyEvent}"/>
-                <Button Content="Purchase" Margin="226,245,95,107" Background="CornflowerBlue"
-                        Command="{Binding PurchaseEvent}"/>
+                <Button Content="Purchase" Margin="226,209,187,143" Background="Pink"
+                        Command="{Binding PurchaseEvent}" />
             </Grid>
             <Grid Height="100"/>
         </StackPanel>
