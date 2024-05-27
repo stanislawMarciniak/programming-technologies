@@ -22,7 +22,7 @@ namespace ServiceTests
             Assert.AreEqual(1, retrievedProduct.Id);
             Assert.AreEqual("Product1", retrievedProduct.Name);
             Assert.AreEqual(100, retrievedProduct.Price);
-            Assert.AreEqual(0, retrievedProduct.Pegi);
+            Assert.AreEqual(0, retrievedProduct.AgeRestriction);
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace ServiceTests
             Assert.AreEqual(2, updatedProduct.Id);
             Assert.AreEqual("Product2Updated", updatedProduct.Name);
             Assert.AreEqual(70, updatedProduct.Price);
-            Assert.AreEqual(0, updatedProduct.Pegi);
+            Assert.AreEqual(0, updatedProduct.AgeRestriction);
         }
 
         [TestMethod]
@@ -50,10 +50,10 @@ namespace ServiceTests
             IProductDTO testProduct = await productCrud.GetProductAsync(3);
             Assert.IsNotNull(testProduct);
 
-            // Delete the product
+            // Delete the movie
             await productCrud.DeleteProductAsync(3);
 
-            // Product should not exist - cannot be retrieved
+            // Movie should not exist - cannot be retrieved
             await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () => await productCrud.GetProductAsync(3));
         }
     }

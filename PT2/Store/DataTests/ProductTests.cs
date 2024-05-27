@@ -27,14 +27,14 @@ namespace DataTests
         {
             int testProductId = 202;
             
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 300, 18);
-            IProduct testProduct = await _dataRepository.GetProductAsync(testProductId);
+            await _dataRepository.AddProductAsync(testProductId, "Movie example", 300, 18);
+            IMovie testProduct = await _dataRepository.GetProductAsync(testProductId);
 
             Assert.IsNotNull(testProduct);
             Assert.AreEqual(testProductId, testProduct.Id);
-            Assert.AreEqual("Product example", testProduct.Name);
+            Assert.AreEqual("Movie example", testProduct.MovieName);
             Assert.AreEqual(300, testProduct.Price);
-            Assert.AreEqual(18, testProduct.Pegi);
+            Assert.AreEqual(18, testProduct.AgeRestriction);
 
             Assert.IsNotNull(await _dataRepository.GetAllProductsAsync());
             Assert.IsTrue(await _dataRepository.GetProductsCountAsync() > 0);
@@ -47,18 +47,18 @@ namespace DataTests
         {
             int testProductId = 1;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 300, 18);
-            await _dataRepository.UpdateProductAsync(testProductId, "Product example - updated", 350, 16);
+            await _dataRepository.AddProductAsync(testProductId, "Movie example", 300, 18);
+            await _dataRepository.UpdateProductAsync(testProductId, "Movie example - updated", 350, 16);
             
-            IProduct updatedProduct = await _dataRepository.GetProductAsync(testProductId);
+            IMovie updatedProduct = await _dataRepository.GetProductAsync(testProductId);
 
             Assert.IsNotNull(updatedProduct);
             Assert.AreEqual(testProductId, updatedProduct.Id);
-            Assert.AreEqual("Product example - updated", updatedProduct.Name);
+            Assert.AreEqual("Movie example - updated", updatedProduct.MovieName);
             Assert.AreEqual(350, updatedProduct.Price);
-            Assert.AreEqual(16, updatedProduct.Pegi);
+            Assert.AreEqual(16, updatedProduct.AgeRestriction);
 
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateProductAsync(999, "Product example - updated", 350, 16));
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateProductAsync(999, "Movie example - updated", 350, 16));
             await _dataRepository.DeleteProductAsync(testProductId);
 
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.GetProductAsync(testProductId));

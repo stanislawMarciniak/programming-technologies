@@ -28,7 +28,7 @@ namespace DataTests
             int testProductId = 11;
             int testStateId = 11;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 250, 18);
+            await _dataRepository.AddProductAsync(testProductId, "Movie example", 250, 18);
             await _dataRepository.AddStateAsync(testStateId, testProductId, 50);
             IState testState = await _dataRepository.GetStateAsync(testStateId);
 

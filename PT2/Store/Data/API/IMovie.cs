@@ -1,12 +1,9 @@
-﻿namespace Service.API;
+﻿namespace Data.API;
 
-public interface IProductDTO
+public interface IMovie
 {
     int Id { get; set; }
-
-    string Name { get; set; }
-
+    string MovieName { get; set; }
     double Price { get; set; }
-
     int AgeRestriction { get; set; }
 }

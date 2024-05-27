@@ -23,14 +23,14 @@ namespace DataTests
 
         [TestMethod]
         public async Task AddAndRetrieveEventTest()
-        { 
-            int testUserId = 18;
-            int testProductId = 18;
-            int testStateId = 18;
-            int testEventId = 18;
+        {
+            int testUserId = 144;
+            int testProductId = 144;
+            int testStateId = 144;
+            int testEventId = 144;
 
             await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddProductAsync(testProductId, "Movie example", 200, 18);
             await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
             await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent");
             IEvent testEvent = await _dataRepository.GetEventAsync(testEventId);
@@ -57,7 +57,7 @@ namespace DataTests
             int testStateId = 155;
             int testEventId = 155;
 
-            await _dataRepository.AddProductAsync(testProductId, "Product example", 200, 18);
+            await _dataRepository.AddProductAsync(testProductId, "Movie example", 200, 18);
             await _dataRepository.AddStateAsync(testStateId, testProductId, 30);
             await _dataRepository.AddUserAsync(testUserId, "Bob", "bob@example.com", 1500, new DateTime(1985, 5, 15));
             await _dataRepository.AddEventAsync(testEventId, testStateId, testUserId, "PurchaseEvent");

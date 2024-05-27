@@ -33,9 +33,9 @@ namespace Data.Database
     partial void InsertEvent(Event instance);
     partial void UpdateEvent(Event instance);
     partial void DeleteEvent(Event instance);
-    partial void InsertProduct(Product instance);
-    partial void UpdateProduct(Product instance);
-    partial void DeleteProduct(Product instance);
+    partial void InsertProduct(Movie instance);
+    partial void UpdateProduct(Movie instance);
+    partial void DeleteProduct(Movie instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -76,11 +76,11 @@ namespace Data.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<Product> Products
+		public System.Data.Linq.Table<Movie> Products
 		{
 			get
 			{
-				return this.GetTable<Product>();
+				return this.GetTable<Movie>();
 			}
 		}
 		
@@ -366,7 +366,7 @@ namespace Data.Database
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Products")]
-	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Movie : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -396,7 +396,7 @@ namespace Data.Database
         #endregion
 
         [Obsolete]
-        public Product()
+        public Movie()
 		{
 			this._States = new EntitySet<State>(new Action<State>(this.attach_States), new Action<State>(this.detach_States));
 			OnCreated();
@@ -463,7 +463,7 @@ namespace Data.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pegi", DbType="Int NOT NULL")]
-		public int pegi
+		public int ageRestriction
 		{
 			get
 			{
@@ -476,7 +476,7 @@ namespace Data.Database
 					this.OnpegiChanging(value);
 					this.SendPropertyChanging();
 					this._pegi = value;
-					this.SendPropertyChanged("pegi");
+					this.SendPropertyChanged("ageRestriction");
 					this.OnpegiChanged();
 				}
 			}
@@ -518,13 +518,13 @@ namespace Data.Database
 		private void attach_States(State entity)
 		{
 			this.SendPropertyChanging();
-			entity.Product = this;
+			entity.Movie = this;
 		}
 		
 		private void detach_States(State entity)
 		{
 			this.SendPropertyChanging();
-			entity.Product = null;
+			entity.Movie = null;
 		}
 	}
 	
@@ -728,7 +728,7 @@ namespace Data.Database
 		
 		private EntitySet<Event> _Events;
 		
-		private EntityRef<Product> _Product;
+		private EntityRef<Movie> _Product;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -745,7 +745,7 @@ namespace Data.Database
 		public State()
 		{
 			this._Events = new EntitySet<Event>(new Action<Event>(this.attach_Events), new Action<Event>(this.detach_Events));
-			this._Product = default(EntityRef<Product>);
+			this._Product = default(EntityRef<Movie>);
 			OnCreated();
 		}
 		
@@ -827,7 +827,7 @@ namespace Data.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_State", Storage="_Product", ThisKey="productId", OtherKey="id", IsForeignKey=true)]
-		public Product Product
+		public Movie Movie
 		{
 			get
 			{
@@ -835,7 +835,7 @@ namespace Data.Database
 			}
 			set
 			{
-				Product previousValue = this._Product.Entity;
+				Movie previousValue = this._Product.Entity;
 				if (((previousValue != value) 
 							|| (this._Product.HasLoadedOrAssignedValue == false)))
 				{
@@ -855,7 +855,7 @@ namespace Data.Database
 					{
 						this._productId = default(int);
 					}
-					this.SendPropertyChanged("Product");
+					this.SendPropertyChanged("Movie");
 				}
 			}
 		}

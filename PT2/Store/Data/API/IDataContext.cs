@@ -26,17 +26,17 @@ public interface IDataContext
     #endregion User CRUD
 
 
-    #region Product CRUD
+    #region Movie CRUD
 
-    Task AddProductAsync(IProduct product);
+    Task AddProductAsync(IMovie movie);
 
-    Task<IProduct?> GetProductAsync(int id);
+    Task<IMovie?> GetProductAsync(int id);
 
-    Task UpdateProductAsync(IProduct product);
+    Task UpdateProductAsync(IMovie movie);
 
     Task DeleteProductAsync(int id);
 
-    Task<Dictionary<int, IProduct>> GetAllProductsAsync();
+    Task<Dictionary<int, IMovie>> GetAllProductsAsync();
 
     Task<int> GetProductsCountAsync();
 

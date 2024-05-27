@@ -25,7 +25,7 @@ namespace PresentationTests.ViewModelTests
 
             master.Name = "TestProduct";
             master.Price = 150;
-            master.Pegi = 16;
+            master.AgeRestriction = 16;
 
             Assert.IsNotNull(master.CreateProduct);
             Assert.IsNotNull(master.RemoveProduct);
@@ -52,7 +52,7 @@ namespace PresentationTests.ViewModelTests
             Assert.AreEqual(1, detail.Id);
             Assert.AreEqual("TestProduct", detail.Name);
             Assert.AreEqual(150, detail.Price);
-            Assert.AreEqual(16, detail.Pegi);
+            Assert.AreEqual(16, detail.AgeRestriction);
 
             Assert.IsTrue(detail.UpdateProduct.CanExecute(null));
         }

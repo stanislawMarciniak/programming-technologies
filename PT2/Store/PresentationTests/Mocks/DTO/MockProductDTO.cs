@@ -4,17 +4,17 @@ namespace PresentationTests.Mocks.DTO
 {
     internal class MockProductDTO : IProductDTO
     {
-        public MockProductDTO(int id, string name, double price, int pegi)
+        public MockProductDTO(int id, string name, double price, int ageRestriction)
         {
             Id = id;
             Name = name;
             Price = price;
-            Pegi = pegi;
+            AgeRestriction = ageRestriction;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public int Pegi { get; set; }
+        public int AgeRestriction { get; set; }
     }
 }

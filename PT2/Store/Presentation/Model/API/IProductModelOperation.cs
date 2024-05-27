@@ -12,11 +12,11 @@ public interface IProductModelOperation
         return new ProductModelOperation(productCrud ?? IProductCRUD.CreateProductCRUD());
     }
 
-    Task AddAsync(int id, string name, double price, int pegi);
+    Task AddAsync(int id, string name, double price, int ageRestriction);
 
     Task<IProductModel> GetAsync(int id);
 
-    Task UpdateAsync(int id, string name, double price, int pegi);
+    Task UpdateAsync(int id, string name, double price, int ageRestriction);
 
     Task DeleteAsync(int id);
 

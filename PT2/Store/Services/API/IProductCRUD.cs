@@ -10,11 +10,11 @@ public interface IProductCRUD
         return new ProductCRUD(dataRepository ?? IDataRepository.CreateDatabase());
     }
 
-    Task AddProductAsync(int id, string name, double price, int pegi);
+    Task AddProductAsync(int id, string name, double price, int ageRestriction);
 
     Task<IProductDTO> GetProductAsync(int id);
 
-    Task UpdateProductAsync(int id, string name, double price, int pegi);
+    Task UpdateProductAsync(int id, string name, double price, int ageRestriction);
 
     Task DeleteProductAsync(int id);
 
