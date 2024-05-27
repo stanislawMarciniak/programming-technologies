@@ -18,10 +18,10 @@ namespace ServiceTests
         {
             IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
             await productCrud.AddProductAsync(1, "Product1", 50, 6);
-            IProductDTO product = await productCrud.GetProductAsync(1);
+            IProductDTO movie = await productCrud.GetProductAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(1, product.Id, 10);
+            await stateCrud.AddStateAsync(1, movie.Id, 10);
             IStateDTO testedState = await stateCrud.GetStateAsync(1);
 
             Assert.IsNotNull(testedState);
@@ -35,12 +35,12 @@ namespace ServiceTests
         {
             IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
             await productCrud.AddProductAsync(2, "Product2", 50, 0);
-            IProductDTO product = await productCrud.GetProductAsync(2);
+            IProductDTO movie = await productCrud.GetProductAsync(2);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(2, product.Id, 10);
+            await stateCrud.AddStateAsync(2, movie.Id, 10);
 
-            await stateCrud.UpdateStateAsync(2, product.Id, 100);
+            await stateCrud.UpdateStateAsync(2, movie.Id, 100);
             IStateDTO updatedState = await stateCrud.GetStateAsync(2);
 
             Assert.IsNotNull(updatedState);
@@ -54,10 +54,10 @@ namespace ServiceTests
         {
             IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
             await productCrud.AddProductAsync(1, "Product1", 50, 0);
-            IProductDTO product = await productCrud.GetProductAsync(1);
+            IProductDTO movie = await productCrud.GetProductAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(1, product.Id, 10);
+            await stateCrud.AddStateAsync(1, movie.Id, 10);
 
             // Delete the state
             await stateCrud.DeleteStateAsync(1);

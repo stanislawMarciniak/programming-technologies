@@ -56,7 +56,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="140" DisplayMemberBinding="{Binding Id}" />
-                            <GridViewColumn Header="Product ID" Width="140" DisplayMemberBinding="{Binding ProductId}" />
+                            <GridViewColumn Header="Movie ID" Width="140" DisplayMemberBinding="{Binding ProductId}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -71,7 +71,7 @@
                 <StackPanel Margin="16,193,342,0"
                     VerticalAlignment="Top"
                     Background="SteelBlue" Height="189">
-                    <Label Content="Product ID:" FontSize="10"/>
+                    <Label Content="Movie ID:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding ProductId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
@@ -86,7 +86,7 @@
                         </Validation.ErrorTemplate>
                     </TextBox>
 
-                    <Label Content="Product Quantity:" FontSize="10"/>
+                    <Label Content="Movie Quantity:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding ProductQuantity , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"

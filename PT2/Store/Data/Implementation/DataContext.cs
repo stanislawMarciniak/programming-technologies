@@ -111,18 +111,18 @@ internal class DataContext : IDataContext
     #endregion
 
 
-    #region Product CRUD
+    #region Movie CRUD
 
-    public async Task AddProductAsync(IProduct product)
+    public async Task AddProductAsync(IMovie movie)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Product entity = new Database.Product()
+            Database.Movie entity = new Database.Movie()
             {
-                id = product.Id,
-                name = product.Name,
-                price = product.Price,
-                pegi = product.Pegi,
+                id = movie.Id,
+                name = movie.MovieName,
+                price = movie.Price,
+                ageRestriction = movie.AgeRestriction,
             };
 
             context.Products.InsertOnSubmit(entity);
@@ -131,13 +131,13 @@ internal class DataContext : IDataContext
         }
     }
 
-    public async Task<IProduct?> GetProductAsync(int id)
+    public async Task<IMovie?> GetProductAsync(int id)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Product? product = await Task.Run(() =>
+            Database.Movie? movie = await Task.Run(() =>
             {
-                IQueryable<Database.Product> query =
+                IQueryable<Database.Movie> query =
                     from p in context.Products
                     where p.id == id
                     select p;
@@ -145,19 +145,19 @@ internal class DataContext : IDataContext
                 return query.FirstOrDefault();
             });
 
-            return product is not null ? new Game(product.id, product.name, (double)product.price, product.pegi) : null;
+            return movie is not null ? new Movie(movie.id, movie.name, (double)movie.price, movie.ageRestriction) : null;
         }
     }
 
-    public async Task UpdateProductAsync(IProduct product)
+    public async Task UpdateProductAsync(IMovie movie)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Product toUpdate = (from p in context.Products where p.id == product.Id select p).FirstOrDefault()!;
+            Database.Movie toUpdate = (from p in context.Products where p.id == movie.Id select p).FirstOrDefault()!;
 
-            toUpdate.name = product.Name;
-            toUpdate.price = product.Price;
-            toUpdate.pegi = product.Pegi;
+            toUpdate.name = movie.MovieName;
+            toUpdate.price = movie.Price;
+            toUpdate.ageRestriction = movie.AgeRestriction;
 
             await Task.Run(() => context.SubmitChanges());
         }
@@ -167,7 +167,7 @@ internal class DataContext : IDataContext
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Product toDelete = (from p in context.Products where p.id == id select p).FirstOrDefault()!;
+            Database.Movie toDelete = (from p in context.Products where p.id == id select p).FirstOrDefault()!;
 
             context.Products.DeleteOnSubmit(toDelete);
 
@@ -175,13 +175,13 @@ internal class DataContext : IDataContext
         }
     }
 
-    public async Task<Dictionary<int, IProduct>> GetAllProductsAsync()
+    public async Task<Dictionary<int, IMovie>> GetAllProductsAsync()
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            IQueryable<IProduct> productQuery = from p in context.Products
+            IQueryable<IMovie> productQuery = from p in context.Products
                 select
-                    new Game(p.id, p.name, (double)p.price, p.pegi) as IProduct;
+                    new Movie(p.id, p.name, (double)p.price, p.ageRestriction) as IMovie;
 
             return await Task.Run(() => productQuery.ToDictionary(k => k.Id));
         }

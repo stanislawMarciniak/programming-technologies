@@ -103,7 +103,7 @@
 
                     <Label Content="PEGI:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding Pegi , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding AgeRestriction , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          BorderBrush="Gray">
                         <Validation.ErrorTemplate>

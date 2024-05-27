@@ -26,17 +26,17 @@ public interface IDataRepository
     #endregion User CRUD
 
 
-    #region Product CRUD
+    #region Movie CRUD
 
-    Task AddProductAsync(int id, string name, double price, int pegi);
+    Task AddProductAsync(int id, string name, double price, int ageRestriction);
 
-    Task<IProduct> GetProductAsync(int id);
+    Task<IMovie> GetProductAsync(int id);
 
-    Task UpdateProductAsync(int id, string name, double price, int pegi);
+    Task UpdateProductAsync(int id, string name, double price, int ageRestriction);
 
     Task DeleteProductAsync(int id);
 
-    Task<Dictionary<int, IProduct>> GetAllProductsAsync();
+    Task<Dictionary<int, IMovie>> GetAllProductsAsync();
 
     Task<int> GetProductsCountAsync();
 

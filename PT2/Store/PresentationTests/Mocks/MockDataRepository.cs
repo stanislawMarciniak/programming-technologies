@@ -49,11 +49,11 @@ namespace PresentationTests.Mocks
         }
 
 
-        // Product CRUD
+        // Movie CRUD
 
-        public async Task AddProductAsync(int id, string name, double price, int pegi)
+        public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
         {
-            Products.Add(id, new MockProductDTO(id, name, price, pegi));
+            Products.Add(id, new MockProductDTO(id, name, price, ageRestriction));
             await Task.CompletedTask;
         }
 
@@ -62,11 +62,11 @@ namespace PresentationTests.Mocks
             return await Task.FromResult(Products[id]);
         }
 
-        public async Task UpdateProductAsync(int id, string name, double price, int pegi)
+        public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
         {
             Products[id].Name = name;
             Products[id].Price = price;
-            Products[id].Pegi = pegi;
+            Products[id].AgeRestriction = ageRestriction;
             await Task.CompletedTask;
         }
 
@@ -129,22 +129,22 @@ namespace PresentationTests.Mocks
         {
             IUserDTO user = await GetUserAsync(userId);
             IStateDTO state = await GetStateAsync(stateId);
-            IProductDTO product = await GetProductAsync(state.productId);
+            IProductDTO movie = await GetProductAsync(state.productId);
 
             switch (type)
             {
                 case "PurchaseEvent":
-                    if (DateTime.Now.Year - user.DateOfBirth.Year < product.Pegi)
-                        throw new Exception("You are not allowed to buy this product");
+                    if (DateTime.Now.Year - user.DateOfBirth.Year < movie.AgeRestriction)
+                        throw new Exception("You are not allowed to buy this movie");
 
                     if (state.productQuantity == 0)
-                        throw new Exception("Product unavailable.");
+                        throw new Exception("Movie unavailable.");
 
-                    if (user.Balance < product.Price)
+                    if (user.Balance < movie.Price)
                         throw new Exception("Not enough balance!");
 
-                    await UpdateStateAsync(stateId, product.Id, state.productQuantity - 1);
-                    await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - product.Price, user.DateOfBirth);
+                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity - 1);
+                    await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - movie.Price, user.DateOfBirth);
                     break;
 
                 case "ReturnEvent":
@@ -155,7 +155,7 @@ namespace PresentationTests.Mocks
 
                     foreach (var even in events.Values)
                     {
-                        if (even.userId == user.Id && states[even.stateId].productId == product.Id)
+                        if (even.userId == user.Id && states[even.stateId].productId == movie.Id)
                         {
                             if (((MockEventDTO)even).Type == "PurchaseEvent")
                                 copiesBought++;
@@ -165,17 +165,17 @@ namespace PresentationTests.Mocks
                     }
 
                     if (copiesBought <= 0)
-                        throw new Exception("You do not own this product!");
+                        throw new Exception("You do not own this movie!");
 
-                    await UpdateStateAsync(stateId, product.Id, state.productQuantity + 1);
-                    await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + product.Price, user.DateOfBirth);
+                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity + 1);
+                    await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + movie.Price, user.DateOfBirth);
                     break;
 
                 case "SupplyEvent":
                     if (quantity <= 0)
                         throw new Exception("Can not supply with this amount!");
 
-                    await UpdateStateAsync(stateId, product.Id, state.productQuantity + quantity);
+                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity + quantity);
                     break;
             }
 

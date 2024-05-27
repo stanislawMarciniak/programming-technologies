@@ -2,18 +2,18 @@
 
 namespace ServiceTests.Mocks.DTO;
 
-internal class MockProductDTO : IProduct
+internal class MockProductDTO : IMovie
 {
-    public MockProductDTO(int id, string name, double price, int pegi)
+    public MockProductDTO(int id, string movieName, double price, int ageRestriction)
     {
         Id = id;
-        Name = name;
+        MovieName = movieName;
         Price = price;
-        Pegi = pegi;
+        AgeRestriction = ageRestriction;
     }
 
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string MovieName { get; set; }
     public double Price { get; set; }
-    public int Pegi { get; set; }
+    public int AgeRestriction { get; set; }
 }

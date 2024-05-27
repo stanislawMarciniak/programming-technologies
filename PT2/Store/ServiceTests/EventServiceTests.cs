@@ -37,7 +37,7 @@ namespace ServiceTests
             testedState = await stateCrud.GetStateAsync(1);
 
             Assert.AreEqual(900, testedUser.Balance);           // purchase reduces user's balance
-            Assert.AreEqual(9, testedState.productQuantity);    // purchase reduces product's quantity
+            Assert.AreEqual(9, testedState.productQuantity);    // purchase reduces movie's quantity
         }
 
         [TestMethod]
@@ -60,14 +60,14 @@ namespace ServiceTests
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
             await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "PurchaseEvent");
 
-            // Return the product
+            // Return the movie
             await eventCrud.AddEventAsync(2, testedState.Id, testedState.Id, "ReturnEvent");
 
             testedUser = await userCrud.GetUserAsync(1);
             testedState = await stateCrud.GetStateAsync(1);
 
             Assert.AreEqual(1000, testedUser.Balance);          // return restores user's balance
-            Assert.AreEqual(10, testedState.productQuantity);    // return restores product's quantity
+            Assert.AreEqual(10, testedState.productQuantity);    // return restores movie's quantity
 
             await eventCrud.DeleteEventAsync(1);
             await eventCrud.DeleteEventAsync(2);

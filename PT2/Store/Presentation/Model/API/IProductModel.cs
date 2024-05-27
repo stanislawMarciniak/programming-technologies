@@ -8,5 +8,5 @@ public interface IProductModel
 
     double Price { get; set; }
 
-    int Pegi { get; set; }
+    int AgeRestriction { get; set; }
 }

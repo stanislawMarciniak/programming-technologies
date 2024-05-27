@@ -11,9 +11,9 @@ namespace PresentationTests.Mocks.CRUD
 
         }
 
-        public async Task AddProductAsync(int id, string name, double price, int pegi)
+        public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
         {
-            await _repository.AddProductAsync(id, name, price, pegi);
+            await _repository.AddProductAsync(id, name, price, ageRestriction);
         }
 
         public async Task<IProductDTO> GetProductAsync(int id)
@@ -21,9 +21,9 @@ namespace PresentationTests.Mocks.CRUD
             return await _repository.GetProductAsync(id);
         }
 
-        public async Task UpdateProductAsync(int id, string name, double price, int pegi)
+        public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
         {
-            await _repository.UpdateProductAsync(id, name, price, pegi);
+            await _repository.UpdateProductAsync(id, name, price, ageRestriction);
         }
 
         public async Task DeleteProductAsync(int id)
@@ -35,9 +35,9 @@ namespace PresentationTests.Mocks.CRUD
         {
             Dictionary<int, IProductDTO> result = new Dictionary<int, IProductDTO>();
 
-            foreach (IProductDTO product in (await _repository.GetAllProductsAsync()).Values)
+            foreach (IProductDTO movie in (await _repository.GetAllProductsAsync()).Values)
             {
-                result.Add(product.Id, product);
+                result.Add(movie.Id, movie);
             }
 
             return result;

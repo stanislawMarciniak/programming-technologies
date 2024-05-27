@@ -62,13 +62,13 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
 
     private int _pegi;
 
-    public int Pegi
+    public int AgeRestriction
     {
         get => _pegi;
         set
         {
             _pegi = value;
-            OnPropertyChanged(nameof(Pegi));
+            OnPropertyChanged(nameof(AgeRestriction));
         }
     }
 
@@ -136,9 +136,9 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         return !(
             string.IsNullOrWhiteSpace(this.Name) ||
             string.IsNullOrWhiteSpace(this.Price.ToString()) ||
-            string.IsNullOrEmpty(this.Pegi.ToString()) ||
+            string.IsNullOrEmpty(this.AgeRestriction.ToString()) ||
             this.Price <= 0 ||
-            this.Pegi <= 0
+            this.AgeRestriction <= 0
         );
     }
 
@@ -148,11 +148,11 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         {
             int lastId = await this._modelOperation.GetCountAsync() + 1;
 
-            await this._modelOperation.AddAsync(lastId, this.Name, this.Price, this.Pegi);
+            await this._modelOperation.AddAsync(lastId, this.Name, this.Price, this.AgeRestriction);
 
             this.LoadProducts();
 
-            this._informer.InformSuccess("Product added successfully!");
+            this._informer.InformSuccess("Movie added successfully!");
 
         });
     }
@@ -167,11 +167,11 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
 
                 this.LoadProducts();
 
-                this._informer.InformSuccess("Product deleted successfully!");
+                this._informer.InformSuccess("Movie deleted successfully!");
             }
             catch (Exception e)
             {
-                this._informer.InformError("Error while deleting product! Remember to remove all associated states!");
+                this._informer.InformError("Error while deleting movie! Remember to remove all associated states!");
             }
         });
     }
@@ -186,7 +186,7 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
             
             foreach (IProductModel p in Products.Values)
             {
-                this._products.Add(new ProductDetailViewModel(p.Id, p.Name, p.Price, p.Pegi));
+                this._products.Add(new ProductDetailViewModel(p.Id, p.Name, p.Price, p.AgeRestriction));
             }
         });
 

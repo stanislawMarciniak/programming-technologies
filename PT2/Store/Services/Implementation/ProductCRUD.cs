@@ -12,14 +12,14 @@ internal class ProductCRUD : IProductCRUD
         this._repository = repository;
     }
 
-    private IProductDTO Map(IProduct product)
+    private IProductDTO Map(IMovie movie)
     {
-        return new ProductDTO(product.Id, product.Name, product.Price, product.Pegi);
+        return new ProductDTO(movie.Id, movie.MovieName, movie.Price, movie.AgeRestriction);
     }
 
-    public async Task AddProductAsync(int id, string name, double price, int pegi)
+    public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
     {
-        await this._repository.AddProductAsync(id, name, price, pegi);
+        await this._repository.AddProductAsync(id, name, price, ageRestriction);
     }
 
     public async Task<IProductDTO> GetProductAsync(int id)
@@ -27,9 +27,9 @@ internal class ProductCRUD : IProductCRUD
         return this.Map(await this._repository.GetProductAsync(id));
     }
 
-    public async Task UpdateProductAsync(int id, string name, double price, int pegi)
+    public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
     {
-        await this._repository.UpdateProductAsync(id, name, price, pegi);
+        await this._repository.UpdateProductAsync(id, name, price, ageRestriction);
     }
 
     public async Task DeleteProductAsync(int id)
@@ -41,9 +41,9 @@ internal class ProductCRUD : IProductCRUD
     {
         Dictionary<int, IProductDTO> result = new Dictionary<int, IProductDTO>();
 
-        foreach (IProduct product in (await this._repository.GetAllProductsAsync()).Values)
+        foreach (IMovie movie in (await this._repository.GetAllProductsAsync()).Values)
         {
-            result.Add(product.Id, this.Map(product));
+            result.Add(movie.Id, this.Map(movie));
         }
 
         return result;

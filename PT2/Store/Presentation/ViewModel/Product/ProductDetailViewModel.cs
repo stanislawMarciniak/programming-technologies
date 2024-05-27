@@ -50,13 +50,13 @@ internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
 
     private int _pegi;
 
-    public int Pegi
+    public int AgeRestriction
     {
         get => _pegi;
         set
         {
             _pegi = value;
-            OnPropertyChanged(nameof(Pegi));
+            OnPropertyChanged(nameof(AgeRestriction));
         }
     }
 
@@ -68,12 +68,12 @@ internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
         this._informer = informer ?? new PopupErrorInformer();
     }
 
-    public ProductDetailViewModel(int id, string name, double price, int pegi, IProductModelOperation? model = null, IErrorInformer? informer = null)
+    public ProductDetailViewModel(int id, string name, double price, int ageRestriction, IProductModelOperation? model = null, IErrorInformer? informer = null)
     {
         this.Id = id;
         this.Name = name;
         this.Price = price;
-        this.Pegi = pegi;
+        this.AgeRestriction = ageRestriction;
 
         this.UpdateProduct = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
@@ -85,9 +85,9 @@ internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
     {
         Task.Run(() =>
         {
-            this._modelOperation.UpdateAsync(this.Id, this.Name, this.Price, this.Pegi);
+            this._modelOperation.UpdateAsync(this.Id, this.Name, this.Price, this.AgeRestriction);
 
-            this._informer.InformSuccess("Product successfully updated!");
+            this._informer.InformSuccess("Movie successfully updated!");
         });
     }
 
@@ -96,9 +96,9 @@ internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
         return !(
             string.IsNullOrWhiteSpace(this.Name) ||
             string.IsNullOrWhiteSpace(this.Price.ToString()) ||
-            string.IsNullOrWhiteSpace(this.Pegi.ToString()) ||
+            string.IsNullOrWhiteSpace(this.AgeRestriction.ToString()) ||
             this.Price == 0 ||
-            this.Pegi == 0
+            this.AgeRestriction == 0
         );
     }
 }
