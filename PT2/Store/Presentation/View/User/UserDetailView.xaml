@@ -16,14 +16,14 @@
         </ObjectDataProvider>
     </UserControl.DataContext>
 
-    <Grid Background="White" Margin="0,0,0,21">
+    <Grid Background="SteelBlue" Margin="0,0,0,-21">
 
         <GroupBox Width="220"
                   HorizontalAlignment="Center"
-                  Header="Information about the user" Margin="0,16,0,-14">
+                  Header="User data:" Margin="0,16,0,0">
             <StackPanel Margin="0,5,0,0"
                         VerticalAlignment="Top"
-                        Background="White">
+                        Background="SteelBlue">
                 <Label Content="ID:"/>
                 <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding Id , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
@@ -39,7 +39,7 @@
                     </Validation.ErrorTemplate>
                 </TextBox>
 
-                <Label Content="Nickname:"/>
+                <Label Content="Name:"/>
                 <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding Nickname , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
@@ -83,9 +83,9 @@
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
-                <Label Content="DateOfBirth:"/>
+                <Label Content="Date of birth:"/>
                 <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding DateOfBirth , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:MM/dd/yyyy}}"
+                         Text="01/01/2000"
                          TextWrapping="Wrap"
                          BorderBrush="Gray">
                     <Validation.ErrorTemplate>

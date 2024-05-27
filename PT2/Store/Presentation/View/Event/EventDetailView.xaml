@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Presentation.View"
              xmlns:viewmodel="clr-namespace:Presentation.ViewModel"
              mc:Ignorable="d" 
-             Width="220" Height="410">
+             Width="220" Height="437">
     <UserControl.DataContext>
         <ObjectDataProvider ObjectType="viewmodel:EventDetailViewModel">
             <ObjectDataProvider.ConstructorParameters>
@@ -15,14 +15,14 @@
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </UserControl.DataContext>
-    <Grid Background="White" Margin="0,0,0,86">
+    <Grid Background="SteelBlue" Margin="0,0,0,86">
 
         <GroupBox Width="220"
                   HorizontalAlignment="Center"
-                  Header="Information about the event" Margin="0,16,0,-75">
+                  Header="Data of event:" Margin="0,16,0,10">
             <StackPanel Margin="0,5,0,0"
                         VerticalAlignment="Top"
-                        Background="White">
+                        Background="SteelBlue">
                 <Label Content="State ID:"/>
                 <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding StateId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
@@ -85,7 +85,7 @@
 
                 <Label Content="Occurrence Date:"/>
                 <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding OccurrenceDate , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:MM/dd/yyyy}}"
+                         Text="01/01/2000"
                          TextWrapping="Wrap"
                          BorderBrush="Gray">
                     <Validation.ErrorTemplate>

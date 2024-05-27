@@ -17,7 +17,7 @@
         </ObjectDataProvider>
     </UserControl.DataContext>
 
-    <Grid Background="White" Margin="0,0,0,10">
+    <Grid Background="SteelBlue" Margin="0,0,0,10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
@@ -33,27 +33,14 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1"
                     VerticalAlignment="Bottom">
-            <Image Height="200" Width="200"
-                   Source="/Images/logo.png"/>
-            <TextBlock Height="40" Margin="0,-30,0,0"
-                       Text="GameStacc"
-                       TextAlignment="Center" TextWrapping="Wrap"
-                       FontSize="32" FontWeight="ExtraBold"/>
-            <TextBlock Height="25"
-                       Text="Everything for gamers"
-                       TextAlignment="Center" TextWrapping="Wrap" 
-                       FontSize="16" FontWeight="DemiBold"/>
-            <Separator Height="10" Width="50" Margin="0,110,0,0"
-                       HorizontalAlignment="Center"/>
             <TextBlock Height="20"
-                       Text="TF and PK © 2023"
                        TextAlignment="Center" TextWrapping="Wrap"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" 
-                    Width="570" Margin="0,5,0,0"
+        <StackPanel Grid.Row="1" Grid.Column="1" 
+                    Width="760" Margin="10,5,0,0"
                     HorizontalAlignment="Left"
-                    Background="White" Height="410" VerticalAlignment="Top" Grid.RowSpan="2">
+                    Background="SteelBlue" Height="410" VerticalAlignment="Top" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid Height="385" Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202*"/>
@@ -62,7 +49,7 @@
                 <Label Margin="0,0,294,342"
                        HorizontalAlignment="Right"
                        Content="States" FontSize="15" Width="94"/>
-                <ListView Margin="0,40,95,192" 
+                <ListView Margin="10,40,85,192" 
                     ItemsSource="{Binding States, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedDetailViewModel}"
                     >
@@ -75,15 +62,15 @@
                 </ListView>
                 <Grid Grid.ColumnSpan="2" Visibility="{Binding IsStateDetailVisible}">
                     <view:StateDetailView
-                        Margin="320,24,10,79"
-                        DataContext="{Binding SelectedDetailViewModel}"
+                        Margin="510,18,10,36"
+                        DataContext="{Binding SelectedDetailViewModel}" Loaded="StateDetailView_Loaded"
                         />
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="385,256,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="575,252,0,0" VerticalAlignment="Top" Height="26" Width="90"
                         Command="{Binding RemoveState}"/>
                 </Grid>
-                <StackPanel Margin="16,193,202,0"
+                <StackPanel Margin="16,193,342,0"
                     VerticalAlignment="Top"
-                    Background="White" Height="189">
+                    Background="SteelBlue" Height="189">
                     <Label Content="Product ID:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding ProductId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
@@ -116,7 +103,7 @@
 
                 </StackPanel>
 
-                <Button Content="Create" Margin="207,308,114,44" Background="CornflowerBlue"
+                <Button Content="Create" Margin="212,254,212,97" Background="Pink"
                         Command="{Binding CreateState}"/>
             </Grid>
             <Grid Height="100"/>
