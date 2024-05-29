@@ -7,13 +7,13 @@
              xmlns:viewmodels="clr-namespace:Presentation.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="480" d:DesignWidth="800">
-    
+
     <UserControl.DataContext>
         <viewmodels:HomeViewModel/>
     </UserControl.DataContext>
 
-    <Grid Background="MintCream">
-        
+    <Grid Background="LightBlue">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="200"/>
@@ -27,51 +27,36 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" 
-                    Orientation="Horizontal">
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" Grid.ColumnSpan="3" Margin="154,0,91,0">
             <Image
                 Source="/Images/logo.png" 
-                Height="200" Width="200"
-                HorizontalAlignment="Left"/>
+                Height="268" Width="248"/>
             <TextBlock 
-                Width="200" Margin="-40,100,0,0"  
-                Text="GameStacc" 
+                Width="200" 
                 TextAlignment="Center" TextWrapping="Wrap" 
-                FontSize="32" FontWeight="ExtraBold"/>
+                FontSize="32" FontWeight="ExtraBold" Height="45"><Run Language="pl-pl" Text="FilmLend"/></TextBlock>
             <TextBlock 
                 Width="200" Margin="-200,140,0,0" 
-                Text="Everything for gamers" 
+                Text="Watch anytime, anywhere." 
                 TextAlignment="Center" TextWrapping="Wrap"
-                FontSize="16" FontWeight="DemiBold"/>
+                FontSize="16" FontWeight="DemiBold" Height="66"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" 
-                    HorizontalAlignment="Center">
-            <Button 
-                Height="40" Width="140" Margin="0,15,0,0" 
-                Name="startButton" Content="Start"
-                Command="{Binding StartAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                Background="LightCyan" BorderBrush="DarkCyan"/>
-            <Button 
-                Height="40" Width="140" Margin="0,15,0,0"
-                Name="exitButton" Content="Exit"
-                Command="{Binding ExitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
-                Background="MistyRose" BorderBrush="PaleVioletRed"/>
-        </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" 
-                    HorizontalAlignment="Center">
-            <Separator 
-                Height="5" Width="50" Margin="0,0,0,0"/>
-        </StackPanel>
+        <Button 
+                Height="40" Width="140"
+                x:Name="exitButton" Content="Exit"
+                Command="{Binding ExitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                Background="PaleVioletRed" BorderBrush="PaleVioletRed" Grid.Column="1" Margin="24,65,236,25" Grid.Row="2"/>
+        <Button 
+                Height="40" Width="140" 
+                x:Name="startButton" Content="Start"
+                Command="{Binding StartAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
+                Background="DarkCyan" BorderBrush="DarkCyan" Grid.Column="1" Margin="218,65,42,25" Grid.Row="2"/>
 
         <StackPanel Grid.Row="4" Grid.Column="1"
-                    HorizontalAlignment="Center">
-            <TextBlock 
-                Height="20" Margin="0,0,0,0"  
-                Text="TF and PK © 2023" 
-                TextWrapping="Wrap"/>
-        </StackPanel>
+                    HorizontalAlignment="Center"/>
 
     </Grid>
 </UserControl>

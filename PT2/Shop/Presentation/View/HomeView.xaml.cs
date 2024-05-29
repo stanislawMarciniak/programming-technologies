@@ -27,6 +27,5 @@ namespace Presentation.View
             this.DataContext = new HomeViewModel();
         }
 
-        
     }
 }
