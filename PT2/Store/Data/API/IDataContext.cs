@@ -28,17 +28,17 @@ public interface IDataContext
 
     #region Movie CRUD
 
-    Task AddProductAsync(IMovie movie);
+    Task AddMovieAsync(IMovie movie);
 
-    Task<IMovie?> GetProductAsync(int id);
+    Task<IMovie?> GetMovieAsync(int id);
 
-    Task UpdateProductAsync(IMovie movie);
+    Task UpdateMovieAsync(IMovie movie);
 
-    Task DeleteProductAsync(int id);
+    Task DeleteMovieAsync(int id);
 
-    Task<Dictionary<int, IMovie>> GetAllProductsAsync();
+    Task<Dictionary<int, IMovie>> GetAllMoviesAsync();
 
-    Task<int> GetProductsCountAsync();
+    Task<int> GetMoviesCountAsync();
 
     #endregion
 
@@ -81,7 +81,7 @@ public interface IDataContext
 
     Task<bool> CheckIfUserExists(int id);
 
-    Task<bool> CheckIfProductExists(int id);
+    Task<bool> CheckIfMovieExists(int id);
 
     Task<bool> CheckIfStateExists(int id);
 

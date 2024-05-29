@@ -25,9 +25,9 @@ namespace PresentationTests
             IUserModelOperation userOperation = IUserModelOperation.CreateModelOperation(mockUserCrud);
             IUserMasterViewModel userViewModel = IUserMasterViewModel.CreateViewModel(userOperation, _informer);
 
-            IProductCRUD mockProductCrud = new MockProductCRUD();
-            IProductModelOperation productOperation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductMasterViewModel productViewModel = IProductMasterViewModel.CreateViewModel(productOperation, _informer);
+            IMovieCRUD mockMovieCrud = new MockMovieCRUD();
+            IMovieModelOperation movieOperation = IMovieModelOperation.CreateModelOperation(mockMovieCrud);
+            IMovieMasterViewModel movieViewModel = IMovieMasterViewModel.CreateViewModel(movieOperation, _informer);
 
             IStateCRUD mockStateCrud = new MockStateCRUD();
             IStateModelOperation stateOperation = IStateModelOperation.CreateModelOperation(mockStateCrud);
@@ -38,12 +38,12 @@ namespace PresentationTests
             IEventMasterViewModel eventViewModel = IEventMasterViewModel.CreateViewModel(eventOperation, _informer);
 
             fixedGenerator.GenerateUserModels(userViewModel);
-            fixedGenerator.GenerateProductModels(productViewModel);
+            fixedGenerator.GenerateMovieModels(movieViewModel);
             fixedGenerator.GenerateStateModels(stateViewModel);
             fixedGenerator.GenerateEventModels(eventViewModel);
 
             Assert.AreEqual(5, userViewModel.Users.Count);
-            Assert.AreEqual(5, productViewModel.Products.Count);
+            Assert.AreEqual(5, movieViewModel.Movies.Count);
             Assert.AreEqual(6, stateViewModel.States.Count);
             Assert.AreEqual(6, eventViewModel.Events.Count);
         }
@@ -58,9 +58,9 @@ namespace PresentationTests
             IUserModelOperation userOperation = IUserModelOperation.CreateModelOperation(mockUserCrud);
             IUserMasterViewModel userViewModel = IUserMasterViewModel.CreateViewModel(userOperation, _informer);
 
-            IProductCRUD mockProductCrud = new MockProductCRUD();
-            IProductModelOperation productOperation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductMasterViewModel productViewModel = IProductMasterViewModel.CreateViewModel(productOperation, _informer);
+            IMovieCRUD mockMovieCrud = new MockMovieCRUD();
+            IMovieModelOperation movieOperation = IMovieModelOperation.CreateModelOperation(mockMovieCrud);
+            IMovieMasterViewModel movieViewModel = IMovieMasterViewModel.CreateViewModel(movieOperation, _informer);
 
             IStateCRUD mockStateCrud = new MockStateCRUD();
             IStateModelOperation stateOperation = IStateModelOperation.CreateModelOperation(mockStateCrud);
@@ -71,12 +71,12 @@ namespace PresentationTests
             IEventMasterViewModel eventViewModel = IEventMasterViewModel.CreateViewModel(eventOperation, _informer);
 
             randomGenerator.GenerateUserModels(userViewModel);
-            randomGenerator.GenerateProductModels(productViewModel);
+            randomGenerator.GenerateMovieModels(movieViewModel);
             randomGenerator.GenerateStateModels(stateViewModel);
             randomGenerator.GenerateEventModels(eventViewModel);
 
             Assert.AreEqual(10, userViewModel.Users.Count);
-            Assert.AreEqual(10, productViewModel.Products.Count);
+            Assert.AreEqual(10, movieViewModel.Movies.Count);
             Assert.AreEqual(10, stateViewModel.States.Count);
             Assert.AreEqual(10, eventViewModel.Events.Count);
         }

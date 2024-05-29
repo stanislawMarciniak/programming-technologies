@@ -22,15 +22,15 @@ namespace PresentationTests.Generators
             viewModel.Users.Add(IUserDetailViewModel.CreateViewModel(5, "Eve", "eve@example.com", 600, new DateTime(1988, 7, 25), operation, _informer));
         }
 
-        public void GenerateProductModels(IProductMasterViewModel viewModel)
+        public void GenerateMovieModels(IMovieMasterViewModel viewModel)
         {
-            IProductModelOperation operation = IProductModelOperation.CreateModelOperation(new MockProductCRUD());
+            IMovieModelOperation operation = IMovieModelOperation.CreateModelOperation(new MockMovieCRUD());
 
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(1, "Product1", 999.99, 16, operation, _informer));
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(2, "Product2", 799.99, 12, operation, _informer));
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(3, "Product3", 499.99, 8, operation, _informer));
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(4, "Product4", 199.99, 3, operation, _informer));
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(5, "Product5", 299.99, 5, operation, _informer));
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(1, "Movie1", 999.99, 16, operation, _informer));
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(2, "Movie2", 799.99, 12, operation, _informer));
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(3, "Movie3", 499.99, 8, operation, _informer));
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(4, "Movie4", 199.99, 3, operation, _informer));
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(5, "Movie5", 299.99, 5, operation, _informer));
         }
 
         public void GenerateStateModels(IStateMasterViewModel viewModel)

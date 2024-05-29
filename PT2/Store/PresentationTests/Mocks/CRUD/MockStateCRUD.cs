@@ -11,9 +11,9 @@ namespace PresentationTests.Mocks.CRUD
 
         }
 
-        public async Task AddStateAsync(int id, int productId, int productQuantity)
+        public async Task AddStateAsync(int id, int movieId, int movieQuantity)
         {
-            await _repository.AddStateAsync(id, productId, productQuantity);
+            await _repository.AddStateAsync(id, movieId, movieQuantity);
         }
 
         public async Task<IStateDTO> GetStateAsync(int id)
@@ -21,9 +21,9 @@ namespace PresentationTests.Mocks.CRUD
             return await _repository.GetStateAsync(id);
         }
 
-        public async Task UpdateStateAsync(int id, int productId, int productQuantity)
+        public async Task UpdateStateAsync(int id, int movieId, int movieQuantity)
         {
-            await _repository.UpdateStateAsync(id, productId, productQuantity);
+            await _repository.UpdateStateAsync(id, movieId, movieQuantity);
         }
 
         public async Task DeleteStateAsync(int id)

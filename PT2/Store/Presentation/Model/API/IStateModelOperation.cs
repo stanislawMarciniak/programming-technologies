@@ -12,11 +12,11 @@ public interface IStateModelOperation
         return new StateModelOperation(stateCrud ?? IStateCRUD.CreateStateCRUD());
     }
 
-    Task AddAsync(int id, int productId, int productQuantity);
+    Task AddAsync(int id, int movieId, int movieQuantity);
 
     Task<IStateModel> GetAsync(int id);
 
-    Task UpdateAsync(int id, int productId, int productQuantity);
+    Task UpdateAsync(int id, int movieId, int movieQuantity);
 
     Task DeleteAsync(int id);
 

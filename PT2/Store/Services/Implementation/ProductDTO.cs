@@ -2,7 +2,7 @@
 
 namespace Service.Implementation;
 
-internal class ProductDTO : IProductDTO
+internal class MovieDTO : IMovieDTO
 {
     public int Id { get; set; }
 
@@ -12,7 +12,7 @@ internal class ProductDTO : IProductDTO
 
     public int AgeRestriction { get; set; }
 
-    public ProductDTO(int id, string name, double price, int ageRestriction)
+    public MovieDTO(int id, string name, double price, int ageRestriction)
     {
         this.Id = id;
         this.Name = name;

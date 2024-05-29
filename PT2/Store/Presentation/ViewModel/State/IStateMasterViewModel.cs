@@ -20,9 +20,9 @@ public interface IStateMasterViewModel
 
     public int Id { get; set; }
 
-    public int ProductId { get; set; }
+    public int MovieId { get; set; }
 
-    public int ProductQuantity { get; set; }
+    public int MovieQuantity { get; set; }
 
     public bool IsStateSelected { get; set; }
 

@@ -5,45 +5,45 @@ using System.Threading.Tasks;
 
 namespace Presentation.Model.Implementation;
 
-internal class ProductModelOperation : IProductModelOperation
+internal class MovieModelOperation : IMovieModelOperation
 {
-    private IProductCRUD _productCRUD;
+    private IMovieCRUD _movieCRUD;
 
-    public ProductModelOperation(IProductCRUD? productCrud = null)
+    public MovieModelOperation(IMovieCRUD? movieCrud = null)
     {
-        this._productCRUD = productCrud ?? IProductCRUD.CreateProductCRUD();
+        this._movieCRUD = movieCrud ?? IMovieCRUD.CreateMovieCRUD();
     }
 
-    private IProductModel Map(IProductDTO movie)
+    private IMovieModel Map(IMovieDTO movie)
     {
-        return new ProductModel(movie.Id, movie.Name, movie.Price, movie.AgeRestriction);
+        return new MovieModel(movie.Id, movie.Name, movie.Price, movie.AgeRestriction);
     }
 
     public async Task AddAsync(int id, string name, double price, int ageRestriction)
     {
-        await this._productCRUD.AddProductAsync(id, name, price, ageRestriction);
+        await this._movieCRUD.AddMovieAsync(id, name, price, ageRestriction);
     }
 
-    public async Task<IProductModel> GetAsync(int id)
+    public async Task<IMovieModel> GetAsync(int id)
     {
-        return this.Map(await this._productCRUD.GetProductAsync(id));
+        return this.Map(await this._movieCRUD.GetMovieAsync(id));
     }
 
     public async Task UpdateAsync(int id, string name, double price, int ageRestriction)
     {
-        await this._productCRUD.UpdateProductAsync(id, name, price, ageRestriction);
+        await this._movieCRUD.UpdateMovieAsync(id, name, price, ageRestriction);
     }
 
     public async Task DeleteAsync(int id)
     {
-        await this._productCRUD.DeleteProductAsync(id);
+        await this._movieCRUD.DeleteMovieAsync(id);
     }
 
-    public async Task<Dictionary<int, IProductModel>> GetAllAsync()
+    public async Task<Dictionary<int, IMovieModel>> GetAllAsync()
     {
-        Dictionary<int, IProductModel> result = new Dictionary<int, IProductModel>();
+        Dictionary<int, IMovieModel> result = new Dictionary<int, IMovieModel>();
 
-        foreach (IProductDTO movie in (await this._productCRUD.GetAllProductsAsync()).Values)
+        foreach (IMovieDTO movie in (await this._movieCRUD.GetAllMoviesAsync()).Values)
         {
             result.Add(movie.Id, this.Map(movie));
         }
@@ -53,6 +53,6 @@ internal class ProductModelOperation : IProductModelOperation
 
     public async Task<int> GetCountAsync()
     {
-        return await this._productCRUD.GetProductsCountAsync();
+        return await this._movieCRUD.GetMoviesCountAsync();
     }
 }

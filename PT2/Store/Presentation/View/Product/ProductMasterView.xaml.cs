@@ -2,9 +2,9 @@
 
 namespace Presentation.View;
 
-public partial class ProductMasterView : UserControl
+public partial class MovieMasterView : UserControl
 {
-    public ProductMasterView()
+    public MovieMasterView()
     {
         InitializeComponent();
     }

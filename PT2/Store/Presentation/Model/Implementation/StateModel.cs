@@ -6,14 +6,14 @@ internal class StateModel : IStateModel
 {
     public int Id { get; set; }
 
-    public int productId { get; set; }
+    public int movieId { get; set; }
 
-    public int productQuantity { get; set; }
+    public int movieQuantity { get; set; }
 
-    public StateModel(int id, int productId, int productQuantity)
+    public StateModel(int id, int movieId, int movieQuantity)
     {
         this.Id = id;
-        this.productId = productId;
-        this.productQuantity = productQuantity;
+        this.movieId = movieId;
+        this.movieQuantity = movieQuantity;
     }
 }

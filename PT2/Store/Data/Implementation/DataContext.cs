@@ -111,7 +111,7 @@ internal class DataContext : IDataContext
 
     #region Movie CRUD
 
-    public async Task AddProductAsync(IMovie movie)
+    public async Task AddMovieAsync(IMovie movie)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
@@ -123,20 +123,20 @@ internal class DataContext : IDataContext
                 ageRestriction = movie.AgeRestriction,
             };
 
-            context.Products.InsertOnSubmit(entity);
+            context.Movies.InsertOnSubmit(entity);
 
             await Task.Run(() => context.SubmitChanges());
         }
     }
 
-    public async Task<IMovie?> GetProductAsync(int id)
+    public async Task<IMovie?> GetMovieAsync(int id)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
             Database.Movie? movie = await Task.Run(() =>
             {
                 IQueryable<Database.Movie> query =
-                    from p in context.Products
+                    from p in context.Movies
                     where p.id == id
                     select p;
 
@@ -147,11 +147,11 @@ internal class DataContext : IDataContext
         }
     }
 
-    public async Task UpdateProductAsync(IMovie movie)
+    public async Task UpdateMovieAsync(IMovie movie)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Movie toUpdate = (from p in context.Products where p.id == movie.Id select p).FirstOrDefault()!;
+            Database.Movie toUpdate = (from p in context.Movies where p.id == movie.Id select p).FirstOrDefault()!;
 
             toUpdate.name = movie.MovieName;
             toUpdate.price = movie.Price;
@@ -161,35 +161,35 @@ internal class DataContext : IDataContext
         }
     }
 
-    public async Task DeleteProductAsync(int id)
+    public async Task DeleteMovieAsync(int id)
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            Database.Movie toDelete = (from p in context.Products where p.id == id select p).FirstOrDefault()!;
+            Database.Movie toDelete = (from p in context.Movies where p.id == id select p).FirstOrDefault()!;
 
-            context.Products.DeleteOnSubmit(toDelete);
+            context.Movies.DeleteOnSubmit(toDelete);
 
             await Task.Run(() => context.SubmitChanges());
         }
     }
 
-    public async Task<Dictionary<int, IMovie>> GetAllProductsAsync()
+    public async Task<Dictionary<int, IMovie>> GetAllMoviesAsync()
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            IQueryable<IMovie> productQuery = from p in context.Products
+            IQueryable<IMovie> movieQuery = from p in context.Movies
                 select
                     new Movie(p.id, p.name, (double)p.price, p.ageRestriction) as IMovie;
 
-            return await Task.Run(() => productQuery.ToDictionary(k => k.Id));
+            return await Task.Run(() => movieQuery.ToDictionary(k => k.Id));
         }
     }
 
-    public async Task<int> GetProductsCountAsync()
+    public async Task<int> GetMoviesCountAsync()
     {
         using (ShopDataContext context = new ShopDataContext(this.ConnectionString))
         {
-            return await Task.Run(() => context.Products.Count());
+            return await Task.Run(() => context.Movies.Count());
         }
     }
 
@@ -205,8 +205,8 @@ internal class DataContext : IDataContext
             Database.State entity = new Database.State()
             {
                 id = state.Id,
-                productId = state.productId,
-                productQuantity = state.productQuantity
+                movieId = state.movieId,
+                movieQuantity = state.movieQuantity
             };
 
             context.States.InsertOnSubmit(entity);
@@ -229,7 +229,7 @@ internal class DataContext : IDataContext
                 return query.FirstOrDefault();
             });
 
-            return state is not null ? new State(state.id, state.productId, state.productQuantity) : null;
+            return state is not null ? new State(state.id, state.movieId, state.movieQuantity) : null;
         }
     }
 
@@ -239,8 +239,8 @@ internal class DataContext : IDataContext
         {
             Database.State toUpdate = (from s in context.States where s.id == state.Id select s).FirstOrDefault()!;
 
-            toUpdate.productId = state.productId;
-            toUpdate.productQuantity = state.productQuantity;
+            toUpdate.movieId = state.movieId;
+            toUpdate.movieQuantity = state.movieQuantity;
 
             await Task.Run(() => context.SubmitChanges());
         }
@@ -264,7 +264,7 @@ internal class DataContext : IDataContext
         {
             IQueryable<IState> stateQuery = from s in context.States
                 select
-                    new State(s.id, s.productId, s.productQuantity) as IState;
+                    new State(s.id, s.movieId, s.movieQuantity) as IState;
 
             return await Task.Run(() => stateQuery.ToDictionary(k => k.Id));
         }
@@ -380,9 +380,9 @@ internal class DataContext : IDataContext
         return (await this.GetUserAsync(id)) != null;
     }
 
-    public async Task<bool> CheckIfProductExists(int id)
+    public async Task<bool> CheckIfMovieExists(int id)
     {
-        return (await this.GetProductAsync(id)) != null;
+        return (await this.GetMovieAsync(id)) != null;
     }
 
     public async Task<bool> CheckIfStateExists(int id)

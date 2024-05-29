@@ -10,51 +10,51 @@ using Service.API;
 namespace PresentationTests.ViewModelTests
 {
     [TestClass]
-    public class ProductViewModelTests
+    public class MovieViewModelTests
     {
         private readonly IErrorInformer _informer = new TextErrorInformer();
 
         [TestMethod]
-        public void ProductMasterViewModelTests()
+        public void MovieMasterViewModelTests()
         {
             MockDataRepository mockDataRepository = new MockDataRepository();
-            IProductCRUD mockProductCrud = new MockProductCRUD();
+            IMovieCRUD mockMovieCrud = new MockMovieCRUD();
 
-            IProductModelOperation operation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductMasterViewModel master = IProductMasterViewModel.CreateViewModel(operation, _informer);
+            IMovieModelOperation operation = IMovieModelOperation.CreateModelOperation(mockMovieCrud);
+            IMovieMasterViewModel master = IMovieMasterViewModel.CreateViewModel(operation, _informer);
 
-            master.Name = "TestProduct";
+            master.Name = "TestMovie";
             master.Price = 150;
             master.AgeRestriction = 16;
 
-            Assert.IsNotNull(master.CreateProduct);
-            Assert.IsNotNull(master.RemoveProduct);
+            Assert.IsNotNull(master.CreateMovie);
+            Assert.IsNotNull(master.RemoveMovie);
 
-            Assert.IsTrue(master.CreateProduct.CanExecute(null));
+            Assert.IsTrue(master.CreateMovie.CanExecute(null));
 
             master.Price = -1;
-            Assert.IsFalse(master.CreateProduct.CanExecute(null));
+            Assert.IsFalse(master.CreateMovie.CanExecute(null));
 
             master.Price = 150;
-            Assert.IsTrue(master.RemoveProduct.CanExecute(null));
+            Assert.IsTrue(master.RemoveMovie.CanExecute(null));
         }
 
         [TestMethod]
-        public void ProductDetailViewModelTests()
+        public void MovieDetailViewModelTests()
         {
             MockDataRepository mockDataRepository = new MockDataRepository();
-            IProductCRUD mockProductCrud = new MockProductCRUD();
+            IMovieCRUD mockMovieCrud = new MockMovieCRUD();
 
-            IProductModelOperation operation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductDetailViewModel detail = IProductDetailViewModel.CreateViewModel(1, "TestProduct", 150, 16,
+            IMovieModelOperation operation = IMovieModelOperation.CreateModelOperation(mockMovieCrud);
+            IMovieDetailViewModel detail = IMovieDetailViewModel.CreateViewModel(1, "TestMovie", 150, 16,
                 operation, _informer);
 
             Assert.AreEqual(1, detail.Id);
-            Assert.AreEqual("TestProduct", detail.Name);
+            Assert.AreEqual("TestMovie", detail.Name);
             Assert.AreEqual(150, detail.Price);
             Assert.AreEqual(16, detail.AgeRestriction);
 
-            Assert.IsTrue(detail.UpdateProduct.CanExecute(null));
+            Assert.IsTrue(detail.UpdateMovie.CanExecute(null));
         }
     }
 }

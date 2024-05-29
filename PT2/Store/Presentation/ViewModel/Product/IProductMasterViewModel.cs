@@ -5,18 +5,18 @@ using System.Windows.Input;
 
 namespace Presentation.ViewModel;
 
-public interface IProductMasterViewModel
+public interface IMovieMasterViewModel
 {
-    static IProductMasterViewModel CreateViewModel(IProductModelOperation operation, IErrorInformer informer)
+    static IMovieMasterViewModel CreateViewModel(IMovieModelOperation operation, IErrorInformer informer)
     {
-        return new ProductMasterViewModel(operation, informer);
+        return new MovieMasterViewModel(operation, informer);
     }
 
-    ICommand CreateProduct { get; set; }
+    ICommand CreateMovie { get; set; }
 
-    ICommand RemoveProduct { get; set; }
+    ICommand RemoveMovie { get; set; }
 
-    ObservableCollection<IProductDetailViewModel> Products { get; set; }
+    ObservableCollection<IMovieDetailViewModel> Movies { get; set; }
 
     string Name { get; set; }
 
@@ -24,9 +24,9 @@ public interface IProductMasterViewModel
 
     int AgeRestriction { get; set; }
 
-    bool IsProductSelected { get; set; }
+    bool IsMovieSelected { get; set; }
 
-    Visibility IsProductDetailVisible { get; set; }
+    Visibility IsMovieDetailVisible { get; set; }
 
-    IProductDetailViewModel SelectedDetailViewModel { get; set; }
+    IMovieDetailViewModel SelectedDetailViewModel { get; set; }
 }

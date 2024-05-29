@@ -2,7 +2,7 @@
 
 namespace Presentation.Model.Implementation;
 
-internal class ProductModel : IProductModel
+internal class MovieModel : IMovieModel
 {
     public int Id { get; set; }
 
@@ -12,7 +12,7 @@ internal class ProductModel : IProductModel
 
     public int AgeRestriction { get; set; }
 
-    public ProductModel(int id, string name, double price, int ageRestriction)
+    public MovieModel(int id, string name, double price, int ageRestriction)
     {
         this.Id = id;
         this.Name = name;

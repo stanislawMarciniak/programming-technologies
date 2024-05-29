@@ -50,7 +50,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" Width="140" DisplayMemberBinding="{Binding Id}" />
-                            <GridViewColumn Header="Product ID" Width="140" DisplayMemberBinding="{Binding ProductId}" />
+                            <GridViewColumn Header="Movie ID" Width="140" DisplayMemberBinding="{Binding MovieId}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -60,18 +60,18 @@
                         <RowDefinition Height="181*"/>
                     </Grid.RowDefinitions>
                     <view:StateDetailView
-                        Margin="480,35,73,68"
+                        Margin="499,10,21,55"
                         DataContext="{Binding SelectedDetailViewModel}" Grid.RowSpan="2"
                         />
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="528,73,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="564,38,0,0" VerticalAlignment="Top" Height="26" Width="90"
                         Command="{Binding RemoveState}" Grid.Row="1"/>
                 </Grid>
                 <StackPanel Margin="16,193,304,0"
                     VerticalAlignment="Top"
                     Background="SteelBlue" Height="189">
-                    <Label Content="Product ID:" FontSize="10"/>
+                    <Label Content="Movie ID:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding ProductId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding MovieId , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          BorderBrush="Gray">
                         <Validation.ErrorTemplate>
@@ -84,9 +84,9 @@
                         </Validation.ErrorTemplate>
                     </TextBox>
 
-                    <Label Content="Product Quantity:" FontSize="10"/>
+                    <Label Content="Movie Quantity:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding ProductQuantity , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding MovieQuantity , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          BorderBrush="Gray">
                         <Validation.ErrorTemplate>
@@ -113,8 +113,8 @@
         <Button Grid.Column="2" Content="Events" HorizontalAlignment="Left" Margin="459,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
                 Command="{Binding SwitchToEventMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
-        <Button Grid.Column="2" Content="Products" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
-            Command="{Binding SwitchToProductMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+        <Button Grid.Column="2" Content="Movies" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
+            Command="{Binding SwitchToMovieMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
 
     </Grid>
 

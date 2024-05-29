@@ -16,12 +16,12 @@ internal class StateModelOperation : IStateModelOperation
 
     private IStateModel Map(IStateDTO state)
     {
-        return new StateModel(state.Id, state.productId, state.productQuantity);
+        return new StateModel(state.Id, state.movieId, state.movieQuantity);
     }
 
-    public async Task AddAsync(int id, int productId, int productQuantity)
+    public async Task AddAsync(int id, int movieId, int movieQuantity)
     {
-        await this._stateCrud.AddStateAsync(id, productId, productQuantity);
+        await this._stateCrud.AddStateAsync(id, movieId, movieQuantity);
     }
 
     public async Task<IStateModel> GetAsync(int id)
@@ -29,9 +29,9 @@ internal class StateModelOperation : IStateModelOperation
         return this.Map(await this._stateCrud.GetStateAsync(id));
     }
 
-    public async Task UpdateAsync(int id, int productId, int productQuantity)
+    public async Task UpdateAsync(int id, int movieId, int movieQuantity)
     {
-        await this._stateCrud.UpdateStateAsync(id, productId, productQuantity);
+        await this._stateCrud.UpdateStateAsync(id, movieId, movieQuantity);
     }
 
     public async Task DeleteAsync(int id)

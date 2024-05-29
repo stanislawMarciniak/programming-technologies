@@ -63,16 +63,16 @@ internal class DataRepository : IDataRepository
 
     #region Movie CRUD
 
-    public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
+    public async Task AddMovieAsync(int id, string name, double price, int ageRestriction)
     {
         IMovie movie = new Movie(id, name, price, ageRestriction);
 
-        await this._context.AddProductAsync(movie);
+        await this._context.AddMovieAsync(movie);
     }
 
-    public async Task<IMovie> GetProductAsync(int id)
+    public async Task<IMovie> GetMovieAsync(int id)
     {
-        IMovie? movie = await this._context.GetProductAsync(id);
+        IMovie? movie = await this._context.GetMovieAsync(id);
 
         if (movie is null)
             throw new Exception("This movie does not exist!");
@@ -80,32 +80,32 @@ internal class DataRepository : IDataRepository
         return movie;
     }
 
-    public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
+    public async Task UpdateMovieAsync(int id, string name, double price, int ageRestriction)
     {
         IMovie movie = new Movie(id, name, price, ageRestriction);
 
-        if (!await this.CheckIfProductExists(movie.Id))
+        if (!await this.CheckIfMovieExists(movie.Id))
             throw new Exception("This movie does not exist");
 
-        await this._context.UpdateProductAsync(movie);
+        await this._context.UpdateMovieAsync(movie);
     }
 
-    public async Task DeleteProductAsync(int id)
+    public async Task DeleteMovieAsync(int id)
     {
-        if (!await this.CheckIfProductExists(id))
+        if (!await this.CheckIfMovieExists(id))
             throw new Exception("This movie does not exist");
 
-        await this._context.DeleteProductAsync(id);
+        await this._context.DeleteMovieAsync(id);
     }
 
-    public async Task<Dictionary<int, IMovie>> GetAllProductsAsync()
+    public async Task<Dictionary<int, IMovie>> GetAllMoviesAsync()
     {
-        return await this._context.GetAllProductsAsync();
+        return await this._context.GetAllMoviesAsync();
     }
 
-    public async Task<int> GetProductsCountAsync()
+    public async Task<int> GetMoviesCountAsync()
     {
-        return await this._context.GetProductsCountAsync();
+        return await this._context.GetMoviesCountAsync();
     }
 
     #endregion
@@ -113,15 +113,15 @@ internal class DataRepository : IDataRepository
 
     #region State CRUD
 
-    public async Task AddStateAsync(int id, int productId, int productQuantity)
+    public async Task AddStateAsync(int id, int movieId, int movieQuantity)
     {
-        if (!await this._context.CheckIfProductExists(productId))
+        if (!await this._context.CheckIfMovieExists(movieId))
             throw new Exception("This movie does not exist!");
 
-        if (productQuantity < 0)
+        if (movieQuantity < 0)
             throw new Exception("Movie's quantity must be number greater that 0!");
 
-        IState state = new State(id, productId, productQuantity);
+        IState state = new State(id, movieId, movieQuantity);
 
         await this._context.AddStateAsync(state);
     }
@@ -136,15 +136,15 @@ internal class DataRepository : IDataRepository
         return state;
     }
 
-    public async Task UpdateStateAsync(int id, int productId, int productQuantity)
+    public async Task UpdateStateAsync(int id, int movieId, int movieQuantity)
     {
-        if (!await this._context.CheckIfProductExists(productId))
+        if (!await this._context.CheckIfMovieExists(movieId))
             throw new Exception("This movie does not exist!");
 
-        if (productQuantity <= 0)
+        if (movieQuantity <= 0)
             throw new Exception("Movie's quantity must be number greater that 0!");
 
-        IState state = new State(id, productId, productQuantity);
+        IState state = new State(id, movieId, movieQuantity);
 
         if (!await this.CheckIfStateExists(state.Id))
             throw new Exception("This state does not exist");
@@ -179,7 +179,7 @@ internal class DataRepository : IDataRepository
     {
         IUser user = await this.GetUserAsync(userId);
         IState state = await this.GetStateAsync(stateId);
-        IMovie movie = await this.GetProductAsync(state.productId);
+        IMovie movie = await this.GetMovieAsync(state.movieId);
 
         IEvent newEvent = new Event(id, stateId, userId, DateTime.Now, type, quantity);
 
@@ -189,13 +189,13 @@ internal class DataRepository : IDataRepository
                 if (DateTime.Now.Year - user.DateOfBirth.Year < movie.AgeRestriction)
                     throw new Exception("You are not old enough to purchase this movie!");
 
-                if (state.productQuantity == 0)
+                if (state.movieQuantity == 0)
                     throw new Exception("Movie unavailable, please check later!");
 
                 if (user.Balance < movie.Price)
                     throw new Exception("Not enough money to purchase this movie!");
 
-                await UpdateStateAsync(stateId, movie.Id, state.productQuantity - 1);
+                await UpdateStateAsync(stateId, movie.Id, state.movieQuantity - 1);
                 await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - movie.Price, user.DateOfBirth);
                 break;
 
@@ -211,7 +211,7 @@ internal class DataRepository : IDataRepository
                         from stat in states.Values
                         where even.userId == user.Id &&
                               even.stateId == stat.Id &&
-                              stat.productId == movie.Id
+                              stat.movieId == movie.Id
                         select even
                     )
                     if (even.Type == "PurchaseEvent") copiesBought++;
@@ -222,7 +222,7 @@ internal class DataRepository : IDataRepository
                 if (copiesBought < 0)
                     throw new Exception("You do not own this movie!");
 
-                await UpdateStateAsync(stateId, movie.Id, state.productQuantity + 1);
+                await UpdateStateAsync(stateId, movie.Id, state.movieQuantity + 1);
                 await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + movie.Price, user.DateOfBirth);
                 break;
 
@@ -230,7 +230,7 @@ internal class DataRepository : IDataRepository
                 if (quantity <= 0)
                     throw new Exception("Can not supply with this amount!");
 
-                await UpdateStateAsync(stateId, movie.Id, state.productQuantity + quantity);
+                await UpdateStateAsync(stateId, movie.Id, state.movieQuantity + quantity);
                 break;
 
             default:
@@ -288,9 +288,9 @@ internal class DataRepository : IDataRepository
         return await this._context.CheckIfUserExists(id);
     }
 
-    public async Task<bool> CheckIfProductExists(int id)
+    public async Task<bool> CheckIfMovieExists(int id)
     {
-        return await this._context.CheckIfProductExists(id);
+        return await this._context.CheckIfMovieExists(id);
     }
 
     public async Task<bool> CheckIfStateExists(int id)
@@ -303,16 +303,16 @@ internal class DataRepository : IDataRepository
         return await this._context.CheckIfEventExists(id, type);
     }
 
-    //public async Task<IEvent> GetLastProductEvent(int productId)
+    //public async Task<IEvent> GetLastMovieEvent(int movieId)
 
     //}
 
-    //public async Task<Dictionary<int, IEvent>> GetProductEventHistory(int productId)
+    //public async Task<Dictionary<int, IEvent>> GetMovieEventHistory(int movieId)
     //{
 
     //}
 
-    //public async Task<IState> GetProductState(int productId)
+    //public async Task<IState> GetMovieState(int movieId)
     //{
 
     //}

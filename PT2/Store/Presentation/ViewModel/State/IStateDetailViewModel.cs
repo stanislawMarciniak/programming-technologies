@@ -5,17 +5,17 @@ namespace Presentation.ViewModel;
 
 public interface IStateDetailViewModel
 {
-    static IStateDetailViewModel CreateViewModel(int id, int productId, int productQuantity,
+    static IStateDetailViewModel CreateViewModel(int id, int movieId, int movieQuantity,
         IStateModelOperation model, IErrorInformer informer)
     {
-        return new StateDetailViewModel(id, productId, productQuantity, model, informer);
+        return new StateDetailViewModel(id, movieId, movieQuantity, model, informer);
     }
 
     ICommand UpdateState { get; set; }
 
     int Id { get; set; }
 
-    int ProductId { get; set; }
+    int MovieId { get; set; }
 
-    int ProductQuantity { get; set; }
+    int MovieQuantity { get; set; }
 }

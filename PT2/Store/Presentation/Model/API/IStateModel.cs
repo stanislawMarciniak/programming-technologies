@@ -4,7 +4,7 @@ public interface IStateModel
 {
     int Id { get; set; }
 
-    int productId { get; set; }
+    int movieId { get; set; }
 
-    int productQuantity { get; set; }
+    int movieQuantity { get; set; }
 }

@@ -33,9 +33,9 @@ namespace Data.Database
     partial void InsertEvent(Event instance);
     partial void UpdateEvent(Event instance);
     partial void DeleteEvent(Event instance);
-    partial void InsertProduct(Movie instance);
-    partial void UpdateProduct(Movie instance);
-    partial void DeleteProduct(Movie instance);
+    partial void InsertMovie(Movie instance);
+    partial void UpdateMovie(Movie instance);
+    partial void DeleteMovie(Movie instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -76,7 +76,7 @@ namespace Data.Database
 			}
 		}
 		
-		public System.Data.Linq.Table<Movie> Products
+		public System.Data.Linq.Table<Movie> Movies
 		{
 			get
 			{
@@ -365,7 +365,7 @@ namespace Data.Database
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Products")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Movies")]
 	public partial class Movie : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -482,7 +482,7 @@ namespace Data.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_State", Storage="_States", ThisKey="id", OtherKey="productId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movie_State", Storage="_States", ThisKey="id", OtherKey="movieId")]
 		public EntitySet<State> States
 		{
 			get
@@ -722,13 +722,13 @@ namespace Data.Database
 		
 		private int _id;
 		
-		private int _productId;
+		private int _movieId;
 		
-		private int _productQuantity;
+		private int _movieQuantity;
 		
 		private EntitySet<Event> _Events;
 		
-		private EntityRef<Movie> _Product;
+		private EntityRef<Movie> _Movie;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -736,16 +736,16 @@ namespace Data.Database
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
-    partial void OnproductIdChanging(int value);
-    partial void OnproductIdChanged();
-    partial void OnproductQuantityChanging(int value);
-    partial void OnproductQuantityChanged();
+    partial void OnmovieIdChanging(int value);
+    partial void OnmovieIdChanged();
+    partial void OnmovieQuantityChanging(int value);
+    partial void OnmovieQuantityChanged();
     #endregion
 		
 		public State()
 		{
 			this._Events = new EntitySet<Event>(new Action<Event>(this.attach_Events), new Action<Event>(this.detach_Events));
-			this._Product = default(EntityRef<Movie>);
+			this._Movie = default(EntityRef<Movie>);
 			OnCreated();
 		}
 		
@@ -769,46 +769,46 @@ namespace Data.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productId", DbType="Int NOT NULL")]
-		public int productId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_movieId", DbType="Int NOT NULL")]
+		public int movieId
 		{
 			get
 			{
-				return this._productId;
+				return this._movieId;
 			}
 			set
 			{
-				if ((this._productId != value))
+				if ((this._movieId != value))
 				{
-					if (this._Product.HasLoadedOrAssignedValue)
+					if (this._Movie.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnproductIdChanging(value);
+					this.OnmovieIdChanging(value);
 					this.SendPropertyChanging();
-					this._productId = value;
-					this.SendPropertyChanged("productId");
-					this.OnproductIdChanged();
+					this._movieId = value;
+					this.SendPropertyChanged("movieId");
+					this.OnmovieIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productQuantity", DbType="Int NOT NULL")]
-		public int productQuantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_movieQuantity", DbType="Int NOT NULL")]
+		public int movieQuantity
 		{
 			get
 			{
-				return this._productQuantity;
+				return this._movieQuantity;
 			}
 			set
 			{
-				if ((this._productQuantity != value))
+				if ((this._movieQuantity != value))
 				{
-					this.OnproductQuantityChanging(value);
+					this.OnmovieQuantityChanging(value);
 					this.SendPropertyChanging();
-					this._productQuantity = value;
-					this.SendPropertyChanged("productQuantity");
-					this.OnproductQuantityChanged();
+					this._movieQuantity = value;
+					this.SendPropertyChanged("movieQuantity");
+					this.OnmovieQuantityChanged();
 				}
 			}
 		}
@@ -826,34 +826,34 @@ namespace Data.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_State", Storage="_Product", ThisKey="productId", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movie_State", Storage="_Movie", ThisKey="movieId", OtherKey="id", IsForeignKey=true)]
 		public Movie Movie
 		{
 			get
 			{
-				return this._Product.Entity;
+				return this._Movie.Entity;
 			}
 			set
 			{
-				Movie previousValue = this._Product.Entity;
+				Movie previousValue = this._Movie.Entity;
 				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
+							|| (this._Movie.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Product.Entity = null;
+						this._Movie.Entity = null;
 						previousValue.States.Remove(this);
 					}
-					this._Product.Entity = value;
+					this._Movie.Entity = value;
 					if ((value != null))
 					{
 						value.States.Add(this);
-						this._productId = value.id;
+						this._movieId = value.id;
 					}
 					else
 					{
-						this._productId = default(int);
+						this._movieId = default(int);
 					}
 					this.SendPropertyChanged("Movie");
 				}

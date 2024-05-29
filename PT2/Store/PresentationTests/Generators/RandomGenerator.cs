@@ -28,13 +28,13 @@ internal class RandomGenerator : IGenerator
         }
     }
 
-    public void GenerateProductModels(IProductMasterViewModel viewModel)
+    public void GenerateMovieModels(IMovieMasterViewModel viewModel)
     {
-        IProductModelOperation operation = IProductModelOperation.CreateModelOperation(new MockProductCRUD());
+        IMovieModelOperation operation = IMovieModelOperation.CreateModelOperation(new MockMovieCRUD());
 
         for (int i = 1; i <= 10; i++)
         {
-            viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(
+            viewModel.Movies.Add(IMovieDetailViewModel.CreateViewModel(
                 i,
                 RandomString(12),
                 _random.NextDouble() * 1000,

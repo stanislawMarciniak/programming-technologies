@@ -5,22 +5,22 @@ using Service.API;
 
 namespace Presentation.Model.API;
 
-public interface IProductModelOperation
+public interface IMovieModelOperation
 {
-    static IProductModelOperation CreateModelOperation(IProductCRUD? productCrud = null)
+    static IMovieModelOperation CreateModelOperation(IMovieCRUD? movieCrud = null)
     {
-        return new ProductModelOperation(productCrud ?? IProductCRUD.CreateProductCRUD());
+        return new MovieModelOperation(movieCrud ?? IMovieCRUD.CreateMovieCRUD());
     }
 
     Task AddAsync(int id, string name, double price, int ageRestriction);
 
-    Task<IProductModel> GetAsync(int id);
+    Task<IMovieModel> GetAsync(int id);
 
     Task UpdateAsync(int id, string name, double price, int ageRestriction);
 
     Task DeleteAsync(int id);
 
-    Task<Dictionary<int, IProductModel>> GetAllAsync();
+    Task<Dictionary<int, IMovieModel>> GetAllAsync();
 
     Task<int> GetCountAsync();
 }

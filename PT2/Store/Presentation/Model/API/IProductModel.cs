@@ -1,6 +1,6 @@
 ﻿namespace Presentation.Model.API;
 
-public interface IProductModel
+public interface IMovieModel
 {
     int Id { get; set; }
 

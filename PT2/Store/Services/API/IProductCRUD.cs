@@ -3,22 +3,22 @@ using Service.Implementation;
 
 namespace Service.API;
 
-public interface IProductCRUD
+public interface IMovieCRUD
 {
-    static IProductCRUD CreateProductCRUD(IDataRepository? dataRepository = null)
+    static IMovieCRUD CreateMovieCRUD(IDataRepository? dataRepository = null)
     {
-        return new ProductCRUD(dataRepository ?? IDataRepository.CreateDatabase());
+        return new MovieCRUD(dataRepository ?? IDataRepository.CreateDatabase());
     }
 
-    Task AddProductAsync(int id, string name, double price, int ageRestriction);
+    Task AddMovieAsync(int id, string name, double price, int ageRestriction);
 
-    Task<IProductDTO> GetProductAsync(int id);
+    Task<IMovieDTO> GetMovieAsync(int id);
 
-    Task UpdateProductAsync(int id, string name, double price, int ageRestriction);
+    Task UpdateMovieAsync(int id, string name, double price, int ageRestriction);
 
-    Task DeleteProductAsync(int id);
+    Task DeleteMovieAsync(int id);
 
-    Task<Dictionary<int, IProductDTO>> GetAllProductsAsync();
+    Task<Dictionary<int, IMovieDTO>> GetAllMoviesAsync();
 
-    Task<int> GetProductsCountAsync();
+    Task<int> GetMoviesCountAsync();
 }

@@ -12,7 +12,7 @@ internal class EventMasterViewModel : IViewModel, IEventMasterViewModel
 {
     public ICommand SwitchToUserMasterPage { get; set; }
 
-    public ICommand SwitchToProductMasterPage { get; set; }
+    public ICommand SwitchToMovieMasterPage { get; set; }
 
     public ICommand SwitchToStateMasterPage { get; set; }
 
@@ -120,7 +120,7 @@ internal class EventMasterViewModel : IViewModel, IEventMasterViewModel
     {
         this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
         this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
-        this.SwitchToProductMasterPage = new SwitchViewCommand("ProductMasterView");
+        this.SwitchToMovieMasterPage = new SwitchViewCommand("MovieMasterView");
 
         this.PurchaseEvent = new OnClickCommand(e => this.StorePurchaseEvent(), c => this.CanPurchaseEvent());
         this.ReturnEvent = new OnClickCommand(e => this.StoreReturnEvent(), c => this.CanReturnEvent());

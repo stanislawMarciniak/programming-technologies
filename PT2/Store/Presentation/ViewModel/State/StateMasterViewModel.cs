@@ -12,7 +12,7 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
 {
     public ICommand SwitchToUserMasterPage { get; set; }
 
-    public ICommand SwitchToProductMasterPage { get; set; }
+    public ICommand SwitchToMovieMasterPage { get; set; }
 
     public ICommand SwitchToEventMasterPage { get; set; }
 
@@ -48,27 +48,27 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
         }
     }
 
-    private int _productId;
+    private int _movieId;
 
-    public int ProductId
+    public int MovieId
     {
-        get => _productId;
+        get => _movieId;
         set
         {
-            _productId = value;
-            OnPropertyChanged(nameof(ProductId));
+            _movieId = value;
+            OnPropertyChanged(nameof(MovieId));
         }
     }
 
-    private int _productQuantity;
+    private int _movieQuantity;
 
-    public int ProductQuantity
+    public int MovieQuantity
     {
-        get => _productQuantity;
+        get => _movieQuantity;
         set
         {
-            _productQuantity = value;
-            OnPropertyChanged(nameof(ProductQuantity));
+            _movieQuantity = value;
+            OnPropertyChanged(nameof(MovieQuantity));
         }
     }
 
@@ -115,7 +115,7 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
     public StateMasterViewModel(IStateModelOperation? model = null, IErrorInformer? informer = null)
     {
         this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
-        this.SwitchToProductMasterPage = new SwitchViewCommand("ProductMasterView");
+        this.SwitchToMovieMasterPage = new SwitchViewCommand("MovieMasterView");
         this.SwitchToEventMasterPage = new SwitchViewCommand("EventMasterView");
 
         this.CreateState = new OnClickCommand(e => this.StoreState(), c => this.CanStoreState());
@@ -134,9 +134,9 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
     private bool CanStoreState()
     {
         return !(
-            string.IsNullOrWhiteSpace(this.ProductId.ToString()) ||
-            string.IsNullOrWhiteSpace(this.ProductQuantity.ToString()) ||
-            this.ProductQuantity < 0
+            string.IsNullOrWhiteSpace(this.MovieId.ToString()) ||
+            string.IsNullOrWhiteSpace(this.MovieQuantity.ToString()) ||
+            this.MovieQuantity < 0
         );
     }
 
@@ -148,7 +148,7 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
             {
                 int lastId = await this._modelOperation.GetCountAsync() + 1;
 
-                await this._modelOperation.AddAsync(lastId, this.ProductId, this.ProductQuantity);
+                await this._modelOperation.AddAsync(lastId, this.MovieId, this.MovieQuantity);
 
                 this.LoadStates();
 
@@ -190,7 +190,7 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
 
             foreach (IStateModel s in States.Values)
             {
-                this._states.Add(new StateDetailViewModel(s.Id, s.productId, s.productQuantity));
+                this._states.Add(new StateDetailViewModel(s.Id, s.movieId, s.movieQuantity));
             }
         });
 

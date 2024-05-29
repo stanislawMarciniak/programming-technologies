@@ -3,15 +3,15 @@ using Presentation.Model.API;
 
 namespace Presentation.ViewModel;
 
-public interface IProductDetailViewModel
+public interface IMovieDetailViewModel
 {
-    static IProductDetailViewModel CreateViewModel(int id, string name, double price, int ageRestriction, 
-        IProductModelOperation model, IErrorInformer informer)
+    static IMovieDetailViewModel CreateViewModel(int id, string name, double price, int ageRestriction, 
+        IMovieModelOperation model, IErrorInformer informer)
     {
-        return new ProductDetailViewModel(id, name, price, ageRestriction, model, informer);
+        return new MovieDetailViewModel(id, name, price, ageRestriction, model, informer);
     }
 
-    ICommand UpdateProduct { get; set; }
+    ICommand UpdateMovie { get; set; }
 
     int Id { get; set; }
 

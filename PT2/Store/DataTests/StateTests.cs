@@ -25,51 +25,51 @@ namespace DataTests
         [TestMethod]
         public async Task AddAndRetrieveStateTest()
         {
-            int testProductId = 11;
+            int testMovieId = 11;
             int testStateId = 11;
 
-            await _dataRepository.AddProductAsync(testProductId, "Movie example", 250, 18);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 50);
+            await _dataRepository.AddMovieAsync(testMovieId, "Movie example", 250, 18);
+            await _dataRepository.AddStateAsync(testStateId, testMovieId, 50);
             IState testState = await _dataRepository.GetStateAsync(testStateId);
 
             Assert.IsNotNull(testState);
             Assert.AreEqual(testStateId, testState.Id);
-            Assert.AreEqual(testProductId, testState.productId);
-            Assert.AreEqual(50, testState.productQuantity);
+            Assert.AreEqual(testMovieId, testState.movieId);
+            Assert.AreEqual(50, testState.movieQuantity);
 
             Assert.IsNotNull(await _dataRepository.GetAllStatesAsync());
             Assert.IsTrue(await _dataRepository.GetStatesCountAsync() > 0);
 
             await _dataRepository.DeleteStateAsync(testStateId);
-            await _dataRepository.DeleteProductAsync(testProductId);
+            await _dataRepository.DeleteMovieAsync(testMovieId);
         }
 
         [TestMethod]
         public async Task UpdateAndDeleteStateTest()
         {
-            int testProductId = 180;
+            int testMovieId = 180;
             int testStateId = 180;
 
-            await _dataRepository.AddProductAsync(testProductId, "TestProduct", 100, 0);
-            await _dataRepository.AddStateAsync(testStateId, testProductId, 20);
+            await _dataRepository.AddMovieAsync(testMovieId, "TestMovie", 100, 0);
+            await _dataRepository.AddStateAsync(testStateId, testMovieId, 20);
 
             // Update state
-            await _dataRepository.UpdateStateAsync(testStateId, testProductId, 30);
+            await _dataRepository.UpdateStateAsync(testStateId, testMovieId, 30);
             IState updatedState = await _dataRepository.GetStateAsync(testStateId);
 
             Assert.IsNotNull(updatedState);
             Assert.AreEqual(testStateId, updatedState.Id);
-            Assert.AreEqual(testProductId, updatedState.productId);
-            Assert.AreEqual(30, updatedState.productQuantity);
+            Assert.AreEqual(testMovieId, updatedState.movieId);
+            Assert.AreEqual(30, updatedState.movieQuantity);
 
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateStateAsync(testStateId + 1, testProductId, 30));
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateStateAsync(testStateId + 1, testMovieId, 30));
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateStateAsync(testStateId, 404, 30));
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateStateAsync(testStateId, testProductId, -10));
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateStateAsync(testStateId, testMovieId, -10));
 
             await _dataRepository.DeleteStateAsync(testStateId);
             await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.GetStateAsync(testStateId));
 
-            await _dataRepository.DeleteProductAsync(testProductId);
+            await _dataRepository.DeleteMovieAsync(testMovieId);
         }
     }
 }

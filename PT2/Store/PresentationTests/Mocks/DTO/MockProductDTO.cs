@@ -2,9 +2,9 @@
 
 namespace PresentationTests.Mocks.DTO
 {
-    internal class MockProductDTO : IProductDTO
+    internal class MockMovieDTO : IMovieDTO
     {
-        public MockProductDTO(int id, string name, double price, int ageRestriction)
+        public MockMovieDTO(int id, string name, double price, int ageRestriction)
         {
             Id = id;
             Name = name;

@@ -16,9 +16,9 @@ namespace ServiceTests
         [TestMethod]
         public async Task AddAndRetrieveStateTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 50, 6);
-            IProductDTO movie = await productCrud.GetProductAsync(1);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 50, 6);
+            IMovieDTO movie = await movieCrud.GetMovieAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
             await stateCrud.AddStateAsync(1, movie.Id, 10);
@@ -26,16 +26,16 @@ namespace ServiceTests
 
             Assert.IsNotNull(testedState);
             Assert.AreEqual(1, testedState.Id);
-            Assert.AreEqual(1, testedState.productId);
-            Assert.AreEqual(10, testedState.productQuantity);
+            Assert.AreEqual(1, testedState.movieId);
+            Assert.AreEqual(10, testedState.movieQuantity);
         }
 
         [TestMethod]
         public async Task UpdateStateTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(2, "Product2", 50, 0);
-            IProductDTO movie = await productCrud.GetProductAsync(2);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(2, "Movie2", 50, 0);
+            IMovieDTO movie = await movieCrud.GetMovieAsync(2);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
             await stateCrud.AddStateAsync(2, movie.Id, 10);
@@ -45,16 +45,16 @@ namespace ServiceTests
 
             Assert.IsNotNull(updatedState);
             Assert.AreEqual(2, updatedState.Id);
-            Assert.AreEqual(2, updatedState.productId);
-            Assert.AreEqual(100, updatedState.productQuantity);
+            Assert.AreEqual(2, updatedState.movieId);
+            Assert.AreEqual(100, updatedState.movieQuantity);
         }
 
         [TestMethod]
         public async Task DeleteStateTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 50, 0);
-            IProductDTO movie = await productCrud.GetProductAsync(1);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 50, 0);
+            IMovieDTO movie = await movieCrud.GetMovieAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
             await stateCrud.AddStateAsync(1, movie.Id, 10);

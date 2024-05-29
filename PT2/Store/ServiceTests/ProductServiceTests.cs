@@ -6,55 +6,55 @@ using ServiceTests.Mocks;
 namespace ServiceTests
 {
     [TestClass]
-    public class ProductServiceTests
+    public class MovieServiceTests
     {
         private readonly IDataRepository _repository = new MockDataRepository();
 
         [TestMethod]
-        public async Task AddAndRetrieveProductTest()
+        public async Task AddAndRetrieveMovieTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 100, 0);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 100, 0);
 
-            IProductDTO retrievedProduct = await productCrud.GetProductAsync(1);
+            IMovieDTO retrievedMovie = await movieCrud.GetMovieAsync(1);
 
-            Assert.IsNotNull(retrievedProduct);
-            Assert.AreEqual(1, retrievedProduct.Id);
-            Assert.AreEqual("Product1", retrievedProduct.Name);
-            Assert.AreEqual(100, retrievedProduct.Price);
-            Assert.AreEqual(0, retrievedProduct.AgeRestriction);
+            Assert.IsNotNull(retrievedMovie);
+            Assert.AreEqual(1, retrievedMovie.Id);
+            Assert.AreEqual("Movie1", retrievedMovie.Name);
+            Assert.AreEqual(100, retrievedMovie.Price);
+            Assert.AreEqual(0, retrievedMovie.AgeRestriction);
         }
 
         [TestMethod]
-        public async Task UpdateProductTest()
+        public async Task UpdateMovieTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(2, "Product2", 50, 0);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(2, "Movie2", 50, 0);
             
-            await productCrud.UpdateProductAsync(2, "Product2Updated", 70, 0);
-            IProductDTO updatedProduct = await productCrud.GetProductAsync(2);
+            await movieCrud.UpdateMovieAsync(2, "Movie2Updated", 70, 0);
+            IMovieDTO updatedMovie = await movieCrud.GetMovieAsync(2);
 
-            Assert.IsNotNull(updatedProduct);
-            Assert.AreEqual(2, updatedProduct.Id);
-            Assert.AreEqual("Product2Updated", updatedProduct.Name);
-            Assert.AreEqual(70, updatedProduct.Price);
-            Assert.AreEqual(0, updatedProduct.AgeRestriction);
+            Assert.IsNotNull(updatedMovie);
+            Assert.AreEqual(2, updatedMovie.Id);
+            Assert.AreEqual("Movie2Updated", updatedMovie.Name);
+            Assert.AreEqual(70, updatedMovie.Price);
+            Assert.AreEqual(0, updatedMovie.AgeRestriction);
         }
 
         [TestMethod]
-        public async Task DeleteProductTest()
+        public async Task DeleteMovieTest()
         {
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(3, "Product3", 200, 0);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(3, "Movie3", 200, 0);
 
-            IProductDTO testProduct = await productCrud.GetProductAsync(3);
-            Assert.IsNotNull(testProduct);
+            IMovieDTO testMovie = await movieCrud.GetMovieAsync(3);
+            Assert.IsNotNull(testMovie);
 
             // Delete the movie
-            await productCrud.DeleteProductAsync(3);
+            await movieCrud.DeleteMovieAsync(3);
 
             // Movie should not exist - cannot be retrieved
-            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () => await productCrud.GetProductAsync(3));
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () => await movieCrud.GetMovieAsync(3));
         }
     }
 }

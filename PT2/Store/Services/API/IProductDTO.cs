@@ -1,6 +1,6 @@
 ﻿namespace Service.API;
 
-public interface IProductDTO
+public interface IMovieDTO
 {
     int Id { get; set; }
 

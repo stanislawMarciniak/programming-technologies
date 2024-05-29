@@ -20,15 +20,15 @@ namespace ServiceTests
             await userCrud.AddUserAsync(1, "John Doe", "john.doe@example.com", 1000, new DateTime(1990, 1, 1));
             IUserDTO testedUser = await userCrud.GetUserAsync(1);
 
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 100, 0);
-            IProductDTO testedProduct = await productCrud.GetProductAsync(1);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 100, 0);
+            IMovieDTO testedMovie = await movieCrud.GetMovieAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(1, testedProduct.Id, 10);
+            await stateCrud.AddStateAsync(1, testedMovie.Id, 10);
             IStateDTO testedState = await stateCrud.GetStateAsync(1);
 
-            Assert.IsNotNull(testedProduct);
+            Assert.IsNotNull(testedMovie);
 
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
             await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "PurchaseEvent");
@@ -37,7 +37,7 @@ namespace ServiceTests
             testedState = await stateCrud.GetStateAsync(1);
 
             Assert.AreEqual(900, testedUser.Balance);           // purchase reduces user's balance
-            Assert.AreEqual(9, testedState.productQuantity);    // purchase reduces movie's quantity
+            Assert.AreEqual(9, testedState.movieQuantity);    // purchase reduces movie's quantity
         }
 
         [TestMethod]
@@ -47,15 +47,15 @@ namespace ServiceTests
             await userCrud.AddUserAsync(1, "John Doe", "john.doe@example.com", 1000, new DateTime(1990, 1, 1));
             IUserDTO testedUser = await userCrud.GetUserAsync(1);
 
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 100, 0);
-            IProductDTO testedProduct = await productCrud.GetProductAsync(1);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 100, 0);
+            IMovieDTO testedMovie = await movieCrud.GetMovieAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(1, testedProduct.Id, 10);
+            await stateCrud.AddStateAsync(1, testedMovie.Id, 10);
             IStateDTO testedState = await stateCrud.GetStateAsync(1);
 
-            Assert.IsNotNull(testedProduct);
+            Assert.IsNotNull(testedMovie);
 
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
             await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "PurchaseEvent");
@@ -67,12 +67,12 @@ namespace ServiceTests
             testedState = await stateCrud.GetStateAsync(1);
 
             Assert.AreEqual(1000, testedUser.Balance);          // return restores user's balance
-            Assert.AreEqual(10, testedState.productQuantity);    // return restores movie's quantity
+            Assert.AreEqual(10, testedState.movieQuantity);    // return restores movie's quantity
 
             await eventCrud.DeleteEventAsync(1);
             await eventCrud.DeleteEventAsync(2);
             await stateCrud.DeleteStateAsync(2);
-            await productCrud.DeleteProductAsync(2);
+            await movieCrud.DeleteMovieAsync(2);
             await userCrud.DeleteUserAsync(2);
         }
 
@@ -83,26 +83,26 @@ namespace ServiceTests
             await userCrud.AddUserAsync(1, "John Doe", "john.doe@example.com", 1000, new DateTime(1990, 1, 1));
             IUserDTO testedUser = await userCrud.GetUserAsync(1);
 
-            IProductCRUD productCrud = IProductCRUD.CreateProductCRUD(_repository);
-            await productCrud.AddProductAsync(1, "Product1", 100, 0);
-            IProductDTO testedProduct = await productCrud.GetProductAsync(1);
+            IMovieCRUD movieCrud = IMovieCRUD.CreateMovieCRUD(_repository);
+            await movieCrud.AddMovieAsync(1, "Movie1", 100, 0);
+            IMovieDTO testedMovie = await movieCrud.GetMovieAsync(1);
 
             IStateCRUD stateCrud = IStateCRUD.CreateStateCRUD(_repository);
-            await stateCrud.AddStateAsync(1, testedProduct.Id, 2);
+            await stateCrud.AddStateAsync(1, testedMovie.Id, 2);
             IStateDTO testedState = await stateCrud.GetStateAsync(1);
 
-            Assert.IsNotNull(testedProduct);
+            Assert.IsNotNull(testedMovie);
 
             IEventCRUD eventCrud = IEventCRUD.CreateEventCRUD(_repository);
             await eventCrud.AddEventAsync(1, testedState.Id, testedState.Id, "SupplyEvent", 10);
 
             testedState = await stateCrud.GetStateAsync(1);
 
-            Assert.AreEqual(12, testedState.productQuantity);                // quantity = 2 + 10 (from supply event)
+            Assert.AreEqual(12, testedState.movieQuantity);                // quantity = 2 + 10 (from supply event)
 
             await eventCrud.DeleteEventAsync(1);
             await stateCrud.DeleteStateAsync(1);
-            await productCrud.DeleteProductAsync(1);
+            await movieCrud.DeleteMovieAsync(1);
             await userCrud.DeleteUserAsync(1);
         }
     }

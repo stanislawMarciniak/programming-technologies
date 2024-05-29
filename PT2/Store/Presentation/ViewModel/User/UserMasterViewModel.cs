@@ -10,7 +10,7 @@ namespace Presentation.ViewModel;
 
 internal class UserMasterViewModel : IViewModel, IUserMasterViewModel
 {
-    public ICommand SwitchToProductMasterPage { get; set; }
+    public ICommand SwitchToMovieMasterPage { get; set; }
 
     public ICommand SwitchToStateMasterPage { get; set; }
 
@@ -126,7 +126,7 @@ internal class UserMasterViewModel : IViewModel, IUserMasterViewModel
 
     public UserMasterViewModel(IUserModelOperation? model = null, IErrorInformer? informer = null)
     {
-        this.SwitchToProductMasterPage = new SwitchViewCommand("ProductMasterView");
+        this.SwitchToMovieMasterPage = new SwitchViewCommand("MovieMasterView");
         this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
         this.SwitchToEventMasterPage = new SwitchViewCommand("EventMasterView");
 

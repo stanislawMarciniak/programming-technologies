@@ -8,7 +8,7 @@ using Presentation.Model.API;
 
 namespace Presentation.ViewModel;
 
-internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
+internal class MovieMasterViewModel : IViewModel, IMovieMasterViewModel
 {
     public ICommand SwitchToUserMasterPage { get; set; }
 
@@ -16,23 +16,23 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
 
     public ICommand SwitchToEventMasterPage { get; set; }
 
-    public ICommand CreateProduct { get; set; }
+    public ICommand CreateMovie { get; set; }
 
-    public ICommand RemoveProduct { get; set; }
+    public ICommand RemoveMovie { get; set; }
 
-    private readonly IProductModelOperation _modelOperation;
+    private readonly IMovieModelOperation _modelOperation;
 
     private readonly IErrorInformer _informer;
 
-    private ObservableCollection<IProductDetailViewModel> _products;
+    private ObservableCollection<IMovieDetailViewModel> _movies;
 
-    public ObservableCollection<IProductDetailViewModel> Products
+    public ObservableCollection<IMovieDetailViewModel> Movies
     {
-        get => _products;
+        get => _movies;
         set
         {
-            _products = value;
-            OnPropertyChanged(nameof(Products));
+            _movies = value;
+            OnPropertyChanged(nameof(Movies));
         }
     }
 
@@ -72,66 +72,66 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         }
     }
 
-    private bool _isProductSelected;
+    private bool _isMovieSelected;
 
-    public bool IsProductSelected
+    public bool IsMovieSelected
     {
-        get => _isProductSelected;
+        get => _isMovieSelected;
         set
         {
-            this.IsProductDetailVisible = value ? Visibility.Visible : Visibility.Hidden;
+            this.IsMovieDetailVisible = value ? Visibility.Visible : Visibility.Hidden;
 
-            _isProductSelected = value;
-            OnPropertyChanged(nameof(IsProductSelected));
+            _isMovieSelected = value;
+            OnPropertyChanged(nameof(IsMovieSelected));
         }
     }
 
-    private Visibility _isProductDetailVisible;
+    private Visibility _isMovieDetailVisible;
 
-    public Visibility IsProductDetailVisible
+    public Visibility IsMovieDetailVisible
     {
-        get => _isProductDetailVisible;
+        get => _isMovieDetailVisible;
         set
         {
-            _isProductDetailVisible = value;
-            OnPropertyChanged(nameof(IsProductDetailVisible));
+            _isMovieDetailVisible = value;
+            OnPropertyChanged(nameof(IsMovieDetailVisible));
         }
     }
 
-    private IProductDetailViewModel _selectedDetailViewModel;
+    private IMovieDetailViewModel _selectedDetailViewModel;
 
-    public IProductDetailViewModel SelectedDetailViewModel
+    public IMovieDetailViewModel SelectedDetailViewModel
     {
         get => _selectedDetailViewModel;
         set
         {
             _selectedDetailViewModel = value;
-            this.IsProductSelected = true;
+            this.IsMovieSelected = true;
 
             OnPropertyChanged(nameof(SelectedDetailViewModel));
         }
     }
 
-    public ProductMasterViewModel(IProductModelOperation? model = null, IErrorInformer? informer = null)
+    public MovieMasterViewModel(IMovieModelOperation? model = null, IErrorInformer? informer = null)
     {
         this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
         this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
         this.SwitchToEventMasterPage = new SwitchViewCommand("EventMasterView");
 
-        this.CreateProduct = new OnClickCommand(e => this.StoreProduct(), c => this.CanStoreProduct());
-        this.RemoveProduct = new OnClickCommand(e => this.DeleteProduct());
+        this.CreateMovie = new OnClickCommand(e => this.StoreMovie(), c => this.CanStoreMovie());
+        this.RemoveMovie = new OnClickCommand(e => this.DeleteMovie());
 
-        this.Products = new ObservableCollection<IProductDetailViewModel>();
+        this.Movies = new ObservableCollection<IMovieDetailViewModel>();
 
-        this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
+        this._modelOperation = model ?? IMovieModelOperation.CreateModelOperation();
         this._informer = informer ?? new PopupErrorInformer();
 
-        this.IsProductSelected = false;
+        this.IsMovieSelected = false;
 
-        Task.Run(this.LoadProducts);
+        Task.Run(this.LoadMovies);
     }
 
-    private bool CanStoreProduct()
+    private bool CanStoreMovie()
     {
         return !(
             string.IsNullOrWhiteSpace(this.Name) ||
@@ -142,7 +142,7 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         );
     }
 
-    private void StoreProduct()
+    private void StoreMovie()
     {
         Task.Run(async () =>
         {
@@ -150,14 +150,14 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
 
             await this._modelOperation.AddAsync(lastId, this.Name, this.Price, this.AgeRestriction);
 
-            this.LoadProducts();
+            this.LoadMovies();
 
             this._informer.InformSuccess("Movie added successfully!");
 
         });
     }
 
-    private void DeleteProduct()
+    private void DeleteMovie()
     {
         Task.Run(async () =>
         {
@@ -165,7 +165,7 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
             {
                 await this._modelOperation.DeleteAsync(this.SelectedDetailViewModel.Id);
 
-                this.LoadProducts();
+                this.LoadMovies();
 
                 this._informer.InformSuccess("Movie deleted successfully!");
             }
@@ -176,20 +176,20 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         });
     }
 
-    private async void LoadProducts()
+    private async void LoadMovies()
     {
-        Dictionary<int, IProductModel> Products = await this._modelOperation.GetAllAsync();
+        Dictionary<int, IMovieModel> Movies = await this._modelOperation.GetAllAsync();
 
         Application.Current.Dispatcher.Invoke(() =>
         {
-            this._products.Clear();
+            this._movies.Clear();
             
-            foreach (IProductModel p in Products.Values)
+            foreach (IMovieModel p in Movies.Values)
             {
-                this._products.Add(new ProductDetailViewModel(p.Id, p.Name, p.Price, p.AgeRestriction));
+                this._movies.Add(new MovieDetailViewModel(p.Id, p.Name, p.Price, p.AgeRestriction));
             }
         });
 
-        OnPropertyChanged(nameof(Products));
+        OnPropertyChanged(nameof(Movies));
     }
 }

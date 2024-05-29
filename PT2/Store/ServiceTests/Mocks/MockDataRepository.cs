@@ -7,7 +7,7 @@ namespace ServiceTests.Mocks
     {
         // In-memory storage for mock data
         public Dictionary<int, IUser> Users = new Dictionary<int, IUser>();
-        public Dictionary<int, IMovie> Products = new Dictionary<int, IMovie>();
+        public Dictionary<int, IMovie> Movies = new Dictionary<int, IMovie>();
         public Dictionary<int, IEvent> Events = new Dictionary<int, IEvent>();
         public Dictionary<int, IState> States = new Dictionary<int, IState>();
 
@@ -51,46 +51,46 @@ namespace ServiceTests.Mocks
 
         // Movie CRUD
 
-        public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
+        public async Task AddMovieAsync(int id, string name, double price, int ageRestriction)
         {
-            Products.Add(id, new MockProductDTO(id, name, price, ageRestriction));
+            Movies.Add(id, new MockMovieDTO(id, name, price, ageRestriction));
             await Task.CompletedTask;
         }
 
-        public async Task<IMovie> GetProductAsync(int id)
+        public async Task<IMovie> GetMovieAsync(int id)
         {
-            return await Task.FromResult(Products[id]);
+            return await Task.FromResult(Movies[id]);
         }
 
-        public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
+        public async Task UpdateMovieAsync(int id, string name, double price, int ageRestriction)
         {
-            Products[id].MovieName = name;
-            Products[id].Price = price;
-            Products[id].AgeRestriction = ageRestriction;
+            Movies[id].MovieName = name;
+            Movies[id].Price = price;
+            Movies[id].AgeRestriction = ageRestriction;
             await Task.CompletedTask;
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteMovieAsync(int id)
         {
-            Products.Remove(id);
+            Movies.Remove(id);
             await Task.CompletedTask;
         }
 
-        public async Task<Dictionary<int, IMovie>> GetAllProductsAsync()
+        public async Task<Dictionary<int, IMovie>> GetAllMoviesAsync()
         {
-            return await Task.FromResult(Products);
+            return await Task.FromResult(Movies);
         }
 
-        public async Task<int> GetProductsCountAsync()
+        public async Task<int> GetMoviesCountAsync()
         {
-            return await Task.FromResult(Products.Count);
+            return await Task.FromResult(Movies.Count);
         }
 
         // State CRUD
 
-        public async Task AddStateAsync(int id, int productId, int productQuantity)
+        public async Task AddStateAsync(int id, int movieId, int movieQuantity)
         {
-            States.Add(id, new MockStateDTO(id, productId, productQuantity));
+            States.Add(id, new MockStateDTO(id, movieId, movieQuantity));
             await Task.CompletedTask;
         }
 
@@ -99,10 +99,10 @@ namespace ServiceTests.Mocks
             return await Task.FromResult(States[id]);
         }
 
-        public async Task UpdateStateAsync(int id, int productId, int productQuantity)
+        public async Task UpdateStateAsync(int id, int movieId, int movieQuantity)
         {
-            States[id].productId = productId;
-            States[id].productQuantity = productQuantity;
+            States[id].movieId = movieId;
+            States[id].movieQuantity = movieQuantity;
             await Task.CompletedTask;
         }
 
@@ -128,7 +128,7 @@ namespace ServiceTests.Mocks
         {
             IUser user = await GetUserAsync(userId);
             IState state = await GetStateAsync(stateId);
-            IMovie movie = await GetProductAsync(state.productId);
+            IMovie movie = await GetMovieAsync(state.movieId);
 
             switch (type)
             {
@@ -136,13 +136,13 @@ namespace ServiceTests.Mocks
                     if (DateTime.Now.Year - user.DateOfBirth.Year < movie.AgeRestriction)
                         throw new Exception("You are not allowed to buy this movie");
 
-                    if (state.productQuantity == 0)
+                    if (state.movieQuantity == 0)
                         throw new Exception("Movie unavailable.");
 
                     if (user.Balance < movie.Price)
                         throw new Exception("Not enough balance!");
 
-                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity - 1);
+                    await UpdateStateAsync(stateId, movie.Id, state.movieQuantity - 1);
                     await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance - movie.Price, user.DateOfBirth);
                     break;
 
@@ -154,7 +154,7 @@ namespace ServiceTests.Mocks
 
                     foreach (var even in events.Values)
                     {
-                        if (even.userId == user.Id && states[even.stateId].productId == movie.Id)
+                        if (even.userId == user.Id && states[even.stateId].movieId == movie.Id)
                         {
                             if (((MockEventDTO)even).Type == "PurchaseEvent")
                                 copiesBought++;
@@ -166,7 +166,7 @@ namespace ServiceTests.Mocks
                     if (copiesBought <= 0)
                         throw new Exception("You do not own this movie!");
 
-                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity + 1);
+                    await UpdateStateAsync(stateId, movie.Id, state.movieQuantity + 1);
                     await UpdateUserAsync(userId, user.Nickname, user.Email, user.Balance + movie.Price, user.DateOfBirth);
                     break;
 
@@ -174,7 +174,7 @@ namespace ServiceTests.Mocks
                     if (quantity <= 0)
                         throw new Exception("Can not supply with this amount!");
 
-                    await UpdateStateAsync(stateId, movie.Id, state.productQuantity + quantity);
+                    await UpdateStateAsync(stateId, movie.Id, state.movieQuantity + quantity);
                     break;
             }
 

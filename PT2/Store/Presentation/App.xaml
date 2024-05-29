@@ -9,11 +9,11 @@
         <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:ProductMasterViewModel}">
-            <views:ProductMasterView/>
+        <DataTemplate DataType="{x:Type viewmodels:MovieMasterViewModel}">
+            <views:MovieMasterView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:ProductDetailViewModel}">
-            <views:ProductDetailView/>
+        <DataTemplate DataType="{x:Type viewmodels:MovieDetailViewModel}">
+            <views:MovieDetailView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:UserDetailViewModel}">
             <views:UserDetailView/>

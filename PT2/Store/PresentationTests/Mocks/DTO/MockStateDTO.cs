@@ -4,15 +4,15 @@ namespace PresentationTests.Mocks.DTO
 {
     internal class MockStateDTO : IStateDTO
     {
-        public MockStateDTO(int id, int productId, int productQuantity = 0)
+        public MockStateDTO(int id, int movieId, int movieQuantity = 0)
         {
             Id = id;
-            productId = productId;
-            productQuantity = productQuantity;
+            movieId = movieId;
+            movieQuantity = movieQuantity;
         }
 
         public int Id { get; set; }
-        public int productId { get; set; }
-        public int productQuantity { get; set; }
+        public int movieId { get; set; }
+        public int movieQuantity { get; set; }
     }
 }

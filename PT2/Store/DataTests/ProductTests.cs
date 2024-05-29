@@ -6,7 +6,7 @@ namespace DataTests
 {
     [TestClass]
     [DeploymentItem("TestingDatabase.mdf")]
-    public class ProductTests
+    public class MovieTests
     {
         private static string connectionString;
         private readonly IDataRepository _dataRepository = IDataRepository.CreateDatabase(IDataContext.CreateContext(connectionString));
@@ -23,46 +23,46 @@ namespace DataTests
         }
 
         [TestMethod]
-        public async Task AddAndRetrieveProductTest()
+        public async Task AddAndRetrieveMovieTest()
         {
-            int testProductId = 202;
+            int testMovieId = 202;
             
-            await _dataRepository.AddProductAsync(testProductId, "Movie example", 300, 18);
-            IMovie testProduct = await _dataRepository.GetProductAsync(testProductId);
+            await _dataRepository.AddMovieAsync(testMovieId, "Movie example", 300, 18);
+            IMovie testMovie = await _dataRepository.GetMovieAsync(testMovieId);
 
-            Assert.IsNotNull(testProduct);
-            Assert.AreEqual(testProductId, testProduct.Id);
-            Assert.AreEqual("Movie example", testProduct.MovieName);
-            Assert.AreEqual(300, testProduct.Price);
-            Assert.AreEqual(18, testProduct.AgeRestriction);
+            Assert.IsNotNull(testMovie);
+            Assert.AreEqual(testMovieId, testMovie.Id);
+            Assert.AreEqual("Movie example", testMovie.MovieName);
+            Assert.AreEqual(300, testMovie.Price);
+            Assert.AreEqual(18, testMovie.AgeRestriction);
 
-            Assert.IsNotNull(await _dataRepository.GetAllProductsAsync());
-            Assert.IsTrue(await _dataRepository.GetProductsCountAsync() > 0);
+            Assert.IsNotNull(await _dataRepository.GetAllMoviesAsync());
+            Assert.IsTrue(await _dataRepository.GetMoviesCountAsync() > 0);
 
-            await _dataRepository.DeleteProductAsync(testProductId);
+            await _dataRepository.DeleteMovieAsync(testMovieId);
         }
 
         [TestMethod]
-        public async Task UpdateAndDeleteProductTest()
+        public async Task UpdateAndDeleteMovieTest()
         {
-            int testProductId = 1;
+            int testMovieId = 1;
 
-            await _dataRepository.AddProductAsync(testProductId, "Movie example", 300, 18);
-            await _dataRepository.UpdateProductAsync(testProductId, "Movie example - updated", 350, 16);
+            await _dataRepository.AddMovieAsync(testMovieId, "Movie example", 300, 18);
+            await _dataRepository.UpdateMovieAsync(testMovieId, "Movie example - updated", 350, 16);
             
-            IMovie updatedProduct = await _dataRepository.GetProductAsync(testProductId);
+            IMovie updatedMovie = await _dataRepository.GetMovieAsync(testMovieId);
 
-            Assert.IsNotNull(updatedProduct);
-            Assert.AreEqual(testProductId, updatedProduct.Id);
-            Assert.AreEqual("Movie example - updated", updatedProduct.MovieName);
-            Assert.AreEqual(350, updatedProduct.Price);
-            Assert.AreEqual(16, updatedProduct.AgeRestriction);
+            Assert.IsNotNull(updatedMovie);
+            Assert.AreEqual(testMovieId, updatedMovie.Id);
+            Assert.AreEqual("Movie example - updated", updatedMovie.MovieName);
+            Assert.AreEqual(350, updatedMovie.Price);
+            Assert.AreEqual(16, updatedMovie.AgeRestriction);
 
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateProductAsync(999, "Movie example - updated", 350, 16));
-            await _dataRepository.DeleteProductAsync(testProductId);
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.UpdateMovieAsync(999, "Movie example - updated", 350, 16));
+            await _dataRepository.DeleteMovieAsync(testMovieId);
 
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.GetProductAsync(testProductId));
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.DeleteProductAsync(testProductId));
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.GetMovieAsync(testMovieId));
+            await Assert.ThrowsExceptionAsync<Exception>(async () => await _dataRepository.DeleteMovieAsync(testMovieId));
         }
     }
 }

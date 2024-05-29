@@ -4,11 +4,11 @@ using Presentation.Model.API;
 
 namespace Presentation.ViewModel;
 
-internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
+internal class MovieDetailViewModel : IViewModel, IMovieDetailViewModel
 {
-    public ICommand UpdateProduct { get; set; }
+    public ICommand UpdateMovie { get; set; }
 
-    private readonly IProductModelOperation _modelOperation;
+    private readonly IMovieModelOperation _modelOperation;
 
     private readonly IErrorInformer _informer;
 
@@ -60,24 +60,24 @@ internal class ProductDetailViewModel : IViewModel, IProductDetailViewModel
         }
     }
 
-    public ProductDetailViewModel(IProductModelOperation? model = null, IErrorInformer? informer = null)
+    public MovieDetailViewModel(IMovieModelOperation? model = null, IErrorInformer? informer = null)
     {
-        this.UpdateProduct = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
+        this.UpdateMovie = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
-        this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
+        this._modelOperation = model ?? IMovieModelOperation.CreateModelOperation();
         this._informer = informer ?? new PopupErrorInformer();
     }
 
-    public ProductDetailViewModel(int id, string name, double price, int ageRestriction, IProductModelOperation? model = null, IErrorInformer? informer = null)
+    public MovieDetailViewModel(int id, string name, double price, int ageRestriction, IMovieModelOperation? model = null, IErrorInformer? informer = null)
     {
         this.Id = id;
         this.Name = name;
         this.Price = price;
         this.AgeRestriction = ageRestriction;
 
-        this.UpdateProduct = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
+        this.UpdateMovie = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
-        this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
+        this._modelOperation = model ?? IMovieModelOperation.CreateModelOperation();
         this._informer = informer ?? new PopupErrorInformer();
     }
 

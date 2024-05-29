@@ -41,7 +41,7 @@
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 1.94314697265625); (3.5 : 1.94314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/ShopDataContext/Movie/Product_State" />
+      <AssociationMoniker Name="/ShopDataContext/Movie/Movie_State" />
       <nodes>
         <classShapeMoniker Id="1bab6bfb-98dc-4d61-a067-5dcec2036e57" />
         <classShapeMoniker Id="ac26e7b6-fe1b-488a-8b38-476e100d70fa" />

@@ -10,7 +10,7 @@ internal class HomeViewModel : IViewModel
 
     public HomeViewModel()
     {
-        this.StartAppCommand = new SwitchViewCommand("ProductMasterView");
+        this.StartAppCommand = new SwitchViewCommand("MovieMasterView");
 
         this.ExitAppCommand = new CloseApplicationCommand();
     }

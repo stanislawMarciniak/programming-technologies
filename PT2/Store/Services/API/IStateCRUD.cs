@@ -10,11 +10,11 @@ public interface IStateCRUD
         return new StateCRUD(dataRepository ?? IDataRepository.CreateDatabase());
     }
 
-    Task AddStateAsync(int id, int productId, int productQuantity);
+    Task AddStateAsync(int id, int movieId, int movieQuantity);
 
     Task<IStateDTO> GetStateAsync(int id);
 
-    Task UpdateStateAsync(int id, int productId, int productQuantity);
+    Task UpdateStateAsync(int id, int movieId, int movieQuantity);
 
     Task DeleteStateAsync(int id);
 

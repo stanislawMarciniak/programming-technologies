@@ -23,18 +23,18 @@ namespace PresentationTests.ViewModelTests
             IStateModelOperation operation = IStateModelOperation.CreateModelOperation(mockStateCrud);
             IStateMasterViewModel master = IStateMasterViewModel.CreateViewModel(operation, _informer);
 
-            master.ProductId = 1;
-            master.ProductQuantity = 10;
+            master.MovieId = 1;
+            master.MovieQuantity = 10;
 
             Assert.IsNotNull(master.CreateState);
             Assert.IsNotNull(master.RemoveState);
 
             Assert.IsTrue(master.CreateState.CanExecute(null));
 
-            master.ProductQuantity = -1;
+            master.MovieQuantity = -1;
             Assert.IsFalse(master.CreateState.CanExecute(null));
 
-            master.ProductQuantity = 10;
+            master.MovieQuantity = 10;
             Assert.IsTrue(master.RemoveState.CanExecute(null));
         }
 
@@ -48,8 +48,8 @@ namespace PresentationTests.ViewModelTests
             IStateDetailViewModel detail = IStateDetailViewModel.CreateViewModel(1, 1, 10, operation, _informer);
 
             Assert.AreEqual(1, detail.Id);
-            Assert.AreEqual(1, detail.ProductId);
-            Assert.AreEqual(10, detail.ProductQuantity);
+            Assert.AreEqual(1, detail.MovieId);
+            Assert.AreEqual(10, detail.MovieQuantity);
 
             Assert.IsTrue(detail.UpdateState.CanExecute(null));
         }

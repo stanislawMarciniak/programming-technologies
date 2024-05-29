@@ -2,40 +2,40 @@
 
 namespace PresentationTests.Mocks.CRUD
 {
-    internal class MockProductCRUD : IProductCRUD
+    internal class MockMovieCRUD : IMovieCRUD
     {
         private readonly MockDataRepository _repository = new MockDataRepository();
 
-        public MockProductCRUD()
+        public MockMovieCRUD()
         {
 
         }
 
-        public async Task AddProductAsync(int id, string name, double price, int ageRestriction)
+        public async Task AddMovieAsync(int id, string name, double price, int ageRestriction)
         {
-            await _repository.AddProductAsync(id, name, price, ageRestriction);
+            await _repository.AddMovieAsync(id, name, price, ageRestriction);
         }
 
-        public async Task<IProductDTO> GetProductAsync(int id)
+        public async Task<IMovieDTO> GetMovieAsync(int id)
         {
-            return await _repository.GetProductAsync(id);
+            return await _repository.GetMovieAsync(id);
         }
 
-        public async Task UpdateProductAsync(int id, string name, double price, int ageRestriction)
+        public async Task UpdateMovieAsync(int id, string name, double price, int ageRestriction)
         {
-            await _repository.UpdateProductAsync(id, name, price, ageRestriction);
+            await _repository.UpdateMovieAsync(id, name, price, ageRestriction);
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteMovieAsync(int id)
         {
-            await _repository.DeleteProductAsync(id);
+            await _repository.DeleteMovieAsync(id);
         }
 
-        public async Task<Dictionary<int, IProductDTO>> GetAllProductsAsync()
+        public async Task<Dictionary<int, IMovieDTO>> GetAllMoviesAsync()
         {
-            Dictionary<int, IProductDTO> result = new Dictionary<int, IProductDTO>();
+            Dictionary<int, IMovieDTO> result = new Dictionary<int, IMovieDTO>();
 
-            foreach (IProductDTO movie in (await _repository.GetAllProductsAsync()).Values)
+            foreach (IMovieDTO movie in (await _repository.GetAllMoviesAsync()).Values)
             {
                 result.Add(movie.Id, movie);
             }
@@ -43,9 +43,9 @@ namespace PresentationTests.Mocks.CRUD
             return result;
         }
 
-        public async Task<int> GetProductsCountAsync()
+        public async Task<int> GetMoviesCountAsync()
         {
-            return await _repository.GetProductsCountAsync();
+            return await _repository.GetMoviesCountAsync();
         }
     }
 }

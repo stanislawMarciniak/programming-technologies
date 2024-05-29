@@ -11,13 +11,13 @@
       <Association Name="State_Event" Member="State" ThisKey="stateId" OtherKey="id" Type="State" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Products" Member="Products">
+  <Table Name="dbo.Movies" Member="Movies">
     <Type Name="Movie">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="ageRestriction" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Product_State" Member="States" ThisKey="id" OtherKey="productId" Type="State" />
+      <Association Name="Movie_State" Member="States" ThisKey="id" OtherKey="movieId" Type="State" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -33,10 +33,10 @@
   <Table Name="dbo.States" Member="States">
     <Type Name="State">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="productId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="productQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="movieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="movieQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="State_Event" Member="Events" ThisKey="id" OtherKey="stateId" Type="Event" />
-      <Association Name="Product_State" Member="Movie" ThisKey="productId" OtherKey="id" Type="Movie" IsForeignKey="true" />
+      <Association Name="Movie_State" Member="Movie" ThisKey="movieId" OtherKey="id" Type="Movie" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

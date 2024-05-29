@@ -24,27 +24,27 @@ internal class StateDetailViewModel : IViewModel, IStateDetailViewModel
         }
     }
 
-    private int _productId;
+    private int _movieId;
 
-    public int ProductId
+    public int MovieId
     {
-        get => _productId;
+        get => _movieId;
         set
         {
-            _productId = value;
-            OnPropertyChanged(nameof(ProductId));
+            _movieId = value;
+            OnPropertyChanged(nameof(MovieId));
         }
     }
 
-    private int _productQuantity;
+    private int _movieQuantity;
 
-    public int ProductQuantity
+    public int MovieQuantity
     {
-        get => _productQuantity;
+        get => _movieQuantity;
         set
         {
-            _productQuantity = value;
-            OnPropertyChanged(nameof(ProductQuantity));
+            _movieQuantity = value;
+            OnPropertyChanged(nameof(MovieQuantity));
         }
     }
 
@@ -56,11 +56,11 @@ internal class StateDetailViewModel : IViewModel, IStateDetailViewModel
         this._informer = informer ?? new PopupErrorInformer();
     }
 
-    public StateDetailViewModel(int id, int productId, int productQuantity, IStateModelOperation? model = null, IErrorInformer? informer = null)
+    public StateDetailViewModel(int id, int movieId, int movieQuantity, IStateModelOperation? model = null, IErrorInformer? informer = null)
     {
         this.Id = id;
-        this.ProductId = productId;
-        this.ProductQuantity = productQuantity;
+        this.MovieId = movieId;
+        this.MovieQuantity = movieQuantity;
 
         this.UpdateState = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
@@ -72,7 +72,7 @@ internal class StateDetailViewModel : IViewModel, IStateDetailViewModel
     {
         Task.Run(() =>
         {
-            this._modelOperation.UpdateAsync(this.Id, this.ProductId, this.ProductQuantity);
+            this._modelOperation.UpdateAsync(this.Id, this.MovieId, this.MovieQuantity);
 
             this._informer.InformSuccess("State successfully updated!");
         });
@@ -81,8 +81,8 @@ internal class StateDetailViewModel : IViewModel, IStateDetailViewModel
     private bool CanUpdate()
     {
         return !(
-            string.IsNullOrWhiteSpace(this.ProductQuantity.ToString()) ||
-            this.ProductQuantity < 0
+            string.IsNullOrWhiteSpace(this.MovieQuantity.ToString()) ||
+            this.MovieQuantity < 0
         );
     }
 }

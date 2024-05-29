@@ -28,28 +28,28 @@ public interface IDataRepository
 
     #region Movie CRUD
 
-    Task AddProductAsync(int id, string name, double price, int ageRestriction);
+    Task AddMovieAsync(int id, string name, double price, int ageRestriction);
 
-    Task<IMovie> GetProductAsync(int id);
+    Task<IMovie> GetMovieAsync(int id);
 
-    Task UpdateProductAsync(int id, string name, double price, int ageRestriction);
+    Task UpdateMovieAsync(int id, string name, double price, int ageRestriction);
 
-    Task DeleteProductAsync(int id);
+    Task DeleteMovieAsync(int id);
 
-    Task<Dictionary<int, IMovie>> GetAllProductsAsync();
+    Task<Dictionary<int, IMovie>> GetAllMoviesAsync();
 
-    Task<int> GetProductsCountAsync();
+    Task<int> GetMoviesCountAsync();
 
     #endregion
 
 
     #region State CRUD
 
-    Task AddStateAsync(int id, int productId, int productQuantity);
+    Task AddStateAsync(int id, int movieId, int movieQuantity);
 
     Task<IState> GetStateAsync(int id);
 
-    Task UpdateStateAsync(int id, int productId, int productQuantity);
+    Task UpdateStateAsync(int id, int movieId, int movieQuantity);
 
     Task DeleteStateAsync(int id);
 
