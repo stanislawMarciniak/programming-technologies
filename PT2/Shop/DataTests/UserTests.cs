@@ -5,7 +5,7 @@ using Data.Database;
 namespace DataTests
 {
     [TestClass]
-    [DeploymentItem("TestingDatabase.mdf")]
+    [DeploymentItem("DatabaseForTests.mdf")]
     public class UserTests
     {
         private static string connectionString;
@@ -14,7 +14,7 @@ namespace DataTests
         [ClassInitialize]
         public static void ClassInitializeMethod(TestContext context)
         {
-            string dbRelativePath = @"TestingDatabase.mdf";
+            string dbRelativePath = @"DatabaseForTests.mdf";
             string projectRootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             string dbPath = Path.Combine(projectRootDir, dbRelativePath);
             FileInfo databaseFile = new FileInfo(dbPath);
