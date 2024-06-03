@@ -49,7 +49,10 @@ internal class DataContext : IDataContext
         {
             Database.User? user = await Task.Run(() =>
             {
-                IQueryable<Database.User> query = context.Users.Where(u => u.id == id);
+                IQueryable<Database.User> query =
+                    from u in context.Users
+                    where u.id == id
+                    select u;
 
                 return query.FirstOrDefault();
             });
