@@ -17,43 +17,24 @@
         </ObjectDataProvider>
     </UserControl.DataContext>
 
-    <Grid Background="White" Margin="0,0,0,10">
+    <Grid Background="LightSteelBlue" Margin="0,0,0,10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="27"/>
-            <RowDefinition Height="375"/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="390"/>
+            <RowDefinition Height="0"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="42"/>
+            <ColumnDefinition/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.Column="1"
-                    VerticalAlignment="Bottom">
-            <Image Height="200" Width="200"
-                   Source="/Images/logo.png"/>
-            <TextBlock Height="40" Margin="0,-30,0,0"
-                       Text="GameStacc"
-                       TextAlignment="Center" TextWrapping="Wrap"
-                       FontSize="32" FontWeight="ExtraBold"/>
-            <TextBlock Height="25"
-                       Text="Everything for gamers"
-                       TextAlignment="Center" TextWrapping="Wrap" 
-                       FontSize="16" FontWeight="DemiBold"/>
-            <Separator Height="10" Width="50" Margin="0,110,0,0"
-                       HorizontalAlignment="Center"/>
-            <TextBlock Height="20"
-                       Text="TF and PK © 2023"
-                       TextAlignment="Center" TextWrapping="Wrap"/>
-        </StackPanel>
-
         <StackPanel Grid.Row="1" Grid.Column="2" 
-                    Width="570" Margin="0,5,0,0"
-                    HorizontalAlignment="Left"
-                    Background="White" Height="410" VerticalAlignment="Top" Grid.RowSpan="2">
+                    Width="738" Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    Background="LightSteelBlue" Height="410" VerticalAlignment="Top" Grid.RowSpan="2">
             <Grid Height="385" Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202*"/>
@@ -62,7 +43,7 @@
                 <Label Margin="0,0,294,342"
                        HorizontalAlignment="Right"
                        Content="Users" FontSize="15" Width="94"/>
-                <ListView Margin="0,40,95,192" 
+                <ListView Margin="0,40,147,192" 
                     ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedDetailViewModel}"
                     >
@@ -75,15 +56,15 @@
                 </ListView>
                 <Grid Grid.ColumnSpan="2" Visibility="{Binding IsUserDetailVisible}">
                     <view:UserDetailView
-                        Margin="320,24,10,52"
+                        Margin="475,10,23,35"
                         DataContext="{Binding SelectedDetailViewModel}"
                         />
-                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="385,338,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="540,332,0,0" VerticalAlignment="Top" Height="26" Width="90"
                         Command="{Binding RemoveUser}"/>
                 </Grid>
-                <StackPanel Margin="16,193,202,0"
+                <StackPanel Margin="16,193,325,0"
                     VerticalAlignment="Top"
-                    Background="White" Height="189">
+                    Background="LightSteelBlue" Height="189">
                     <Label Content="Nickname:" FontSize="10"/>
                     <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding Nickname , ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
@@ -145,12 +126,11 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Content="Create" Margin="207,308,114,44" Background="CornflowerBlue"
+                <Button Content="Create" Margin="220,213,156,139" Background="Pink"
                         Command="{Binding CreateUser}"/>
             </Grid>
-            <Grid Height="100"/>
         </StackPanel>
-        <Button Grid.Column="2" Content="States" HorizontalAlignment="Left" Margin="352,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
+        <Button Grid.Column="2" Content="States" HorizontalAlignment="Left" Margin="575,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
                 Command="{Binding SwitchToStateMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 
         <Button Grid.Column="2" Content="Events" HorizontalAlignment="Left" Margin="459,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
