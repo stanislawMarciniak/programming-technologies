@@ -1,6 +1,6 @@
 ﻿using Service.API;
 
-namespace PresentationTests.Mocks.CRUD
+namespace PresentationTests
 {
     internal class MockUserCRUD : IUserCRUD
     {

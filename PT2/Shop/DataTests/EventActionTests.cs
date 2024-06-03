@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data.API;
+using Data.Database;
+
 namespace DataTests
 {
     [TestClass]

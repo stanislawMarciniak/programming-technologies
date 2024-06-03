@@ -1,7 +1,6 @@
 ﻿using Data.API;
-using ServiceTests.Mocks.DTO;
 
-namespace ServiceTests.Mocks
+namespace ServiceTests
 {
     internal class MockDataRepository : IDataRepository
     {

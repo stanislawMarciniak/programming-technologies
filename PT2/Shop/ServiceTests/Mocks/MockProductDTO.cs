@@ -1,6 +1,6 @@
 ﻿using Data.API;
 
-namespace ServiceTests.Mocks.DTO;
+namespace ServiceTests;
 
 internal class MockProductDTO : IProduct
 {
