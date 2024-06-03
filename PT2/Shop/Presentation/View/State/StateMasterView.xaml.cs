@@ -11,4 +11,9 @@ public partial class StateMasterView : UserControl
     {
         InitializeComponent();
     }
+
+    private void StateDetailView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+    {
+
+    }
 }
