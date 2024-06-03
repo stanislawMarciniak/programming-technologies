@@ -27,6 +27,14 @@ namespace Presentation.View
             this.DataContext = new HomeViewModel();
         }
 
-        
+        private void startButton_Click()
+        {
+
+        }
+
+        private void exitButton_Click()
+        {
+
+        }
     }
 }
