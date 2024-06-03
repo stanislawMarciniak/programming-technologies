@@ -1,6 +1,6 @@
 ﻿using Presentation;
 
-namespace PresentationTests.ErrorInformers
+namespace PresentationTests
 {
     internal class TextErrorInformer : IErrorInformer
     {

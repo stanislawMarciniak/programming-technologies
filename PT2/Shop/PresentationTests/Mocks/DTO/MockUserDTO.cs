@@ -1,6 +1,6 @@
 ﻿using Service.API;
 
-namespace PresentationTests.Mocks.DTO
+namespace PresentationTests
 {
     internal class MockUserDTO : IUserDTO
     {

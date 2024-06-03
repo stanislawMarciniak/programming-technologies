@@ -2,10 +2,8 @@
 using Presentation;
 using Presentation.Model.API;
 using Presentation.ViewModel;
-using PresentationTests.ErrorInformers;
-using PresentationTests.Mocks.CRUD;
 
-namespace PresentationTests.Generators
+namespace PresentationTests
 {
     internal class FixedGenerator : IGenerator
     {

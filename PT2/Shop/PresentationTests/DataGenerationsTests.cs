@@ -3,10 +3,6 @@ using Presentation.Model.API;
 using Presentation.ViewModel;
 using Service.API;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PresentationTests.Generators;
-using PresentationTests.ErrorInformers;
-using PresentationTests.Mocks;
-using PresentationTests.Mocks.CRUD;
 
 namespace PresentationTests 
 {
