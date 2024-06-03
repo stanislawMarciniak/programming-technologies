@@ -1,12 +1,12 @@
 ﻿using Data.API;
 
-namespace ServiceTests;
+namespace ServiceTests.Mocks.DTO;
 
-internal class MockState : IState
+internal class MockStateDTO : IState
 {
-    public MockState(int id, int productId, int productQuantity = 0)
+    public MockStateDTO(int id, int productId, int productQuantity = 0)
     {
-        Id = id;
+        this.Id = id;
         this.productId = productId;
         this.productQuantity = productQuantity;
     }

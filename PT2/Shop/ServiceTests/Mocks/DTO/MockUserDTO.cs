@@ -1,10 +1,10 @@
 ﻿using Data.API;
 
-namespace ServiceTests;
+namespace ServiceTests.Mocks.DTO;
 
-internal class MockUser : IUser
+internal class MockUserDTO : IUser
 {
-    public MockUser(int id, string nickname, string email, double balance, DateTime dateOfBirth)
+    public MockUserDTO(int id, string nickname, string email, double balance, DateTime dateOfBirth)
     {
         Id = id;
         Nickname = nickname;

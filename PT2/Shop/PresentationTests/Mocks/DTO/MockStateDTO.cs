@@ -1,6 +1,6 @@
 ﻿using Service.API;
 
-namespace PresentationTests
+namespace PresentationTests.Mocks.DTO
 {
     internal class MockStateDTO : IStateDTO
     {

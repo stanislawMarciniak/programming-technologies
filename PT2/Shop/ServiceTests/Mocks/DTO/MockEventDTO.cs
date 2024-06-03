@@ -1,10 +1,10 @@
 ﻿using Data.API;
 
-namespace ServiceTests;
+namespace ServiceTests.Mocks.DTO;
 
-internal class MockEvent : IEvent
+internal class MockEventDTO : IEvent
 {
-    public MockEvent(int id, int stateId, int userId, string type, int? quantity = 0)
+    public MockEventDTO(int id, int stateId, int userId, string type, int? quantity = 0)
     {
         Id = id;
         this.stateId = stateId;

@@ -1,6 +1,5 @@
 ﻿using Service.API;
-
-namespace PresentationTests
+namespace PresentationTests.Mocks.CRUD
 {
     internal class MockEventCRUD : IEventCRUD
     {

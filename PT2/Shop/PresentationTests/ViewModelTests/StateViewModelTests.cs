@@ -2,9 +2,12 @@
 using Presentation;
 using Presentation.Model.API;
 using Presentation.ViewModel;
+using PresentationTests.ErrorInformers;
+using PresentationTests.Mocks;
+using PresentationTests.Mocks.CRUD;
 using Service.API;
 
-namespace PresentationTests
+namespace PresentationTests.ViewModelTests
 {
     [TestClass]
     public class StateViewModelTests

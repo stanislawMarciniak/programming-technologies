@@ -1,10 +1,10 @@
 ﻿using Data.API;
 
-namespace ServiceTests;
+namespace ServiceTests.Mocks.DTO;
 
-internal class MockProduct : IProduct
+internal class MockProductDTO : IProduct
 {
-    public MockProduct(int id, string name, double price, int pegi)
+    public MockProductDTO(int id, string name, double price, int pegi)
     {
         Id = id;
         Name = name;

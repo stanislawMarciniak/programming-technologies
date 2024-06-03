@@ -1,6 +1,7 @@
 ﻿using Data.API;
+using ServiceTests.Mocks.DTO;
 
-namespace ServiceTests
+namespace ServiceTests.Mocks
 {
     internal class MockDataRepository : IDataRepository
     {
@@ -14,7 +15,7 @@ namespace ServiceTests
 
         public async Task AddUserAsync(int id, string nickname, string email, double balance, DateTime dateOfBirth)
         {
-            Users.Add(id, new MockUser(id, nickname, email, balance, dateOfBirth));
+            Users.Add(id, new MockUserDTO(id, nickname, email, balance, dateOfBirth));
             await Task.CompletedTask;
         }
 
@@ -52,7 +53,7 @@ namespace ServiceTests
 
         public async Task AddProductAsync(int id, string name, double price, int pegi)
         {
-            Products.Add(id, new MockProduct(id, name, price, pegi));
+            Products.Add(id, new MockProductDTO(id, name, price, pegi));
             await Task.CompletedTask;
         }
 
@@ -89,7 +90,7 @@ namespace ServiceTests
 
         public async Task AddStateAsync(int id, int productId, int productQuantity)
         {
-            States.Add(id, new MockState(id, productId, productQuantity));
+            States.Add(id, new MockStateDTO(id, productId, productQuantity));
             await Task.CompletedTask;
         }
 
@@ -155,9 +156,9 @@ namespace ServiceTests
                     {
                         if (even.userId == user.Id && states[even.stateId].productId == product.Id)
                         {
-                            if (((MockEvent)even).Type == "PurchaseEvent")
+                            if (((MockEventDTO)even).Type == "PurchaseEvent")
                                 copiesBought++;
-                            else if (((MockEvent)even).Type == "ReturnEvent")
+                            else if (((MockEventDTO)even).Type == "ReturnEvent")
                                 copiesBought--;
                         }
                     }
@@ -177,7 +178,7 @@ namespace ServiceTests
                     break;
             }
 
-            Events.Add(id, new MockEvent(id, stateId, userId, type, quantity));
+            Events.Add(id, new MockEventDTO(id, stateId, userId, type, quantity));
         }
 
         public async Task<IEvent> GetEventAsync(int id)
@@ -187,7 +188,7 @@ namespace ServiceTests
 
         public async Task UpdateEventAsync(int id, int stateId, int userId, DateTime occurrenceDate, string type, int? quantity)
         {
-            var evnt = (MockEvent)Events[id];
+            var evnt = (MockEventDTO)Events[id];
             evnt.stateId = stateId;
             evnt.userId = userId;
             evnt.occurrenceDate = occurrenceDate;

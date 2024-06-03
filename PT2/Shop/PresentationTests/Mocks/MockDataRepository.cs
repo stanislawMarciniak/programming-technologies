@@ -1,6 +1,7 @@
-﻿using Service.API;
+﻿using PresentationTests.Mocks.DTO;
+using Service.API;
 
-namespace PresentationTests
+namespace PresentationTests.Mocks
 {
     internal class MockDataRepository
     {
