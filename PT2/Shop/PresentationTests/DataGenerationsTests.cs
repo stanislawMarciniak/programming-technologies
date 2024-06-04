@@ -1,10 +1,9 @@
-﻿using Presentation;
-using Presentation.Model.API;
+﻿using Presentation.Model.API;
 using Presentation.ViewModel;
 using Service.API;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PresentationTests 
+namespace PresentationTests
 {
     [TestClass]
     public class DataGenerationTests

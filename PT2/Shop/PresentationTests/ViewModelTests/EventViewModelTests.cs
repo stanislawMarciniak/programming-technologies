@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Presentation;
 using Presentation.Model.API;
 using Presentation.ViewModel;
 using Service.API;
