@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using Presentation.View;
+using System.ComponentModel;
 
 namespace Presentation.ViewModel;
 
-internal class IViewModel : INotifyPropertyChanged
+public abstract class IViewModel : INotifyPropertyChanged
 {
     public IViewModel SelectedViewModel;
 
+    public static IErrorInformer Informer;
     public IViewModel Parent { get; private set; }
 
     public event PropertyChangedEventHandler? PropertyChanged;

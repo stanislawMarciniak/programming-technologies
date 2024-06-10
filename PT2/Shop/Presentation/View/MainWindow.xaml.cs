@@ -10,9 +10,10 @@ namespace Presentation.View
     {
         public MainWindow()
         {
+            this.DataContext = new MainWindowViewModel();
+            IViewModel.Informer = new PopupErrorInformer();
             InitializeComponent();
 
-            this.DataContext = new MainWindowViewModel();
         }
 
         //private void startApp(object sender, RoutedEventArgs e)

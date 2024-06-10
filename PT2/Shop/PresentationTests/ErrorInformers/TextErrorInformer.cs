@@ -25,5 +25,10 @@ namespace PresentationTests
         {
             return this._recentMessage;
         }
+
+        public void CallMessageBox(string message)
+        {
+            this._recentMessage = message;
+        }
     }
 }

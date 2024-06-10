@@ -124,7 +124,6 @@ internal class ProductMasterViewModel : IViewModel, IProductMasterViewModel
         this.Products = new ObservableCollection<IProductDetailViewModel>();
 
         this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
 
         this.IsProductSelected = false;
 

@@ -11,8 +11,6 @@ internal class EventDetailViewModel : IViewModel, IEventDetailViewModel
 
     private readonly IEventModelOperation _modelOperation;
 
-    private readonly IErrorInformer _informer;
-
     private int _id;
 
     public int Id
@@ -90,7 +88,6 @@ internal class EventDetailViewModel : IViewModel, IEventDetailViewModel
         this.UpdateEvent = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
         this._modelOperation = IEventModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
     }
 
     public EventDetailViewModel(int id, int stateId, int userId, DateTime occurrenceDate, string type, int? quantity, IEventModelOperation? model = null, IErrorInformer? informer = null)
@@ -98,7 +95,6 @@ internal class EventDetailViewModel : IViewModel, IEventDetailViewModel
         this.UpdateEvent = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
         this._modelOperation = IEventModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
 
         this.Id = id;
         this.StateId = stateId;
@@ -113,8 +109,7 @@ internal class EventDetailViewModel : IViewModel, IEventDetailViewModel
         Task.Run(async () =>
         {
             await this._modelOperation.UpdateAsync(this.Id, this.StateId, this.UserId, this.OccurrenceDate, this.Type, this.Quantity);
-
-            this._informer.InformSuccess("Event successfully updated!");
+            Informer.InformSuccess("Event successfully updated!");
         });
     }
 

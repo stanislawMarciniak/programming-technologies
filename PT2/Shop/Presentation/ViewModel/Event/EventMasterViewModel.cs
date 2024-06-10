@@ -130,7 +130,6 @@ internal class EventMasterViewModel : IViewModel, IEventMasterViewModel
         this.Events = new ObservableCollection<IEventDetailViewModel>();
 
         this._modelOperation = IEventModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
 
         this.IsEventSelected = false;
 

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using Presentation.ViewModel;
 
-namespace Presentation.ViewModel;
+namespace Presentation.View;
 
 internal class PopupErrorInformer : IErrorInformer
 {
@@ -15,6 +16,11 @@ internal class PopupErrorInformer : IErrorInformer
     {
         _recentMessage = message;
 
+        MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    public void CallMessageBox(string message)
+    {
         MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 

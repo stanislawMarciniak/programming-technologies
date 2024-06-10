@@ -124,7 +124,6 @@ internal class StateMasterViewModel : IViewModel, IStateMasterViewModel
         this.States = new ObservableCollection<IStateDetailViewModel>();
 
         this._modelOperation = IStateModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
 
         this.IsStateSelected = false;
 

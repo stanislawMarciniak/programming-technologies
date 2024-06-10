@@ -23,7 +23,6 @@ internal class UserMasterViewModel : IViewModel, IUserMasterViewModel
     private readonly IUserModelOperation _modelOperation;
 
     private readonly IErrorInformer _informer;
-
     private ObservableCollection<IUserDetailViewModel> _users;
 
     public ObservableCollection<IUserDetailViewModel> Users
@@ -136,7 +135,6 @@ internal class UserMasterViewModel : IViewModel, IUserMasterViewModel
         this.Users = new ObservableCollection<IUserDetailViewModel>();
 
         this._modelOperation = model ?? IUserModelOperation.CreateModelOperation();
-        this._informer = informer ?? new PopupErrorInformer();
 
         this.IsUserSelected = false;
 
